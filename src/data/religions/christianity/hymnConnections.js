@@ -18,19 +18,27 @@ export const christianHymns = [
     isExternal: false,
   },
   {
+    id: "ns-73",
+    title: "The Passover Lamb",
+    category: "Redemption", // Updated for thematic accuracy
+    relatedBooks: ["exodus", "romans"],
+    audioUrl: "/audio/hymns/The_Passover_Lamb.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-74",
+    title: "Eat God",
+    category: "Redemption",
+    relatedBooks: ["exodus", "john"],
+    audioUrl: "/audio/hymns/Eat_God.mp3",
+    isExternal: false,
+  },
+  {
     id: "ns-151",
     title: "What Miracle! What Mystery!",
     category: "The High Peak",
     relatedBooks: ["john", "romans", "revelation"],
     lyrics: "What miracle! What mystery! / That God and man should blended be!",
     audioUrl: "/audio/hymns/ns151.mp3",
-  },
-  {
-    id: "ns-73",
-    title: "The Passover Lamb",
-    category: "Redemption",
-    relatedBooks: ["exodus", "1-corinthians"],
-    lyrics: "Behold the Lamb of God! / Our Passover is slain...",
-    audioUrl: "/audio/hymns/god_has_called_us.mp3",
   },
 ];
