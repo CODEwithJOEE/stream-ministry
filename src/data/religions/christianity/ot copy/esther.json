@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "book": "Esther",
+    "author": "Mordecai",
+    "timeOfWriting": "About 464 B.C.",
+    "placeOfWriting": "In Shushan, the capital of Persia",
+    "subject": "The Very God Who Hid Himself Caring for His Oppressed Elect People and Savaging Them Secretly while They Were in Their Captivity among the Nations.",
+    "totalChapters": 10
+  },
+  "chapters": {
+    "1": [
+      "Now it happened in the days of Ahasuerus (this is the Ahasuerus who reigned from India to Ethiopia, over one hundred twenty-seven provinces),",
+      "In those days, when King Ahasuerus sat on his royal throne which was in Shushan the capital,",
+      "In the third year of his reign, he gave a feast for all his princes and his servants; the army of Persia and Media, the nobles and the princes of the provinces were before him."
+    ],
+    "4": [
+      "Then Mordecai told them to return answer to Esther: Do not think in your heart that you will escape in the king's house more than all the other Jews.",
+      "For if you remain silent at this time, relief and deliverance will arise for the Jews from another place, but you and your father's house will perish. And who knows whether you have not come to the kingdom for such a time as this?"
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "1": [
+        {
+          "id": "1.1a",
+          "word": "Ahasuerus",
+          "text": "Ahasuerus (Xerxes) was the king of the Persian Empire. This setting shows the condition of the Jews who did not return to Jerusalem but remained in the land of their captivity."
+        }
+      ]
+    },
+    "4": {
+      "14": [
+        {
+          "id": "4.14a",
+          "word": "time",
+          "text": "This famous phrase indicates that Esther's position as queen was not an accident, but a part of God's hidden, sovereign arrangement to provide salvation for His people."
+        }
+      ]
+    }
+  }
+}

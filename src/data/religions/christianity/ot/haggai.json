@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "book": "Haggai",
+    "author": "Haggai",
+    "timeOfWriting": "About 520 B.C.",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "The Building of the House of Jehovah in Relation to the Welfare of the Returned Captives and the Coming of the Desire of All Nations.",
+    "totalChapters": 2
+  },
+  "chapters": {
+    "1": [
+      "In the second year of Darius the king, in the sixth month, on the first day of the month, the word of Jehovah came through Haggai the prophet to Zerubbabel the son of Shealtiel, governor of Judah, and to Joshua the son of Jehozadak, the high priest, saying,",
+      "Thus speaks Jehovah of hosts, saying, This people says, The time has not come, the time for the house of Jehovah to be built.",
+      "Is it time for you yourselves to dwell in your paneled houses, while this house lies waste?",
+      "Now therefore thus says Jehovah of hosts, Consider your ways.",
+      "You have sown much, but bring in little; you eat, but you are not satisfied; you drink, but you are not filled with drink; you clothe yourselves, but no one is warm; and he who earns wages earns wages to put them into a bag with holes."
+    ],
+    "2": [
+      "And I will shake all the nations, and the Desire of all nations will come; and I will fill this house with glory, says Jehovah of hosts.",
+      "The silver is Mine, and the gold is Mine, declares Jehovah of hosts.",
+      "The latter glory of this house will be greater than the former, says Jehovah of hosts; and in this place I will give peace, declares Jehovah of hosts."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "5": [
+        {
+          "id": "1.5a",
+          "word": "Consider your ways",
+          "text": "The prophet calls the people to realize that their material lack and frustration are a direct result of prioritizing their own comforts over the building of God's house."
+        }
+      ]
+    },
+    "2": {
+      "7": [
+        {
+          "id": "2.7a",
+          "word": "Desire of all nations",
+          "text": "This refers to Christ. Although the nations do not yet know Him, He is the only one who can truly satisfy the collective longing and need of all humanity."
+        }
+      ],
+      "9": [
+        {
+          "id": "2.9a",
+          "word": "greater",
+          "text": "The glory of the second temple was greater not because of its physical architecture, but because of the presence of Christ, the true glory, who would eventually enter its courts."
+        }
+      ]
+    }
+  }
+}

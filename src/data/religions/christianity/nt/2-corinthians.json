@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "book": "2 Corinthians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 55—57",
+    "placeOfWriting": "In Macedonia",
+    "subject": "The Ministry of the New Testament and the Ministers of the New Testament.",
+    "totalChapters": 13
+  },
+  "chapters": {
+    "3": [
+      "And we all with unveiled face, beholding and reflecting like a mirror the glory of the Lord, are being transformed into the same image from glory to glory, even as from the Lord Spirit."
+    ],
+    "5": [
+      "So then if anyone is in Christ, he is a new creation; the old things have passed away; behold, they have become new."
+    ],
+    "12": [
+      "And He has said to me, My grace is sufficient for you, for My power is perfected in weakness."
+    ],
+    "13": [
+      "The grace of the Lord Jesus Christ and the love of God and the fellowship of the Holy Spirit be with you all."
+    ]
+  },
+  "footnotes": {
+    "3": {
+      "18": [
+        {
+          "id": "3.18a",
+          "word": "transformed",
+          "text": "Transformation is a metabolic process where the old element of our natural life is replaced by the new element of the divine life as we behold the Lord."
+        }
+      ]
+    },
+    "13": {
+      "14": [
+        {
+          "id": "13.14a",
+          "word": "fellowship",
+          "text": "The fellowship of the Spirit is the transmission of the love of the Father and the grace of the Son into the believers for their enjoyment."
+        }
+      ]
+    }
+  }
+}

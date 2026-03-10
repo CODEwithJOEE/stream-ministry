@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "1 Corinthians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 55",
+    "placeOfWriting": "In Ephesus",
+    "subject": "Christ and His Cross as the Unique Solution to All Problems in the Church.",
+    "totalChapters": 16
+  },
+  "chapters": {
+    "1": [
+      "But to those who are called, both Jews and Greeks, Christ the power of God and the wisdom of God.",
+      "For I determined not to know anything among you except Jesus Christ, and this One crucified."
+    ],
+    "2": [
+      "But a soul-ish man does not receive the things of the Spirit of God, for they are foolishness to him and he is not able to know them because they are discerned spiritually."
+    ],
+    "15": [
+      "But by the grace of God I am what I am; and His grace unto me did not turn out to be in vain, but I labored more abundantly than all of them, yet not I, but the grace of God which is with me."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "24": [
+        {
+          "id": "1.24a",
+          "word": "wisdom",
+          "text": "In this book, Paul presents Christ as the unique answer to every division and problem. When we enjoy Christ as our wisdom, the church's problems are solved."
+        }
+      ]
+    },
+    "15": {
+      "45": [
+        {
+          "id": "15.45a",
+          "word": "life-giving Spirit",
+          "text": "In resurrection, Christ the last Adam became the life-giving Spirit so that He could enter into us to be our life and our everything."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "Philippians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 60—62",
+    "placeOfWriting": "In Rome",
+    "subject": "Experiencing Christ — Taking Christ as Our Living, Pattern, Goal, and Power.",
+    "totalChapters": 4
+  },
+  "chapters": {
+    "1": ["For to me, to live is Christ and to die is gain."],
+    "2": [
+      "Have this mind in you, which was also in Christ Jesus,",
+      "Who, existing in the form of God... emptied Himself, taking the form of a slave, becoming in the likeness of men."
+    ],
+    "3": [
+      "But what things were gains to me, these I have counted as loss on account of Christ.",
+      "I pursue toward the goal for the prize of the high calling of God in Christ Jesus."
+    ],
+    "4": ["I am able to do all things in Him who empowers me."]
+  },
+  "footnotes": {
+    "1": {
+      "21": [
+        {
+          "id": "1.21a",
+          "word": "to live is Christ",
+          "text": "Paul’s life was not just 'for' Christ, but was Christ Himself being lived out through his human body."
+        }
+      ]
+    },
+    "4": {
+      "13": [
+        {
+          "id": "4.13a",
+          "word": "empowers",
+          "text": "The Christ who empowers us is the indwelling, resurrected Lord who makes us sufficient for any circumstance, whether in abundance or in lack."
+        }
+      ]
+    }
+  }
+}

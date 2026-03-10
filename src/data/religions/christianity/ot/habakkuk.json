@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "book": "Habakkuk",
+    "author": "Habakkuk",
+    "timeOfWriting": "About 607 B.C.",
+    "placeOfWriting": "In Judah",
+    "subject": "The Holy Judgment of God First on Israel by the Chaldeans and then on the Chaldeans by the Nations.",
+    "totalChapters": 3
+  },
+  "chapters": {
+    "1": [
+      "The burden which Habakkuk the prophet saw.",
+      "How long, O Jehovah, must I cry out, and You do not hear? I cry out to You, Violence! and You do not save.",
+      "Why do You make me see iniquity and look upon trouble? For destruction and violence are before me; and there is strife, and contention rises up."
+    ],
+    "2": [
+      "I will stand at my guard post and station myself on the watchtower; and I will keep watch to see what He will say to me and what I will answer concerning my complaint.",
+      "And Jehovah answered me and said, Write the vision and engrave it clearly upon tablets, that he who reads it may run.",
+      "Behold, his soul is puffed up; it is not upright within him; but the righteous one shall live by his faith.",
+      "For the earth will be filled with the knowledge of the glory of Jehovah, as the waters cover the sea.",
+      "But Jehovah is in His holy temple; let all the earth keep silence before Him."
+    ],
+    "3": [
+      "O Jehovah, I have heard the report of You and I am afraid. O Jehovah, revive Your work in the midst of the years; in the midst of the years make it known; in wrath remember mercy.",
+      "Though the fig tree does not blossom, and there is no fruit on the vines... Yet I will exult in Jehovah; I will rejoice in the God of my salvation.",
+      "Jehovah the Lord is my strength; and He makes my feet like hinds' feet and causes me to walk on my high places."
+    ]
+  },
+  "footnotes": {
+    "2": {
+      "4": [
+        {
+          "id": "2.4a",
+          "word": "faith",
+          "text": "This crucial verse is the foundation for the New Testament revelation of justification by faith (Rom. 1:17; Gal. 3:11; Heb. 10:38). It indicates that the righteous man lives not by his circumstances, but by his trust in God."
+        }
+      ]
+    },
+    "3": {
+      "2": [
+        {
+          "id": "3.2a",
+          "word": "revive",
+          "text": "The prophet's prayer is for God to manifest His power and life again among His people during the long 'years' of their captivity and suffering."
+        }
+      ],
+      "19": [
+        {
+          "id": "3.19a",
+          "word": "high places",
+          "text": "Hinds' feet are agile and sure-footed. To walk on high places signifies a life that transcends the trials and valleys of the earth through the strength of the Lord."
+        }
+      ]
+    }
+  }
+}

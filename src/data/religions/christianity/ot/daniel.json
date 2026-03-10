@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "book": "Daniel",
+    "author": "Daniel",
+    "timeOfWriting": "About 605—534 B.C.",
+    "placeOfWriting": "In Babylon and Susa",
+    "subject": "The Destiny of Israel and the Nations Under the Government of God for the Manifestation of the Kingdom of Christ.",
+    "totalChapters": 12
+  },
+  "chapters": {
+    "2": [
+      "You, O king, were looking, and behold, there was a single great statue. This statue, which was large and whose brightness was surpassing, stood before you; and its appearance was frightening.",
+      "But in the days of those kings the God of heaven will raise up a kingdom which will never be destroyed, and its dominion will not be left to another people; it will crush and bring an end to all these kingdoms, but it will stand forever."
+    ],
+    "7": [
+      "I saw in the night visions, and behold, with the clouds of heaven One like a Son of Man was coming; and He came to the Ancient of Days, and they brought Him near before Him.",
+      "And to Him was given dominion and glory and a kingdom, that all the peoples, nations, and languages should serve Him. His dominion is an eternal dominion, which will not pass away; and His kingdom is one which will not be destroyed."
+    ],
+    "9": [
+      "Seventy weeks have been apportioned for your people and for your holy city, to close the transgression and to make an end of sins and to make propitiation for iniquity and to bring in everlasting righteousness and to seal up vision and prophet and to anoint the holy of holies."
+    ],
+    "12": [
+      "And many of those who sleep in the dust of the earth will awake, some to eternal life and some to reproach and eternal contempt.",
+      "And those who are wise will shine like the brightness of the expanse, and those who turn many to righteousness, like the stars forever and ever."
+    ]
+  },
+  "footnotes": {
+    "2": {
+      "34": [
+        {
+          "id": "2.34a",
+          "word": "stone",
+          "text": "The stone cut out without hands signifies Christ, who through His second coming will strike the human government of this world and become a great mountain filling the whole earth."
+        }
+      ]
+    },
+    "7": {
+      "13": [
+        {
+          "id": "7.13a",
+          "word": "Son of Man",
+          "text": "This title emphasizes the humanity of Christ in His coming to receive the kingdom from the Father (the Ancient of Days)."
+        }
+      ]
+    },
+    "9": {
+      "24": [
+        {
+          "id": "9.24a",
+          "word": "Seventy weeks",
+          "text": "The seventy weeks (490 years) represent God's specific timetable for Israel, leading from the decree to rebuild Jerusalem to the full establishment of Christ's kingdom."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "book": "Luke",
+    "author": "Luke",
+    "timeOfWriting": "About A.D. 60",
+    "placeOfWriting": "In Caesarea or Rome",
+    "subject": "The Gospel of the Forgiveness of Sins — Proclaiming That Jesus Christ Is the Man-Savior.",
+    "totalChapters": 24
+  },
+  "chapters": {
+    "2": [
+      "For today a Savior has been born to you in the city of David, who is Christ the Lord."
+    ],
+    "15": [
+      "But while he was still a long way off, his father saw him and was moved with compassion, and ran and fell on his neck and kissed him affectionately."
+    ],
+    "24": [
+      "And that repentance for forgiveness of sins should be proclaimed in His name to all the nations, beginning from Jerusalem."
+    ]
+  },
+  "footnotes": {
+    "15": {
+      "20": [
+        {
+          "id": "15.20a",
+          "word": "ran",
+          "text": "The father running to meet the prodigal son shows the eagerness of God the Father to receive and forgive the returning sinner."
+        }
+      ]
+    }
+  }
+}

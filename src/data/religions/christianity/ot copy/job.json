@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "Job",
+    "author": "Job",
+    "timeOfWriting": "About 2000 B.C.",
+    "placeOfWriting": "In the land of Uz",
+    "subject": "The Purpose of God's Dealing with His Holy One.",
+    "totalChapters": 42
+  },
+  "chapters": {
+    "1": [
+      "There was a man in the land of Uz whose name was Job; and that man was perfect and upright, and one who feared God and turned away from evil.",
+      "And seven sons and three daughters were born to him.",
+      "His possessions also were seven thousand sheep and three thousand camels and five hundred yoke of oxen and five hundred female donkeys and a very great number of servants; so that this man was the greatest of all the children of the east."
+    ],
+    "42": [
+      "Then Job answered Jehovah and said:",
+      "I know that You can do all things, and that no purpose of Yours can be restrained.",
+      "I had heard of You by the hearing of the ear, but now my eye sees You;"
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "1": [
+        {
+          "id": "1.1a",
+          "word": "perfect",
+          "text": "Job’s perfection was according to human standards of morality. The book of Job shows that God’s intention is not just for man to be moral, but for man to be filled with God."
+        }
+      ]
+    },
+    "42": {
+      "5": [
+        {
+          "id": "42.5a",
+          "word": "sees",
+          "text": "Seeing God is what transforms us. Job moved from knowing God by 'hearing' (objective knowledge) to 'seeing' (subjective experience)."
+        }
+      ]
+    }
+  }
+}

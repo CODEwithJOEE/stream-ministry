@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "book": "2 Chronicles",
+    "author": "Ezra",
+    "timeOfWriting": "About 458 B.C.",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "God's Dealing with the Kings of Judah from Solomon through Zedekiah in the Economy of God under the Kingship of the Kings according to the Lusts and Passions of the Kings.",
+    "totalChapters": 36
+  },
+  "chapters": {
+    "1": [
+      "And Solomon the son of David established himself over his kingdom, and Jehovah his God was with him and made him exceedingly great.",
+      "And Solomon spoke to all Israel, to the captains of thousands and of hundreds and to the judges and to every leader in all Israel, the heads of the fathers' households.",
+      "Then Solomon and all the assembly with him went to the high place that was at Gibeon; for the tent of meeting of God, which Moses the servant of Jehovah had made in the wilderness, was there."
+    ],
+    "2": [
+      "Now Solomon intended to build a house for the name of Jehovah and a house for his kingdom.",
+      "And Solomon numbered seventy thousand men to bear burdens and eighty thousand men to be stonecutters in the mountains and three thousand six hundred to oversee them."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "3": [
+        {
+          "id": "1.3a",
+          "word": "Gibeon",
+          "text": "Before the temple was built in Jerusalem, the tent of meeting (the Tabernacle) was located at Gibeon. This highlights the transition from the portable Tabernacle to the permanent Temple."
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "id": "2.1a",
+          "word": "name",
+          "text": "To build a house for the 'name' of Jehovah signifies that the Temple was to be the place of God's dwelling and the place where His person and presence were expressed."
+        }
+      ]
+    }
+  }
+}

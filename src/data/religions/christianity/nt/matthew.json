@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "book": "Matthew",
+    "author": "Matthew",
+    "timeOfWriting": "About A.D. 37—40",
+    "placeOfWriting": "In Judea",
+    "subject": "The Gospel of the Kingdom — Proclaiming That Christ Is the King-Savior.",
+    "totalChapters": 28
+  },
+  "chapters": {
+    "1": [
+      "The book of the generation of Jesus Christ, the son of David, the son of Abraham.",
+      "Behold, the virgin shall be with child and shall bear a son, and they shall call His name Emmanuel (which is interpreted, God with us)."
+    ],
+    "5": [
+      "Blessed are the poor in spirit, for theirs is the kingdom of the heavens.",
+      "You are the light of the world. It is impossible for a city situated on a mountain to be hidden."
+    ],
+    "28": [
+      "Go therefore and disciple all the nations, baptizing them into the name of the Father and of the Son and of the Holy Spirit.",
+      "And behold, I am with you all the days until the consummation of the age."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "1": [
+        {
+          "id": "1.1a",
+          "word": "generation",
+          "text": "The genealogy of Christ links Him to David (the kingdom) and Abraham (the blessing), showing Him as the fulfillment of all God's promises."
+        }
+      ]
+    },
+    "28": {
+      "19": [
+        {
+          "id": "28.19a",
+          "word": "into the name",
+          "text": "Baptizing people 'into' the name of the Trinity signifies a spiritual union, bringing the believers into a dynamic, organic relationship with the Triune God."
+        }
+      ]
+    }
+  }
+}

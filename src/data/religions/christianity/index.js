@@ -19,11 +19,11 @@ export const recoveryVersion = {
     { id: "esther", name: "Esther", chapters: 10 },
     { id: "job", name: "Job", chapters: 42 },
     { id: "psalms", name: "Psalms", chapters: 150 },
-    { id: "proverbs", name: "Provers", chapters: 31 },
+    { id: "proverbs", name: "Proverbs", chapters: 31 },
     { id: "ecclesiastes", name: "Ecclesiastes", chapters: 12 },
-    { id: "song-of-solomon", name: "Song of Solomon", chapters: 8 },
+    { id: "songofsongs", name: "Song of Songs", chapters: 8 }, // Fixed ID
     { id: "isaiah", name: "Isaiah", chapters: 66 },
-    { id: "jeremaiah", name: "Jeremaiah", chapters: 52 },
+    { id: "jeremiah", name: "Jeremiah", chapters: 52 }, // Fixed Spelling
     { id: "lamentations", name: "Lamentations", chapters: 5 },
     { id: "ezekiel", name: "Ezekiel", chapters: 48 },
     { id: "daniel", name: "Daniel", chapters: 12 },
@@ -58,7 +58,7 @@ export const recoveryVersion = {
     { id: "1-timothy", name: "1 Timothy", chapters: 6 },
     { id: "2-timothy", name: "2 Timothy", chapters: 4 },
     { id: "titus", name: "Titus", chapters: 3 },
-    { id: "philimon", name: "Philimon", chapters: 1 },
+    { id: "philemon", name: "Philemon", chapters: 1 }, // Fixed Spelling
     { id: "hebrews", name: "Hebrews", chapters: 13 },
     { id: "james", name: "James", chapters: 5 },
     { id: "1-peter", name: "1 Peter", chapters: 5 },
@@ -68,6 +68,5 @@ export const recoveryVersion = {
     { id: "3-john", name: "3 John", chapters: 1 },
     { id: "jude", name: "Jude", chapters: 1 },
     { id: "revelation", name: "Revelation", chapters: 22 },
-    // Add more NT books here
   ],
 };

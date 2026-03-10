@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "Ephesians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 60—62",
+    "placeOfWriting": "In Rome",
+    "subject": "The Church — The Body of Christ, the Fullness of the One Who Fills All in All.",
+    "totalChapters": 6
+  },
+  "chapters": {
+    "1": [
+      "In whom we have redemption through His blood, the forgiveness of offenses, according to the riches of His grace.",
+      "And He subjected all things under His feet and gave Him to be Head over all things to the church, which is His Body, the fullness of the One who fills all in all."
+    ],
+    "4": [
+      "One Body and one Spirit, even as also you were called in one hope of your calling; one Lord, one faith, one baptism; one God and Father of all."
+    ],
+    "6": [
+      "Put on the whole armor of God that you may be able to stand against the stratagems of the devil."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "23": [
+        {
+          "id": "1.23a",
+          "word": "fullness",
+          "text": "The church is not just a collection of people, but the overflow and expression (the fullness) of Christ who fills the entire universe."
+        }
+      ]
+    },
+    "4": {
+      "3": [
+        {
+          "id": "4.3a",
+          "word": "oneness",
+          "text": "The oneness of the Spirit is the reality of the Body. We do not make this oneness; we keep it by remaining in the Spirit."
+        }
+      ]
+    }
+  }
+}

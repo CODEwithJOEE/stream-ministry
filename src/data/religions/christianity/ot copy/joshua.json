@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "book": "Joshua",
+    "author": "Joshua",
+    "timeOfWriting": "About 1427 B.C.",
+    "placeOfWriting": "In the land of Canaan",
+    "subject": "Israel's Occupying and Possessing the Good Land of Canaan for the Carrying Out of God's Economy.",
+    "totalChapters": 24
+  },
+  "chapters": {
+    "1": [
+      "Now after the death of Moses the servant of Jehovah, Jehovah spoke to Joshua the son of Nun, Moses' attendant, saying,",
+      "Moses My servant is dead; now then arise, cross over this Jordan, you and all this people, into the land which I am giving to them, to the children of Israel.",
+      "Every place on which the sole of your foot treads I have given to you, as I promised Moses."
+    ],
+    "2": [
+      "Then Joshua the son of Nun sent two men from Shittim secretly as spies, saying, Go, view the land, especially Jericho. And they went and came into the house of a harlot whose name was Rahab, and they stayed there.",
+      "And it was told the king of Jericho, saying, Men from the children of Israel have come here tonight to spy out the land."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "1": [
+        {
+          "id": "1.1a",
+          "word": "Joshua",
+          "text": "The name Joshua means 'Jehovah the Savior' or 'Jehovah's Salvation.' This is the Hebrew equivalent of the Greek name Jesus."
+        }
+      ],
+      "3": [
+        {
+          "id": "1.3a",
+          "word": "treads",
+          "text": "This indicates that while God had already given the land, the children of Israel had to cooperate by walking on it to practically possess it."
+        }
+      ]
+    }
+  }
+}

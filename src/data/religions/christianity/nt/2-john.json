@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "book": "2 John",
+    "author": "John",
+    "timeOfWriting": "About A.D. 90—95",
+    "placeOfWriting": "In Ephesus",
+    "subject": "Prohibition against Participation in Heresy.",
+    "totalChapters": 1
+  },
+  "chapters": {
+    "1": [
+      "And this is love, that we walk according to His commandments. This is the commandment, even as you heard from the beginning, that you should walk in it.",
+      "If anyone comes to you and does not bring this teaching, do not receive him into your house, and do not say to him, Greeting!",
+      "For he who says to him, Greeting, shares in his evil works."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "9": [
+        {
+          "id": "1.9a",
+          "word": "teaching",
+          "text": "The teaching here refers specifically to the truth of Christ's deity and His incarnation. To deny these is to have the 'antichrist' spirit, and such heresy must be strictly rejected."
+        }
+      ]
+    }
+  }
+}

@@ -104,26 +104,33 @@ export default function App() {
     if (match) {
       const [_, bookPart, chap, verse] = match;
 
-      // THE FIX: Standardize the shorthand to match your JSON filenames
       const bookMap = {
+        // Pentateuch
         gen: "genesis",
         exo: "exodus",
         lev: "leviticus",
         num: "numbers",
         deut: "deuteronomy",
+        // History
         josh: "joshua",
         judg: "judges",
-        sam: "samuel",
-        kings: "kings",
-        chron: "chronicles",
+        ruth: "ruth",
+        "1sam": "1-samuel",
+        "2sam": "2-samuel",
+        "1kings": "1-kings",
+        "2kings": "2-kings",
+        "1chron": "1-chronicles",
+        "2chron": "2-chronicles",
         ezra: "ezra",
         neh: "nehemiah",
         esth: "esther",
+        // Poetry
         job: "job",
         psa: "psalms",
         prov: "proverbs",
         eccl: "ecclesiastes",
         ss: "songofsongs",
+        // Prophets
         isa: "isaiah",
         jer: "jeremiah",
         lam: "lamentations",
@@ -141,6 +148,7 @@ export default function App() {
         hag: "haggai",
         zech: "zechariah",
         mal: "malachi",
+        // New Testament (Updated to match your filenames)
         mat: "matthew",
         matt: "matthew",
         mark: "mark",
@@ -148,25 +156,25 @@ export default function App() {
         john: "john",
         acts: "acts",
         rom: "romans",
-        "1cor": "1corinthians",
-        "2cor": "2corinthians",
+        "1cor": "1-corinthians",
+        "2cor": "2-corinthians",
         gal: "galatians",
         eph: "ephesians",
         phil: "philippians",
         col: "colossians",
-        "1thes": "1thessalonians",
-        "2thes": "2thessalonians",
-        "1tim": "1timothy",
-        "2tim": "2timothy",
+        "1thes": "1-thessalonians",
+        "2thes": "2-thessalonians",
+        "1tim": "1-timothy",
+        "2tim": "2-timothy",
         tit: "titus",
         philem: "philemon",
         heb: "hebrews",
         james: "james",
-        "1pet": "1peter",
-        "2pet": "2peter",
-        "1john": "1john",
-        "2john": "2john",
-        "3john": "3john",
+        "1pet": "1-peter",
+        "2pet": "2-peter",
+        "1john": "1-john",
+        "2john": "2-john",
+        "3john": "3-john",
         jude: "jude",
         rev: "revelation",
       };
@@ -176,6 +184,7 @@ export default function App() {
         .replace(/\./g, "")
         .replace(/\s/g, "")
         .trim();
+
       const mappedSlug = bookMap[cleanBookPart] || cleanBookPart;
 
       handleManualNav({

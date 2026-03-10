@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "book": "1 Thessalonians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 52",
+    "placeOfWriting": "In Corinth",
+    "subject": "A Holy Life for the Church Life — Serving the Living God, Conducting Ourselves Holily, and Waiting for the Lord’s Coming.",
+    "totalChapters": 5
+  },
+  "chapters": {
+    "1": [
+      "For they themselves report concerning us what kind of entrance we had toward you and how you turned to God from the idols to serve a living and true God,"
+    ],
+    "5": [
+      "Always rejoice, unceasingly pray, in everything give thanks; for this is the will of God in Christ Jesus regarding you.",
+      "And the God of peace Himself sanctify you wholly, and may your spirit and soul and body be preserved complete, without blame, at the coming of our Lord Jesus Christ."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "9": [
+        {
+          "id": "1.9a",
+          "word": "living",
+          "text": "To serve a 'living' God means that the God we worship is subjective to us, directing our daily walk and being expressed through our living."
+        }
+      ]
+    },
+    "5": {
+      "23": [
+        {
+          "id": "5.23a",
+          "word": "spirit and soul and body",
+          "text": "This verse clearly reveals that man is composed of three parts. God's sanctification begins from our spirit, spreads to our soul, and eventually reaches our physical body."
+        }
+      ]
+    }
+  }
+}

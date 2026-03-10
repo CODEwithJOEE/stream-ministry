@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "book": "Philemon",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 60—62",
+    "placeOfWriting": "In Rome",
+    "subject": "An Illustration of the Believers' Equal Status in the New Man.",
+    "totalChapters": 1
+  },
+  "chapters": {
+    "1": [
+      "For perhaps he was separated from you for an hour for this purpose, that you might fully possess him forever,",
+      "No longer as a slave, but more than a slave, a beloved brother, especially to me, but how much more to you, both in the flesh and in the Lord."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "16": [
+        {
+          "id": "1.16a",
+          "word": "beloved brother",
+          "text": "In the New Man, all social distinctions and classes are abolished. A runaway slave and his master become equal brothers in the Body of Christ."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "book": "Zephaniah",
+    "author": "Zephaniah",
+    "timeOfWriting": "About 630 B.C.",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "Jehovah’s Judgment on the People of God and on the Nations, and His Salvation for the Remnant of His People.",
+    "totalChapters": 3
+  },
+  "chapters": {
+    "1": [
+      "The word of Jehovah that came to Zephaniah the son of Cushi... in the days of Josiah the son of Amon, king of Judah.",
+      "The great day of Jehovah is near; it is near and hastens greatly! The sound of the day of Jehovah is bitter; the mighty man cries out there.",
+      "Neither their silver nor their gold will be able to deliver them in the day of the wrath of Jehovah."
+    ],
+    "2": [
+      "Seek Jehovah, all you lowly of the earth who have performed His ordinance; seek righteousness, seek humility. Perhaps you will be hidden in the day of the anger of Jehovah."
+    ],
+    "3": [
+      "For then I will change the language of the peoples to a pure language, that all of them may call upon the name of Jehovah, to serve Him with one accord.",
+      "The King of Israel, Jehovah, is in your midst; you will not see evil anymore.",
+      "Jehovah your God is in your midst, a mighty One who will save; He will rejoice over you with gladness; He will rest in His love; He will exult over you with a ringing shout."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "14": [
+        {
+          "id": "1.14a",
+          "word": "day of Jehovah",
+          "text": "The day of Jehovah is a recurring theme in the prophets, referring to the time when God intervenes directly in human history to judge evil and establish His reign."
+        }
+      ]
+    },
+    "3": {
+      "9": [
+        {
+          "id": "3.9a",
+          "word": "pure language",
+          "text": "This signifies the reversal of the confusion of Babel, where a unified and purified expression is restored to humanity to worship the true God."
+        }
+      ],
+      "17": [
+        {
+          "id": "3.17a",
+          "word": "rest in His love",
+          "text": "A profound expression of God's intimate satisfaction in His redeemed people; He is so settled in His love for them that He finds silent rest and loud joy in their presence."
+        }
+      ]
+    }
+  }
+}

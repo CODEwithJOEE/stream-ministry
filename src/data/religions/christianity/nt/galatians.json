@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "book": "Galatians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 54",
+    "placeOfWriting": "In Ephesus or Corinth",
+    "subject": "Christ Replacing the Law and Being Formed in the Believers.",
+    "totalChapters": 6
+  },
+  "chapters": {
+    "2": [
+      "I am crucified with Christ; and it is no longer I who live, but it is Christ who lives in me; and the life which I now live in the flesh I live in faith, the faith of the Son of God, who loved me and gave Himself up for me."
+    ],
+    "3": [
+      "Christ has redeemed us out of the curse of the law, having become a curse on our behalf; because it is written, 'Cursed is every one hanged on a tree'."
+    ],
+    "5": [
+      "But the fruit of the Spirit is love, joy, peace, long-suffering, kindness, goodness, faithfulness, meekness, self-control; against such things there is no law."
+    ]
+  },
+  "footnotes": {
+    "2": {
+      "20": [
+        {
+          "id": "2.20a",
+          "word": "Christ who lives in me",
+          "text": "The Christian life is not a matter of self-improvement, but of Christ living in the believer as their new life and person."
+        }
+      ]
+    },
+    "5": {
+      "22": [
+        {
+          "id": "5.22a",
+          "word": "fruit",
+          "text": "Fruit is the outward expression of the inner life of the Spirit. It is a single 'fruit' with many characteristics, produced by the organic growth of the Spirit in us."
+        }
+      ]
+    }
+  }
+}

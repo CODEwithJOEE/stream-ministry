@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "book": "2 Peter",
+    "author": "Peter",
+    "timeOfWriting": "About A.D. 66",
+    "placeOfWriting": "In Rome",
+    "subject": "The Provision of the Divine Government and Its Ratification.",
+    "totalChapters": 3
+  },
+  "chapters": {
+    "1": [
+      "Seeing that His divine power has granted to us all things which relate to life and godliness, through the full knowledge of Him who has called us by His own glory and virtue,",
+      "Through which He has granted to us precious and exceedingly great promises that through these you might become partakers of the divine nature, having escaped the corruption which is in the world by lust."
+    ],
+    "3": [
+      "But the day of the Lord will come as a thief, in which the heavens will pass away with a roar, and the elements, burning with intense heat, will be dissolved...",
+      "But grow in the grace and knowledge of our Lord and Savior Jesus Christ. To Him be the glory both now and unto the day of eternity. Amen."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "4": [
+        {
+          "id": "1.4a",
+          "word": "divine nature",
+          "text": "To be partakers of the divine nature is to enjoy the very elements of what God is. This is the highest privilege of a believer—to possess and enjoy the nature of God."
+        }
+      ]
+    }
+  }
+}

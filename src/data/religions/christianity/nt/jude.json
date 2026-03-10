@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "book": "Jude",
+    "author": "Jude",
+    "timeOfWriting": "About A.D. 69",
+    "placeOfWriting": "In Jerusalem or Palestine",
+    "subject": "Contending for the Faith.",
+    "totalChapters": 1
+  },
+  "chapters": {
+    "1": [
+      "Beloved, while using all diligence to write to you concerning our common salvation, I found it necessary to write to you exhorting you to earnestly contend for the faith once for all delivered to the saints.",
+      "But you, beloved, building up yourselves upon your most holy faith, praying in the Holy Spirit,",
+      "Keep yourselves in the love of God, awaiting the mercy of our Lord Jesus Christ unto eternal life.",
+      "But to Him who is able to guard you from stumbling and to set you before His glory without blemish in exultation."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "3": [
+        {
+          "id": "1.3a",
+          "word": "the faith",
+          "text": "The faith here does not refer to our act of believing, but to the objective contents of the New Testament revelation concerning the person and work of Christ."
+        }
+      ],
+      "20": [
+        {
+          "id": "1.20a",
+          "word": "building up",
+          "text": "In a time of apostasy and spiritual decline, our protection is to build ourselves up in the truth and stay in the organic union with the Triune God through prayer."
+        }
+      ]
+    }
+  }
+}

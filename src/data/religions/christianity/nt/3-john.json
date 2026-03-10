@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "book": "3 John",
+    "author": "John",
+    "timeOfWriting": "About A.D. 90—95",
+    "placeOfWriting": "In Ephesus",
+    "subject": "Encouragement to the Workers in the Truth.",
+    "totalChapters": 1
+  },
+  "chapters": {
+    "1": [
+      "Beloved, I pray that in all things you may prosper and be in health, even as your soul prospers.",
+      "I have no greater joy than these things, to hear that my children are walking in the truth.",
+      "Beloved, do not imitate what is evil, but what is good. He who does good is of God; he who does evil has not seen God."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "2": [
+        {
+          "id": "1.2a",
+          "word": "soul prospers",
+          "text": "The prosperity of the soul is the growth in the divine life and the enjoyment of the truth. Our physical health and outward affairs should be in balance with this inner spiritual prosperity."
+        }
+      ],
+      "8": [
+        {
+          "id": "1.8a",
+          "word": "fellow workers",
+          "text": "By supporting those who travel for the sake of the Gospel, we become fellow workers in the truth, participating in the same reward as those on the front lines."
+        }
+      ]
+    }
+  }
+}

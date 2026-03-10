@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "book": "2 Timothy",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 67",
+    "placeOfWriting": "In Rome",
+    "subject": "Inoculation Against the Decline of the Church.",
+    "totalChapters": 4
+  },
+  "chapters": {
+    "1": [
+      "For God has not given us a spirit of cowardice, but of power and of love and of sobermindedness."
+    ],
+    "2": [
+      "Be diligent to present yourself approved to God, an unashamed workman, cutting straight the word of the truth.",
+      "But flee youthful lusts, and pursue righteousness, faith, love, peace with those who call on the Lord out of a pure heart."
+    ],
+    "3": [
+      "All Scripture is God-breathed and profitable for teaching, for conviction, for correction, for instruction in righteousness."
+    ],
+    "4": [
+      "I have fought the good fight, I have finished the course, I have kept the faith."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "7": [
+        {
+          "id": "1.7a",
+          "word": "spirit",
+          "text": "This refers to our regenerated human spirit, indwelt by the Holy Spirit. To stand against the church's decline, we must fan into flame this spirit."
+        }
+      ]
+    },
+    "3": {
+      "16": [
+        {
+          "id": "3.16a",
+          "word": "God-breathed",
+          "text": "Scripture is the very breath (pneuma) of God. When we read the Bible with our spirit, we inhale the divine element of God Himself."
+        }
+      ]
+    }
+  }
+}

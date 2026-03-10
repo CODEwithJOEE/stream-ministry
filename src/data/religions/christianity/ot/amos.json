@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "book": "Joel",
+    "author": "Joel",
+    "timeOfWriting": "About 800 B.C.",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "The Day of Jehovah and the Outpouring of the Spirit of God for the Restoration of the People of God.",
+    "totalChapters": 3
+  },
+  "chapters": {
+    "1": [
+      "The word of Jehovah that came to Joel the son of Pethuel.",
+      "Hear this, you elders, and give ear, all inhabitants of the land. Has such a thing happened in your days or even in the days of your fathers?",
+      "What the cutting locust has left, the swarming locust has eaten; and what the swarming locust has left, the licking locust has eaten; and what the licking locust has left, the consuming locust has eaten."
+    ],
+    "2": [
+      "Blow a trumpet in Zion, and sound an alarm in My holy mountain! Let all the inhabitants of the land tremble, for the day of Jehovah is coming; for it is near.",
+      "Even now, declares Jehovah, return to Me with all your heart, and with fasting and with weeping and with mourning.",
+      "And it shall come to pass afterward that I will pour out My Spirit upon all flesh; and your sons and your daughters will prophesy, your old men will dream dreams, your young men will see visions."
+    ],
+    "3": [
+      "For behold, in those days and at that time, when I return the captivity of Judah and Jerusalem, I will also gather all the nations and bring them down to the valley of Jehoshaphat; and I will enter into judgment with them there.",
+      "But Jehovah will be a shelter for His people and a stronghold for the children of Israel."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "4": [
+        {
+          "id": "1.4a",
+          "word": "locust",
+          "text": "The four kinds of locusts represent the four stages of the world empires (Babylon, Medo-Persia, Greece, and Rome) that devastated Israel until the coming of Christ."
+        }
+      ]
+    },
+    "2": {
+      "28": [
+        {
+          "id": "2.28a",
+          "word": "pour out",
+          "text": "This prophecy was initially fulfilled on the day of Pentecost (Acts 2), marking the beginning of the New Testament age of the Spirit."
+        }
+      ]
+    },
+    "3": {
+      "12": [
+        {
+          "id": "3.12a",
+          "word": "Jehoshaphat",
+          "text": "Jehoshaphat means 'Jehovah judges.' This valley is the site of the final judgment of the nations at the end of the age."
+        }
+      ]
+    }
+  }
+}

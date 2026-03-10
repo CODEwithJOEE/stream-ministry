@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "book": "1 Timothy",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 65",
+    "placeOfWriting": "In Macedonia",
+    "subject": "God’s Economy Concerning the Church.",
+    "totalChapters": 6
+  },
+  "chapters": {
+    "1": [
+      "Even as I exhorted you... to remain in Ephesus in order that you might charge certain ones not to teach different things,",
+      "Nor to give heed to myths and unending genealogies, which produce questionings rather than God’s economy, which is in faith."
+    ],
+    "3": [
+      "But if I delay, I write that you may know how one ought to conduct himself in the house of God, which is the church of the living God, the pillar and base of the truth.",
+      "And confessedly, great is the mystery of godliness: He who was manifested in the flesh, justified in the spirit, seen by angels, preached among the nations, believed on in the world, taken up in glory."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "4": [
+        {
+          "id": "1.4a",
+          "word": "economy",
+          "text": "The Greek word 'oikonomia' means household management or a plan to distribute the riches of a household. God's economy is His plan to dispense Himself into His chosen people."
+        }
+      ]
+    },
+    "3": {
+      "16": [
+        {
+          "id": "3.16a",
+          "word": "godliness",
+          "text": "Godliness is not just 'piety,' but God manifested in the flesh. The church is the corporate manifestation of God in the world today."
+        }
+      ]
+    }
+  }
+}

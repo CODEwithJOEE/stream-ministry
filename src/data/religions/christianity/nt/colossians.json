@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "book": "Colossians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 60—62",
+    "placeOfWriting": "In Rome",
+    "subject": "Christ — The All-inclusive One, Having the Firstplace in All Things as the Mystery and Embodiment of God.",
+    "totalChapters": 4
+  },
+  "chapters": {
+    "1": [
+      "Who is the image of the invisible God, the Firstborn of all creation.",
+      "To whom God willed to make known what are the riches of the glory of this mystery among the Gentiles, which is Christ in you, the hope of glory."
+    ],
+    "2": [
+      "For in Him dwells all the fullness of the Deity bodily.",
+      "And you are made full in Him, who is the Head of all rule and authority."
+    ],
+    "3": [
+      "Where there cannot be Greek and Jew, circumcision and uncircumcision, barbarian, Scythian, slave, free man, but Christ is all and in all."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "27": [
+        {
+          "id": "1.27a",
+          "word": "Christ in you",
+          "text": "The mystery hidden from the ages is that the all-inclusive Christ now dwells in the believers to be their life today and their glory in the future."
+        }
+      ]
+    },
+    "3": {
+      "11": [
+        {
+          "id": "3.11a",
+          "word": "Christ is all",
+          "text": "In the New Man (the church), natural distinctions disappear because Christ is the constituent of every member and the person of the whole Body."
+        }
+      ]
+    }
+  }
+}

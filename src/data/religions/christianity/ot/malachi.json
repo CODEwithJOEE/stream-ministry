@@ -1,0 +1,61 @@
+{
+  "metadata": {
+    "book": "Malachi",
+    "author": "Malachi",
+    "timeOfWriting": "About 430 B.C.",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "Jehovah’s Word of Rebuking to the Degenerate Priests and People and His Promise of the Coming of the Messenger of the Covenant.",
+    "totalChapters": 4
+  },
+  "chapters": {
+    "1": [
+      "The burden of the word of Jehovah to Israel through Malachi.",
+      "I have loved you, says Jehovah. But you say, How have You loved us? Was not Esau Jacob's brother? declares Jehovah. Yet I loved Jacob,",
+      "But Esau I hated; and I have made his mountains a desolation and given his inheritance to the jackals of the wilderness."
+    ],
+    "3": [
+      "Behold, I send My messenger, and he will prepare the way before Me. And the Lord whom you seek will suddenly come to His temple, even the Messenger of the covenant, whom you desire; behold, He is coming, says Jehovah of hosts.",
+      "Bring the whole tithe into the storehouse that there may be food in My house; and prove Me now in this, says Jehovah of hosts, whether I will not open for you the windows of heaven and pour out for you a blessing until there is no room for it.",
+      "Then those who feared Jehovah spoke to one another, and Jehovah gave heed and heard; and a book of remembrance was written before Him for those who fear Jehovah and for those who consider His name."
+    ],
+    "4": [
+      "But unto you who fear My name, the Sun of Righteousness will arise with healing in His wings; and you will go forth and skip about like calves from the stall.",
+      "Behold, I will send you Elijah the prophet before the coming of the great and terrible day of Jehovah.",
+      "And he will turn the heart of the fathers to the children and the heart of the children to their fathers, lest I come and strike the land with a curse."
+    ]
+  },
+  "footnotes": {
+    "3": {
+      "1": [
+        {
+          "id": "3.1a",
+          "word": "messenger",
+          "text": "This refers to John the Baptist, the forerunner who prepared the way for the first coming of Christ."
+        }
+      ],
+      "16": [
+        {
+          "id": "3.16a",
+          "word": "book of remembrance",
+          "text": "Even in times of general apostasy and indifference, God takes special note of the small remnant who remain faithful and speak of Him."
+        }
+      ]
+    },
+    "4": {
+      "2": [
+        {
+          "id": "4.2a",
+          "word": "Sun of Righteousness",
+          "text": "Christ is the Sun that brings spiritual light and healing to a world darkened by sin and death."
+        }
+      ],
+      "6": [
+        {
+          "id": "4.6a",
+          "word": "curse",
+          "text": "The Old Testament ends with the word 'curse,' pointing to the need for the New Testament which begins with the genealogy of Jesus Christ, who came to redeem us from the curse."
+        }
+      ]
+    }
+  }
+}

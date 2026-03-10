@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "book": "1 John",
+    "author": "John",
+    "timeOfWriting": "About A.D. 90—95",
+    "placeOfWriting": "In Ephesus",
+    "subject": "The Fellowship of the Divine Life.",
+    "totalChapters": 5
+  },
+  "chapters": {
+    "1": [
+      "That which was from the beginning, which we have heard, which we have seen with our eyes... concerning the Word of life;",
+      "That which we have seen and heard we report also to you that you also may have fellowship with us; and indeed our fellowship is with the Father and with His Son Jesus Christ.",
+      "If we confess our sins, He is faithful and righteous to forgive us our sins and cleanse us from all unrighteousness."
+    ],
+    "2": [
+      "And as for you, the anointing which you have received from Him abides in you, and you have no need that anyone teach you; but as His anointing teaches you concerning all things and is true and is not a lie, and even as it has taught you, abide in Him."
+    ],
+    "3": [
+      "Behold what manner of love the Father has given to us, that we should be called children of God; and we are."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "3": [
+        {
+          "id": "1.3a",
+          "word": "fellowship",
+          "text": "Fellowship is the flow of the divine life within the Body of Christ. It is the joint participation and common enjoyment of the Triune God."
+        }
+      ],
+      "9": [
+        {
+          "id": "1.9a",
+          "word": "faithful and righteous",
+          "text": "God is 'faithful' to His word and 'righteous' because of the blood of Jesus. Based on Christ's finished work, God is legally bound to forgive us when we confess."
+        }
+      ]
+    },
+    "2": {
+      "27": [
+        {
+          "id": "2.27a",
+          "word": "anointing",
+          "text": "The anointing is the moving and working of the Holy Spirit within our spirit, teaching us the will of God subjectively by the 'tinting' of the divine element."
+        }
+      ]
+    }
+  }
+}

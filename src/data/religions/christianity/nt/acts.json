@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "Acts",
+    "author": "Luke",
+    "timeOfWriting": "About A.D. 60—62",
+    "placeOfWriting": "In Rome",
+    "subject": "The Propagation of the Resurrected Christ in His Ascension, by the Spirit, through the Disciples, for the Producing of the Churches — the Kingdom of God.",
+    "totalChapters": 28
+  },
+  "chapters": {
+    "1": [
+      "But you shall receive power when the Holy Spirit has come upon you, and you shall be My witnesses both in Jerusalem and in all Judea and Samaria and unto the uttermost part of the earth."
+    ],
+    "2": [
+      "And suddenly there was a sound out of heaven, as of a rushing violent wind, and it filled the whole house where they were sitting.",
+      "And they continued steadfastly in the teaching and the fellowship of the apostles, in the breaking of bread and the prayers."
+    ],
+    "26": [
+      "To open their eyes, to turn them from darkness to light and from the authority of Satan to God, that they may receive forgiveness of sins and an inheritance among those who have been sanctified by faith in Me."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "8": [
+        {
+          "id": "1.8a",
+          "word": "witnesses",
+          "text": "A witness is not just one who preaches, but one who is a living testimony of the resurrected and ascended Christ through the power of the Spirit."
+        }
+      ]
+    },
+    "2": {
+      "42": [
+        {
+          "id": "2.42a",
+          "word": "teaching",
+          "text": "The apostles' teaching is the unique revelation of God's New Testament economy; the early church remained in one accord by adhering to this singular instruction."
+        }
+      ]
+    }
+  }
+}

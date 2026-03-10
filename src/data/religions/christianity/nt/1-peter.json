@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "1 Peter",
+    "author": "Peter",
+    "timeOfWriting": "About A.D. 64",
+    "placeOfWriting": "In Rome (Babylon)",
+    "subject": "The Christian Life under the Government of God.",
+    "totalChapters": 5
+  },
+  "chapters": {
+    "1": [
+      "Blessed be the God and Father of our Lord Jesus Christ, who according to His great mercy has regenerated us unto a living hope through the resurrection of Jesus Christ from the dead,",
+      "Unto an inheritance, incorruptible and undefiled and unfading, kept in the heavens for you."
+    ],
+    "2": [
+      "As newborn babes, long for the guileless milk of the word in order that by it you may grow unto salvation,",
+      "But you are a chosen race, a royal priesthood, a holy nation, a people acquired for a possession, so that you may tell out the virtues of Him who has called you out of darkness into His marvelous light."
+    ],
+    "5": [
+      "Humble yourselves therefore under the mighty hand of God that He may exalt you in due time,",
+      "Casting all your anxiety on Him, because it matters to Him concerning you."
+    ]
+  },
+  "footnotes": {
+    "2": {
+      "2": [
+        {
+          "id": "2.2a",
+          "word": "grow",
+          "text": "Salvation here is not just initial redemption but the daily growth in life. We eat the word as milk to grow into the full maturity of God's salvation."
+        }
+      ],
+      "9": [
+        {
+          "id": "2.9a",
+          "word": "virtues",
+          "text": "The virtues of God are His excellent attributes. As we are nourished by Him, His attributes become our human virtues to be 'told out' to the world."
+        }
+      ]
+    }
+  }
+}

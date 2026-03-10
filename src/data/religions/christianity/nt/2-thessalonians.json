@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "book": "2 Thessalonians",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 52",
+    "placeOfWriting": "In Corinth",
+    "subject": "Encouragement and Correction Regarding the Holy Life for the Church Life.",
+    "totalChapters": 3
+  },
+  "chapters": {
+    "2": [
+      "Let no one deceive you in any way, because it will not come unless the apostasy comes first and the man of lawlessness is revealed, the son of abandonment.",
+      "But we ought to thank God always concerning you, brothers beloved by the Lord, because God chose you from the beginning unto salvation in sanctification of the spirit and belief of the truth."
+    ],
+    "3": [
+      "But the Lord is faithful, who will establish you and guard you from the evil one.",
+      "And may the Lord direct your hearts into the love of God and into the endurance of Christ."
+    ]
+  },
+  "footnotes": {
+    "2": {
+      "13": [
+        {
+          "id": "2.13a",
+          "word": "sanctification of the spirit",
+          "text": "This is the inward, dispositional sanctification by the Holy Spirit that transforms our being, distinguishing it from the mere outward position."
+        }
+      ]
+    }
+  }
+}

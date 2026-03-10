@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "book": "James",
+    "author": "James",
+    "timeOfWriting": "About A.D. 45—50",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "Practical Christian Perfection.",
+    "totalChapters": 5
+  },
+  "chapters": {
+    "1": [
+      "Consider it all joy, my brothers, when you fall into various trials,",
+      "Knowing that the proving of your faith produces endurance."
+    ],
+    "2": [
+      "For just as the body without the spirit is dead, so also faith without works is dead."
+    ],
+    "4": ["God resists the proud, but gives grace to the humble."],
+    "5": ["The petition of a righteous man avails much in its working."]
+  },
+  "footnotes": {
+    "1": {
+      "21": [
+        {
+          "id": "1.21a",
+          "word": "implanted word",
+          "text": "The word of God is not just for information; it is a seed implanted into our souls that has the power to save our souls from the world and self."
+        }
+      ]
+    },
+    "4": {
+      "6": [
+        {
+          "id": "4.6a",
+          "word": "grace",
+          "text": "Grace is not just a blessing; it is God Himself being enjoyed by us. Humility is the primary condition for receiving and enjoying this grace."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "book": "Titus",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 63—65",
+    "placeOfWriting": "In Nicopolis",
+    "subject": "The Maintenance of Order in the Church.",
+    "totalChapters": 3
+  },
+  "chapters": {
+    "2": [
+      "Who gave Himself for us that He might redeem us from all lawlessness and purify to Himself a particular people as His own possession, zealous of good works."
+    ],
+    "3": [
+      "Not out of works in righteousness which we ourselves did, but according to His mercy He saved us, through the washing of regeneration and the renewing of the Holy Spirit,",
+      "Whom He poured out upon us richly through Jesus Christ our Savior."
+    ]
+  },
+  "footnotes": {
+    "3": {
+      "5": [
+        {
+          "id": "3.5a",
+          "word": "washing of regeneration",
+          "text": "Regeneration is the beginning of a process that starts with a new birth and continues with the reconditioning and renewing of our entire being by the Holy Spirit."
+        }
+      ]
+    }
+  }
+}

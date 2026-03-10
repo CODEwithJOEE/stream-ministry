@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "book": "Romans",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 57",
+    "placeOfWriting": "In Corinth",
+    "subject": "The Gospel of God — To Make Sinners Sons of God to Constitute the Body of Christ, Which Is Expressed as the Local Churches.",
+    "totalChapters": 16
+  },
+  "chapters": {
+    "1": [
+      "For I am not ashamed of the gospel, for it is the power of God unto salvation to every one who believes, both to the Jew first and to the Greek."
+    ],
+    "5": [
+      "But God commends His own love to us in that while we were yet sinners, Christ died for us."
+    ],
+    "8": [
+      "There is now then no condemnation to those who are in Christ Jesus.",
+      "For the law of the Spirit of life has freed me in Christ Jesus from the law of sin and of death."
+    ],
+    "12": [
+      "I exhort you therefore, brothers, through the compassions of God to present your bodies a living sacrifice, holy, well pleasing to God, which is your thoughtful service."
+    ]
+  },
+  "footnotes": {
+    "8": {
+      "2": [
+        {
+          "id": "8.2a",
+          "word": "Spirit of life",
+          "text": "The law of the Spirit of life is the natural energy and power of the divine life that spontaneously overcomes the downward pull of the law of sin."
+        }
+      ]
+    },
+    "12": {
+      "5": [
+        {
+          "id": "12.5a",
+          "word": "Body",
+          "text": "The goal of our salvation is not just to go to heaven, but to become functioning members of the organic Body of Christ."
+        }
+      ]
+    }
+  }
+}

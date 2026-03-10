@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "Proverbs",
+    "author": "Solomon and others",
+    "timeOfWriting": "About 1000 to 700 B.C.",
+    "placeOfWriting": "In Jerusalem",
+    "subject": "Words of Wisdom Teaching People how to Behave and how to Build Up Their Character in the Human Life.",
+    "totalChapters": 31
+  },
+  "chapters": {
+    "1": [
+      "The proverbs of Solomon the son of David, king of Israel:",
+      "To know wisdom and instruction; to understand words of insight;",
+      "To receive instruction in wise dealing, in righteousness and justice and equity;",
+      "The fear of Jehovah is the beginning of knowledge; fools despise wisdom and instruction."
+    ],
+    "3": [
+      "Trust in Jehovah with all your heart, and do not rely on your own understanding;",
+      "In all your ways acknowledge Him, and He will make your paths straight."
+    ]
+  },
+  "footnotes": {
+    "1": {
+      "7": [
+        {
+          "id": "1.7a",
+          "word": "beginning",
+          "text": "The fear of Jehovah is not a cowering fear, but a healthy, reverent awe that acknowledges His authority and wisdom as the source of all true knowledge."
+        }
+      ]
+    },
+    "3": {
+      "5": [
+        {
+          "id": "3.5a",
+          "word": "Trust",
+          "text": "To trust in Jehovah is to stop depending on our limited human perspective and to lean entirely on the divine wisdom and sovereignty."
+        }
+      ]
+    }
+  }
+}

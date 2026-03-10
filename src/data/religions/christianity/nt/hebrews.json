@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "book": "Hebrews",
+    "author": "Paul",
+    "timeOfWriting": "About A.D. 67",
+    "placeOfWriting": "In Rome or Ephesus",
+    "subject": "Christ Being Superior to Judaism and Everything Related to It, and the New Covenant Being Better Than the Old Covenant.",
+    "totalChapters": 13
+  },
+  "chapters": {
+    "1": [
+      "God, having spoken of old in many portions and in many ways to the fathers in the prophets,",
+      "Has at the last of these days spoken to us in the Son, whom He appointed Heir of all things, through whom also He made the universe."
+    ],
+    "4": [
+      "For the word of God is living and operative and sharper than any two-edged sword... and able to discern the thoughts and intentions of the heart.",
+      "Let us therefore come forward with boldness to the throne of grace that we may receive mercy and find grace for timely help."
+    ],
+    "11": [
+      "Now faith is the substantiation of things hoped for, the conviction of things not seen."
+    ],
+    "12": ["Looking away unto Jesus, the Author and Perfecter of our faith."]
+  },
+  "footnotes": {
+    "4": {
+      "12": [
+        {
+          "id": "4.12a",
+          "word": "sword",
+          "text": "The living word of God functions as a sword to divide our soul from our spirit, enabling us to touch God in our spirit without being entangled by our wandering soul."
+        }
+      ],
+      "16": [
+        {
+          "id": "4.16a",
+          "word": "throne of grace",
+          "text": "The throne of grace is in the heavens, but since we are joined to the Lord in our spirit, we touch this throne whenever we turn to our spirit."
+        }
+      ]
+    }
+  }
+}

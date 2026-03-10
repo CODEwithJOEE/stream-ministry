@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "book": "Mark",
+    "author": "Mark",
+    "timeOfWriting": "About A.D. 60—70",
+    "placeOfWriting": "In Rome",
+    "subject": "The Gospel of God — Proclaiming That Jesus Christ Is the Slave-Savior.",
+    "totalChapters": 16
+  },
+  "chapters": {
+    "1": [
+      "The beginning of the gospel of Jesus Christ, the Son of God.",
+      "And immediately, coming up out of the water, He saw the heavens being parted and the Spirit like a dove descending upon Him."
+    ],
+    "10": [
+      "For even the Son of Man did not come to be served, but to serve and to give His life as a ransom for many."
+    ]
+  },
+  "footnotes": {
+    "10": {
+      "45": [
+        {
+          "id": "10.45a",
+          "word": "ransom",
+          "text": "As the Slave-Savior, Christ’s service reached its peak in the giving of His own life to pay the price for man's redemption."
+        }
+      ]
+    }
+  }
+}
