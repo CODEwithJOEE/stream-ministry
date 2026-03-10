@@ -50,17 +50,27 @@ export default function App() {
 
   const handleManualNav = async (ref) => {
     const targetReligion = ref.religion || "christianity";
+    // 1. Fetch the data FIRST
     const data = await loadBookData(targetReligion, ref.book);
 
-    setSelectedReligion(targetReligion);
-    setSelectedBook({ id: ref.book });
-    setSelectedChapter(ref.chapter || 1);
-    setSelectedVerse(ref.verse || null);
-    setLoadedBookData(data);
-    setSearchQuery(""); // Clear search on navigation
-    setView("reader");
+    if (data) {
+      // 2. Only update states if data was successfully found
+      setLoadedBookData(data);
+      setSelectedReligion(targetReligion);
+      setSelectedBook({ id: ref.book });
+      setSelectedChapter(ref.chapter || 1);
+      setSelectedVerse(ref.verse || null);
+      setSearchQuery("");
+
+      // 3. Switch the view LAST
+      setView("reader");
+    } else {
+      console.error("Could not find book data for:", ref.book);
+      // Optional: alert("Scripture not found");
+    }
   };
 
+  // This is correctly placed! It will update whenever searchQuery changes.
   const filteredNotes = Object.entries(globalFootnotes).filter(
     ([word, note]) => {
       const query = searchQuery.toLowerCase();
@@ -93,12 +103,86 @@ export default function App() {
     const match = part.match(/([1-3]?\s?[A-Z][a-z.]+)\s(\d+)(?::(\d+))?/i);
     if (match) {
       const [_, bookPart, chap, verse] = match;
-      const cleanBook = bookPart.toLowerCase().replace(/\./g, "").trim();
+
+      // THE FIX: Standardize the shorthand to match your JSON filenames
+      const bookMap = {
+        gen: "genesis",
+        exo: "exodus",
+        lev: "leviticus",
+        num: "numbers",
+        deut: "deuteronomy",
+        josh: "joshua",
+        judg: "judges",
+        sam: "samuel",
+        kings: "kings",
+        chron: "chronicles",
+        ezra: "ezra",
+        neh: "nehemiah",
+        esth: "esther",
+        job: "job",
+        psa: "psalms",
+        prov: "proverbs",
+        eccl: "ecclesiastes",
+        ss: "songofsongs",
+        isa: "isaiah",
+        jer: "jeremiah",
+        lam: "lamentations",
+        ezek: "ezekiel",
+        dan: "daniel",
+        hos: "hosea",
+        joel: "joel",
+        amos: "amos",
+        obad: "obadiah",
+        jonah: "jonah",
+        mic: "micah",
+        nah: "nahum",
+        hab: "habakkuk",
+        zeph: "zephaniah",
+        hag: "haggai",
+        zech: "zechariah",
+        mal: "malachi",
+        mat: "matthew",
+        matt: "matthew",
+        mark: "mark",
+        luke: "luke",
+        john: "john",
+        acts: "acts",
+        rom: "romans",
+        "1cor": "1corinthians",
+        "2cor": "2corinthians",
+        gal: "galatians",
+        eph: "ephesians",
+        phil: "philippians",
+        col: "colossians",
+        "1thes": "1thessalonians",
+        "2thes": "2thessalonians",
+        "1tim": "1timothy",
+        "2tim": "2timothy",
+        tit: "titus",
+        philem: "philemon",
+        heb: "hebrews",
+        james: "james",
+        "1pet": "1peter",
+        "2pet": "2peter",
+        "1john": "1john",
+        "2john": "2john",
+        "3john": "3john",
+        jude: "jude",
+        rev: "revelation",
+      };
+
+      const cleanBookPart = bookPart
+        .toLowerCase()
+        .replace(/\./g, "")
+        .replace(/\s/g, "")
+        .trim();
+      const mappedSlug = bookMap[cleanBookPart] || cleanBookPart;
+
       handleManualNav({
         religion: "christianity",
-        book: cleanBook,
-        chapter: parseInt(chap),
-        verse: verse ? parseInt(verse) : 1,
+        book: mappedSlug,
+        chapter: parseInt(chap, 10),
+        verse: verse ? parseInt(verse, 10) : 1,
       });
     }
   };
@@ -115,6 +199,8 @@ export default function App() {
             onClick={() => {
               setView("books");
               setSearchQuery("");
+              setSelectedBook(null); // Clear selected book
+              setLoadedBookData(null);
             }}
           >
             Stream Ministry
@@ -149,7 +235,7 @@ export default function App() {
               )}
             </div>
           </div>
-          <p className="text-gold-rich font-bold tracking-[0.4em] uppeDailyStreamCardrcase text-[10px]">
+          <p className="text-gold-rich font-bold tracking-[0.4em] uppercase text-[10px]">
             Holy Bible • Recovery Version
           </p>
         </header>

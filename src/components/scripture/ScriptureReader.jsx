@@ -18,24 +18,13 @@ export default function ScriptureReader({
   onBack,
   onNavigate,
 }) {
+  // 1. ALL HOOKS MUST BE AT THE TOP
   const [activeFootnote, setActiveFootnote] = useState(null);
   const verseRefs = useRef({});
 
-  if (!bookData || !bookData.chapters) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfcf8]">
-        <div className="w-12 h-12 border-4 border-yellow-200 border-t-yellow-600 rounded-full animate-spin mb-4"></div>
-        <p className="text-yellow-700 font-serif italic">Opening the Word...</p>
-      </div>
-    );
-  }
-
-  const chapterText = bookData.chapters[chapter.toString()];
-  const totalChapters = Object.keys(bookData.chapters).length;
-
-  // Scroll to Verse Logic
+  // 2. SCROLL TO VERSE EFFECT
   useEffect(() => {
-    if (initialVerse && verseRefs.current[initialVerse]) {
+    if (bookData && initialVerse && verseRefs.current[initialVerse]) {
       const timer = setTimeout(() => {
         verseRefs.current[initialVerse].scrollIntoView({
           behavior: "smooth",
@@ -50,12 +39,27 @@ export default function ScriptureReader({
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [initialVerse, chapter, bookSlug]);
+  }, [initialVerse, chapter, bookSlug, bookData]);
+
+  // 3. CONSOLIDATED LOADING GUARD (Must be after Hooks)
+  if (!bookData || !bookData.chapters || !bookData.metadata) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfcf8]">
+        <div className="w-12 h-12 border-4 border-yellow-200 border-t-yellow-600 rounded-full animate-spin mb-4"></div>
+        <p className="text-yellow-700 font-serif italic">Opening the Word...</p>
+      </div>
+    );
+  }
+
+  // 4. DERIVED DATA (Only safe to calculate after the guard)
+  const chapterText = bookData.chapters[chapter.toString()];
+  const totalChapters = Object.keys(bookData.chapters).length;
 
   const getNoteForWord = (word, vNum) => {
     const cleanWord = word
       .toLowerCase()
       .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "");
+
     const verseNotes =
       bookData.footnotes?.[chapter.toString()]?.[vNum.toString()] || [];
     const specificNote = verseNotes.find(
@@ -84,33 +88,87 @@ export default function ScriptureReader({
     if (!match) return;
 
     const [_, bookPart, targetChapter, targetVerse] = match;
+
     const bookMap = {
       gen: "genesis",
-      john: "john",
-      eph: "ephesians",
-      rev: "revelation",
-      col: "colossians",
+      exo: "exodus",
+      lev: "leviticus",
+      num: "numbers",
+      deut: "deuteronomy",
+      josh: "joshua",
+      judg: "judges",
+      sam: "samuel",
+      kings: "kings",
+      chron: "chronicles",
+      ezra: "ezra",
+      neh: "nehemiah",
+      esth: "esther",
+      job: "job",
       psa: "psalms",
+      prov: "proverbs",
+      eccl: "ecclesiastes",
+      ss: "songofsongs",
       isa: "isaiah",
+      jer: "jeremiah",
+      lam: "lamentations",
+      ezek: "ezekiel",
+      dan: "daniel",
+      hos: "hosea",
+      joel: "joel",
+      amos: "amos",
+      obad: "obadiah",
+      jonah: "jonah",
+      mic: "micah",
+      nah: "nahum",
+      hab: "habakkuk",
+      zeph: "zephaniah",
+      hag: "haggai",
+      zech: "zechariah",
+      mal: "malachi",
       mat: "matthew",
+      matt: "matthew",
+      mark: "mark",
+      luke: "luke",
+      john: "john",
+      acts: "acts",
       rom: "romans",
-      heb: "hebrews",
+      "1cor": "1corinthians",
+      "2cor": "2corinthians",
       gal: "galatians",
+      eph: "ephesians",
       phil: "philippians",
+      col: "colossians",
+      "1thes": "1thessalonians",
+      "2thes": "2thessalonians",
+      "1tim": "1timothy",
+      "2tim": "2timothy",
+      tit: "titus",
+      philem: "philemon",
+      heb: "hebrews",
+      james: "james",
+      "1pet": "1peter",
+      "2pet": "2peter",
+      "1john": "1john",
+      "2john": "2john",
+      "3john": "3john",
+      jude: "jude",
+      rev: "revelation",
     };
 
     const cleanBookPart = bookPart
       .toLowerCase()
+      .replace(/\./g, "")
       .replace(/\s/g, "")
-      .replace(".", "");
+      .trim();
     const mappedSlug = bookMap[cleanBookPart] || cleanBookPart;
 
     onNavigate({
-      religion,
+      religion: religion || "christianity",
       book: mappedSlug,
-      chapter: parseInt(targetChapter),
-      verse: targetVerse ? parseInt(targetVerse) : 1,
+      chapter: parseInt(targetChapter, 10),
+      verse: targetVerse ? parseInt(targetVerse, 10) : 1,
     });
+
     setActiveFootnote(null);
   };
 
@@ -127,31 +185,32 @@ export default function ScriptureReader({
           <BookOpen size={10} className="mr-1" /> {part}
         </button>
       ) : (
-        part // Ensure this is here so the regular text actually shows up!
+        part
       ),
     );
   };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-[#fdfcf8] selection:bg-yellow-200">
-      {/* Main Content */}
       <div
         className={`flex-1 transition-all duration-500 ${activeFootnote ? "md:mr-80" : ""}`}
       >
-        {/* Sticky Sub-Header */}
+        {/* HEADER */}
         <div className="sticky top-0 z-30 bg-[#fdfcf8]/90 backdrop-blur-md border-b border-yellow-100 px-6 py-3 flex justify-between items-center">
           <button
             onClick={onBack}
             className="text-slate-500 hover:text-yellow-700 flex items-center text-sm font-medium"
           >
-            <ArrowLeft size={16} className="mr-2" /> {bookData.metadata.book}
+            <ArrowLeft size={16} className="mr-2" />
+            {bookData.metadata?.book || "Back"}
           </button>
           <span className="font-serif italic font-bold text-stream-navy uppercase tracking-widest text-sm">
             Chapter {chapter}
           </span>
-          <div className="w-10"></div> {/* Spacer */}
+          <div className="w-10"></div>
         </div>
 
+        {/* CONTENT */}
         <div className="max-w-2xl mx-auto py-12 px-6">
           <div className="space-y-8">
             {chapterText &&
@@ -189,7 +248,7 @@ export default function ScriptureReader({
               })}
           </div>
 
-          {/* CHAPTER NAVIGATION FOOTER */}
+          {/* FOOTER NAV */}
           <div className="mt-20 pt-10 border-t border-yellow-100 flex justify-between items-center">
             <button
               disabled={chapter <= 1}
@@ -218,14 +277,10 @@ export default function ScriptureReader({
 
       {/* FOOTNOTE SIDEBAR */}
       <div
-        className={`fixed top-0 right-0 h-full bg-white border-l border-yellow-100 shadow-2xl transition-transform duration-500 z-50 w-full md:w-80 ${
-          activeFootnote ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full bg-white border-l border-yellow-100 shadow-2xl transition-transform duration-500 z-50 w-full md:w-80 ${activeFootnote ? "translate-x-0" : "translate-x-full"}`}
       >
         {activeFootnote && (
           <div className="p-8 h-full flex flex-col footnote-enter">
-            {" "}
-            {/* ADDED CLASS HERE */}
             <div className="flex justify-between items-center mb-8">
               <span className="text-[10px] font-bold text-gold-rich uppercase tracking-[0.3em]">
                 Study Note {activeFootnote.id}
