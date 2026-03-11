@@ -39,6 +39,31 @@ export const christianHymns = [
     category: "The High Peak",
     relatedBooks: ["john", "romans", "revelation"],
     lyrics: "What miracle! What mystery! / That God and man should blended be!",
-    audioUrl: "/audio/hymns/ns151.mp3",
+    audioUrl: "/audio/hymns/What-Miracle!-What-Mystery!.mp3",
+  },
+  {
+    id: "ns-190", // Assign a unique ID
+    title: "Lord Thou art all the offerings",
+    category: "The Offerings",
+    relatedBooks: ["leviticus"], // Matches metadata.book.toLowerCase()
+    audioUrl: "/audio/hymns/Lord-Thou-art-all-the-offerings.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-191",
+    title: "This is the Year of Jubilee",
+    category: "Jubilee",
+    relatedBooks: ["leviticus", "luke"],
+    audioUrl: "/audio/hymns/This_is_the_Year_of_Jubilee.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-132",
+    title: "Lord, I'm Your Vessel",
+    category: "God's Building",
+    relatedBooks: ["numbers", "romans", "2-timothy"],
+    // Standardizing the file name based on your previous entries
+    audioUrl: "/audio/hymns/I'm-Your-Vessel.mp3",
+    isExternal: false,
   },
 ];

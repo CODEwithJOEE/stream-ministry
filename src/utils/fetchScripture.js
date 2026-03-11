@@ -1,9 +1,10 @@
 export const loadBookData = async (religion, bookSlug) => {
   try {
-    const cleanSlug = bookSlug.toLowerCase().replace(/\./g, "").trim();
+    // Ensure slug matches your filenames exactly (e.g., "1-corinthians")
+    const cleanSlug = bookSlug.toLowerCase().trim();
     const cleanReligion = religion.toLowerCase().trim();
 
-    // 1. UPDATED: Added hyphens to match your filenames in image_6d3e56.png
+    // List MUST match the exact cleanSlugs used in filenames
     const ntBooks = [
       "matthew",
       "mark",
@@ -34,19 +35,18 @@ export const loadBookData = async (religion, bookSlug) => {
       "revelation",
     ];
 
-    // 2. Determine the subfolder
+    // Determine subfolder
     const testament = ntBooks.includes(cleanSlug) ? "nt" : "ot";
 
-    // 3. Vite dynamic import
+    // Dynamic import using Vite syntax
     const data = await import(
       `../data/religions/${cleanReligion}/${testament}/${cleanSlug}.json`
     );
 
     return data.default;
   } catch (error) {
-    // Corrected the console log to show you the EXACT path it tried to reach
     console.error(
-      `Fetch failed for: ${bookSlug}. Check if file exists in the ${ntBooks.includes(bookSlug) ? "nt" : "ot"} folder.`,
+      `Missing at: src/data/religions/${religion}/${ntBooks?.includes(bookSlug) ? "nt" : "ot"}/${bookSlug}.json`,
     );
     return null;
   }

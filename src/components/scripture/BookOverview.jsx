@@ -7,8 +7,8 @@ import {
   Clock,
   Search,
   Play,
+  BookOpen,
 } from "lucide-react";
-// REMOVED: judaismHymns import to fix the 404 error
 import { christianHymns } from "../../data/religions/christianity/hymnConnections";
 
 export default function BookOverview({
@@ -16,6 +16,7 @@ export default function BookOverview({
   onSelectChapter,
   onBack,
   onPlayHymn,
+  onNavigate, // Passed from App.jsx to handle scripture links
 }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +24,126 @@ export default function BookOverview({
 
   const { metadata } = bookData;
 
-  // Filter hymns specifically for the current Christian book
+  // In BookOverview.jsx
+
+  const handleSearchLinkClick = (fullRef) => {
+    // Matches "Deut. 31:9" or "Deut. 24"
+    const match = fullRef.match(/([1-3]?\s?[A-Z][a-z.]+)\s(\d+)(?::(\d+))?/i);
+
+    if (match) {
+      const [_, bookPart, chap, verse] = match;
+
+      const bookMap = {
+        gen: "genesis",
+        exo: "exodus",
+        lev: "leviticus",
+        num: "numbers",
+        deut: "deuteronomy",
+        josh: "joshua",
+        judg: "judges",
+        ruth: "ruth",
+        "1sam": "1-samuel",
+        "2sam": "2-samuel",
+        "1kings": "1-kings",
+        "2kings": "2-kings",
+        "1chron": "1-chronicles",
+        "2chron": "2-chronicles",
+        ezra: "ezra",
+        neh: "nehemiah",
+        esth: "esther",
+        job: "job",
+        psa: "psalms",
+        prov: "proverbs",
+        eccl: "ecclesiastes",
+        ss: "songofsongs",
+        isa: "isaiah",
+        jer: "jeremiah",
+        lam: "lamentations",
+        ezek: "ezekiel",
+        dan: "daniel",
+        hos: "hosea",
+        joel: "joel",
+        amos: "amos",
+        obad: "obadiah",
+        jonah: "jonah",
+        mic: "micah",
+        nah: "nahum",
+        hab: "habakkuk",
+        zeph: "zephaniah",
+        hag: "haggai",
+        zech: "zechariah",
+        mal: "malachi",
+        mat: "matthew",
+        matt: "matthew",
+        mark: "mark",
+        luke: "luke",
+        john: "john",
+        acts: "acts",
+        rom: "romans",
+        "1cor": "1-corinthians",
+        "2cor": "2-corinthians",
+        gal: "galatians",
+        eph: "ephesians",
+        phil: "philippians",
+        col: "colossians",
+        "1thes": "1-thessalonians",
+        "2thes": "2-thessalonians",
+        "1tim": "1-timothy",
+        "2tim": "2-timothy",
+        tit: "titus",
+        philem: "philemon",
+        heb: "hebrews",
+        james: "james",
+        "1pet": "1-peter",
+        "2pet": "2-peter",
+        "1john": "1-john",
+        "2john": "2-john",
+        "3john": "3-john",
+        jude: "jude",
+        rev: "revelation",
+      };
+
+      const cleanBookPart = bookPart
+        .toLowerCase()
+        .replace(/\./g, "")
+        .replace(/\s/g, "")
+        .trim();
+      const mappedSlug = bookMap[cleanBookPart] || cleanBookPart;
+
+      onNavigate({
+        religion: "christianity",
+        book: mappedSlug,
+        chapter: parseInt(chap, 10),
+        verse: verse ? parseInt(verse, 10) : 1, // If no verse, default to 1
+      });
+    }
+  };
+
+  const renderTextWithLinks = (text) => {
+    if (!text) return "";
+
+    // FIXED REGEX: Uses a non-capturing group (?:) for the colon/verse
+    // so that split() only captures the full reference string.
+    const refRegex = /\(([1-3]?\s?[A-Z][a-z.]+\s\d+(?::\d+)?)\)/g;
+
+    return text.split(refRegex).map((part, i) => {
+      if (i % 2 === 1) {
+        return (
+          <button
+            key={i}
+            onClick={() => handleSearchLinkClick(part)}
+            className="text-yellow-700 font-bold hover:underline bg-yellow-100/60 px-1.5 py-0.5 rounded mx-0.5 inline-flex items-center transition-all whitespace-nowrap"
+          >
+            <BookOpen size={12} className="mr-1" />
+            {part}
+          </button>
+        );
+      }
+      return part;
+    });
+  };
+
+  // Filter hymns for the current book
   const suggestedHymns = christianHymns.filter((h) =>
     h.relatedBooks.includes(metadata.book.toLowerCase()),
   );
@@ -35,7 +155,6 @@ export default function BookOverview({
 
   return (
     <div className="max-w-4xl mx-auto p-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-24">
-      {/* Back Button */}
       <button
         onClick={onBack}
         className="flex items-center text-yellow-700 mb-8 hover:text-yellow-600 font-medium transition-colors group"
@@ -47,30 +166,32 @@ export default function BookOverview({
         Back to Books
       </button>
 
-      {/* Book Title */}
       <h2 className="text-6xl font-serif font-bold text-stream-navy mb-2 tracking-tight">
         {metadata.book}
       </h2>
       <div className="h-1 w-20 bg-yellow-500 mb-10 rounded-full" />
 
-      {/* Historical Information Card */}
       <div className="bg-white rounded-3xl border border-yellow-200 p-8 md:p-10 shadow-sm mb-12 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-full blur-3xl -mr-16 -mt-16 opacity-50" />
         <h3 className="text-yellow-600 font-bold uppercase tracking-[0.2em] text-xs mb-8">
           Historical Information
         </h3>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 text-sm">
+          {/* Author */}
           <div className="flex items-start space-x-4">
             <div className="p-2 bg-yellow-50 rounded-lg">
               <User className="text-yellow-600" size={20} />
             </div>
             <div>
               <p className="text-gray-400 font-medium mb-0.5">Author</p>
-              <p className="text-stream-navy font-bold text-base">
-                {metadata.author}
-              </p>
+              <div className="text-stream-navy font-bold text-base leading-relaxed">
+                {renderTextWithLinks(metadata.author)}
+              </div>
             </div>
           </div>
+
+          {/* Time of Writing */}
           <div className="flex items-start space-x-4">
             <div className="p-2 bg-yellow-50 rounded-lg">
               <History className="text-yellow-600" size={20} />
@@ -79,11 +200,13 @@ export default function BookOverview({
               <p className="text-gray-400 font-medium mb-0.5">
                 Time of Writing
               </p>
-              <p className="text-stream-navy font-bold text-base">
-                {metadata.timeOfWriting}
-              </p>
+              <div className="text-stream-navy font-bold text-base leading-relaxed">
+                {renderTextWithLinks(metadata.timeOfWriting)}
+              </div>
             </div>
           </div>
+
+          {/* Place of Writing */}
           <div className="flex items-start space-x-4">
             <div className="p-2 bg-yellow-50 rounded-lg">
               <MapPin className="text-yellow-600" size={20} />
@@ -92,11 +215,14 @@ export default function BookOverview({
               <p className="text-gray-400 font-medium mb-0.5">
                 Place of Writing
               </p>
-              <p className="text-stream-navy font-bold text-base">
-                {metadata.placeOfWriting}
-              </p>
+              <div className="text-stream-navy font-bold text-base leading-relaxed">
+                {/* ADD THE RENDER FUNCTION HERE */}
+                {renderTextWithLinks(metadata.placeOfWriting)}
+              </div>
             </div>
           </div>
+
+          {/* Time Period Covered */}
           <div className="flex items-start space-x-4">
             <div className="p-2 bg-yellow-50 rounded-lg">
               <Clock className="text-yellow-600" size={20} />
@@ -105,12 +231,13 @@ export default function BookOverview({
               <p className="text-gray-400 font-medium mb-0.5">
                 Time Period Covered
               </p>
-              <p className="text-stream-navy font-bold text-base">
-                {metadata.timePeriodCovered}
-              </p>
+              <div className="text-stream-navy font-bold text-base leading-relaxed">
+                {renderTextWithLinks(metadata.timePeriodCovered)}
+              </div>
             </div>
           </div>
         </div>
+
         <div className="mt-10 pt-8 border-t border-yellow-100">
           <p className="text-yellow-600 font-bold text-xs uppercase tracking-[0.2em] mb-4">
             Subject
@@ -121,32 +248,38 @@ export default function BookOverview({
         </div>
       </div>
 
-      {/* Related Hymns */}
+      {/* Related Hymns Section */}
       <div className="mb-12">
         <h3 className="text-yellow-600 font-bold uppercase tracking-widest text-xs mb-6">
           Related Hymns
         </h3>
         <div className="space-y-3">
-          {suggestedHymns.map((hymn) => (
-            <button
-              key={hymn.id}
-              onClick={() => onPlayHymn(hymn)}
-              className="w-full flex items-center justify-between p-4 bg-yellow-50/50 border border-yellow-100 rounded-xl hover:bg-yellow-50 transition-colors group"
-            >
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-white mr-4 group-hover:scale-110 transition-transform">
-                  <Play size={16} fill="currentColor" />
+          {suggestedHymns.length > 0 ? (
+            suggestedHymns.map((hymn) => (
+              <button
+                key={hymn.id}
+                onClick={() => onPlayHymn(hymn)}
+                className="w-full flex items-center justify-between p-4 bg-yellow-50/50 border border-yellow-100 rounded-xl hover:bg-yellow-50 transition-colors group"
+              >
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-white mr-4 group-hover:scale-110 transition-transform">
+                    <Play size={16} fill="currentColor" />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-bold text-stream-navy">{hymn.title}</p>
+                    <p className="text-xs text-yellow-700">{hymn.category}</p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="font-bold text-stream-navy">{hymn.title}</p>
-                  <p className="text-xs text-yellow-700">{hymn.category}</p>
-                </div>
-              </div>
-              <span className="text-xs font-mono text-yellow-600/50">
-                #{hymn.id}
-              </span>
-            </button>
-          ))}
+                <span className="text-xs font-mono text-yellow-600/50">
+                  #{hymn.id}
+                </span>
+              </button>
+            ))
+          ) : (
+            <p className="text-gray-400 italic text-sm">
+              No hymns connected to this book yet.
+            </p>
+          )}
         </div>
       </div>
 

@@ -24,22 +24,18 @@ export default function ScriptureReader({
 
   // 2. SCROLL TO VERSE EFFECT
   useEffect(() => {
-    if (bookData && initialVerse && verseRefs.current[initialVerse]) {
-      const timer = setTimeout(() => {
-        verseRefs.current[initialVerse].scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-
-        const el = verseRefs.current[initialVerse];
-        el.classList.add("bg-yellow-100/50", "ring-2", "ring-yellow-200");
+    if (initialVerse) {
+      const element = document.getElementById(`verse-${initialVerse}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Add a temporary highlight class
+        element.classList.add("bg-yellow-200/50", "rounded");
         setTimeout(() => {
-          el.classList.remove("bg-yellow-100/50", "ring-2", "ring-yellow-200");
-        }, 3000);
-      }, 500);
-      return () => clearTimeout(timer);
+          element.classList.remove("bg-yellow-200/50");
+        }, 3000); // Highlight fades after 3 seconds
+      }
     }
-  }, [initialVerse, chapter, bookSlug, bookData]);
+  }, [initialVerse, chapter, bookData]);
 
   // 3. CONSOLIDATED LOADING GUARD (Must be after Hooks)
   if (!bookData || !bookData.chapters || !bookData.metadata) {
@@ -226,8 +222,10 @@ export default function ScriptureReader({
               chapterText.map((verse, vIdx) => {
                 const vNum = vIdx + 1;
                 return (
+                  // Inside ScriptureReader.jsx mapping
                   <div
                     key={vIdx}
+                    id={`verse-${vNum}`} // This MUST match the id used in your scroll useEffect
                     ref={(el) => (verseRefs.current[vNum] = el)}
                     className="group relative flex items-start space-x-6 p-2 rounded-2xl transition-all duration-500"
                   >

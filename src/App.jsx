@@ -274,15 +274,14 @@ export default function App() {
               <DailyStreamCard
                 onRead={handleManualNav}
                 onPlay={(streamHymn) => {
-                  // This finds the song in your library that has the audio path!
+                  // This looks for the ID from dailySchedule inside your full hymnConnections list
                   const fullHymn = christianHymns.find(
                     (h) => h.id === streamHymn.id,
                   );
                   if (fullHymn) {
-                    setActiveHymn(fullHymn);
+                    setActiveHymn(fullHymn); // Opens your new smooth player
                   } else {
-                    // Fallback: if id doesn't match, play the first one in the list so it doesn't buffer
-                    setActiveHymn(christianHymns[0]);
+                    setActiveHymn(christianHymns[0]); // Fallback
                   }
                 }}
               />
@@ -303,6 +302,7 @@ export default function App() {
               }}
               onBack={() => setView("books")}
               onPlayHymn={setActiveHymn}
+              onNavigate={handleManualNav} // This is crucial!
             />
           )}
 

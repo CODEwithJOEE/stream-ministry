@@ -15,3 +15,6 @@
 .header-glow {
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
+.pb-safe-player {
+  padding-bottom: 120px; /* This ensures nothing gets stuck behind the player */
+}

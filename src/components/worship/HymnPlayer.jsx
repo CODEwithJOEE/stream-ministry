@@ -1,76 +1,145 @@
 import React, { useState, useEffect, useRef } from "react";
-import { X, Music, Loader2 } from "lucide-react";
+import {
+  X,
+  Music,
+  Loader2,
+  ChevronDown,
+  ChevronUp,
+  Play,
+  Pause,
+} from "lucide-react";
 
 export default function HymnPlayer({ activeHymn, onClose }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef(null);
 
-  // Reset loading state whenever a new hymn is selected
   useEffect(() => {
     setIsLoading(true);
+    setIsPlaying(true);
+    // Auto-expand if a new song starts
+    setIsMinimized(false);
   }, [activeHymn?.id]);
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   if (!activeHymn) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 animate-in slide-in-from-bottom-full duration-500">
-      <div className="max-w-xl mx-auto mb-8 px-6">
-        <div className="bg-white/95 backdrop-blur-xl border border-yellow-200 shadow-2xl rounded-3xl p-6 relative overflow-hidden">
-          {/* Subtle Progress Bar Background */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-yellow-100/30" />
-
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
+    // MAIN CONTAINER: Added scale and shadow transition
+    <div
+      className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "translate-y-0" : "translate-y-0"}`}
+    >
+      <div className="max-w-xl mx-auto mb-4 md:mb-8 px-4 md:px-6">
+        <div
+          className={`bg-white/95 backdrop-blur-xl border border-yellow-200 rounded-3xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "shadow-lg scale-95" : "shadow-2xl scale-100"}`}
+        >
+          <div
+            className="p-4 md:p-6 cursor-pointer flex items-center justify-between"
+            onClick={() => setIsMinimized(!isMinimized)}
+          >
+            <div className="flex items-center gap-3 md:gap-4">
               <div className="relative">
-                <div className="p-3 bg-yellow-500 rounded-2xl text-white shadow-lg shadow-yellow-200">
+                {/* Corrected the template literal below */}
+                <div
+                  className={`p-2 md:p-3 bg-yellow-500 rounded-2xl text-white shadow-lg transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "scale-90" : "scale-100"}`}
+                >
                   {isLoading ? (
-                    <Loader2 size={20} className="animate-spin" />
+                    <Loader2 size={18} className="animate-spin" />
                   ) : (
-                    <Music size={20} />
+                    <Music size={18} />
                   )}
                 </div>
-                {/* Visual pulse effect while loading */}
-                {isLoading && (
-                  <div className="absolute inset-0 bg-yellow-400 rounded-2xl animate-ping opacity-20" />
-                )}
               </div>
 
-              <div>
-                <h4 className="font-bold text-stream-navy text-lg leading-tight">
+              <div className="flex flex-col">
+                <h4 className="font-bold text-stream-navy text-sm md:text-lg leading-tight truncate max-w-[140px] sm:max-w-none">
                   {activeHymn.title}
                 </h4>
-                <p className="text-xs text-yellow-700 font-bold uppercase tracking-widest flex items-center gap-2">
-                  {activeHymn.category}
-                  {isLoading && (
-                    <span className="lowercase font-normal italic text-slate-400">
-                      — buffering...
-                    </span>
-                  )}
-                </p>
+                {/* Cross-fade status text */}
+                <div className="relative h-4 overflow-hidden mt-0.5 md:mt-1">
+                  <p
+                    className={`absolute top-0 left-0 text-[10px] text-yellow-700 font-bold uppercase tracking-widest transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}`}
+                  >
+                    {activeHymn.category}
+                  </p>
+                  <span
+                    className={`absolute top-0 left-0 text-[10px] text-yellow-600 font-bold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                  >
+                    {isPlaying ? "NOW PLAYING" : "PAUSED"}
+                  </span>
+                </div>
               </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-600"
-            >
-              <X size={24} />
-            </button>
+            <div className="flex items-center gap-1 md:gap-2">
+              {/* Fade in/out the Play/Pause shortcut */}
+              <div
+                className={`transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}
+              >
+                {!isLoading && (
+                  <button
+                    onClick={togglePlay}
+                    className="p-2 bg-yellow-50 text-yellow-600 rounded-full hover:bg-yellow-100 transition-colors mr-1"
+                  >
+                    {isPlaying ? (
+                      <Pause size={16} fill="currentColor" />
+                    ) : (
+                      <Play size={16} fill="currentColor" />
+                    )}
+                  </button>
+                )}
+              </div>
+
+              <button
+                className={`p-2 text-slate-400 hover:text-yellow-600 transition-transform duration-700 ${isMinimized ? "rotate-180" : "rotate-0"}`}
+              >
+                <ChevronDown size={20} />
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+                className="p-2 hover:bg-red-50 rounded-full text-slate-400 hover:text-red-500 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
-          <div className="relative group">
-            <audio
-              ref={audioRef}
-              key={activeHymn.id}
-              controls
-              autoPlay
-              onCanPlay={() => setIsLoading(false)} // Hides spinner when ready
-              onWaiting={() => setIsLoading(true)} // Shows spinner if connection drops
-              className="w-full h-12 accent-yellow-600 custom-audio-player"
-              src={activeHymn.audioUrl}
-            >
-              Your browser does not support the audio element.
-            </audio>
+          {/* TRANSITION CONTAINER: Added max-height and padding transition */}
+          <div
+            className={`px-6 pb-6 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "max-h-0 pt-0 opacity-0 overflow-hidden" : "max-h-32 pt-0 opacity-100"}`}
+          >
+            <div className="relative group">
+              <audio
+                ref={audioRef}
+                key={activeHymn.id}
+                controls
+                autoPlay
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                onCanPlay={() => setIsLoading(false)}
+                onWaiting={() => setIsLoading(true)}
+                className="w-full h-12 accent-yellow-600"
+                src={activeHymn.audioUrl}
+              >
+                Your browser does not support the audio element.
+              </audio>
+            </div>
           </div>
         </div>
       </div>
