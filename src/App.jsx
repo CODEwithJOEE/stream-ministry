@@ -84,7 +84,7 @@ export default function App() {
         {/* 1. TOP NAVIGATION & HEADER */}
         <header className="pt-10 pb-6 px-6 text-center bg-white/40 backdrop-blur-sm sticky top-0 z-50 border-b border-yellow-100/50">
           <h1
-            className="text-4xl md:text-6xl font-serif font-bold text-stream-navy mb-4 tracking-tighter cursor-pointer"
+            className="text-4xl md:text-6xl font-serif font-bold text-stream-navy mb-2 tracking-tighter cursor-pointer"
             onClick={() => {
               setView("books");
               setSearchQuery("");
@@ -93,7 +93,12 @@ export default function App() {
             Stream Ministry
           </h1>
 
-          {/* WORD / WORSHIP TOGGLE AT TOP */}
+          {/* RESTORED SUBTITLE */}
+          <p className="text-[10px] font-bold text-gold-rich uppercase tracking-[0.3em] mb-4">
+            Holy Bible • Recovery Version
+          </p>
+
+          {/* WORD / WORSHIP TOGGLE */}
           <div className="flex justify-center gap-3 mb-6">
             <button
               onClick={() => setView("books")}
