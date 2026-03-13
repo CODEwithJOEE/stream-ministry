@@ -67,7 +67,7 @@ export const dailySchedule = [
       verse: 26,
     },
     versePreview: "Let us make man in our image, according to our likeness...",
-    hymn: { id: "ns-132", title: "I'm Your Vessel" },
+    hymn: { id: "ns-132", title: "Lord, I'm Your Vessel" }, // Updated Title
     message:
       "You were created as a vessel to contain, express, and represent God.",
     exercise:

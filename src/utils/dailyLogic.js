@@ -1,6 +1,14 @@
 import { christianHymns } from "../data/religions/christianity/hymnConnections";
 
-// Chapter counts to ensure the randomizer stays within bounds
+// Helper function to turn "1-timothy" into "1 Timothy"
+const formatBookName = (slug) => {
+  if (!slug) return "";
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const bookChapterMap = {
   genesis: 50,
   exodus: 40,
@@ -72,18 +80,21 @@ const bookChapterMap = {
 
 export const getDailyContent = () => {
   const now = new Date();
+  // Creates a unique number for today (e.g., 20260313)
   const dateSeed =
     now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
 
+  // Pick the hymn and book
   const dailyHymn = christianHymns[dateSeed % christianHymns.length];
   const bookList = dailyHymn.relatedBooks || ["genesis"];
   const selectedBook = bookList[dateSeed % bookList.length];
 
-  // 1. Get the max chapters for the selected book, default to 1 if not found
+  // Logic for picking the chapter
   const maxChapters = bookChapterMap[selectedBook] || 1;
-
-  // 2. Pick a stable "Random" chapter within the correct range
   const selectedChapter = (dateSeed % maxChapters) + 1;
+
+  // Format the name for display
+  const cleanBookName = formatBookName(selectedBook);
 
   return {
     id: `daily-${dateSeed}`,
@@ -96,9 +107,10 @@ export const getDailyContent = () => {
       chapter: selectedChapter,
       verse: 1,
     },
-    versePreview: `Entering into the fellowship of ${selectedBook.charAt(0).toUpperCase() + selectedBook.slice(1)} Chapter ${selectedChapter}...`,
+    // Now it uses the clean name!
+    versePreview: `Entering into the fellowship of ${cleanBookName} Chapter ${selectedChapter}...`,
     hymn: dailyHymn,
     message: `The theme today is ${dailyHymn.category}. Let the Word wash over you as you listen to "${dailyHymn.title}."`,
-    exercise: `Read through Chapter ${selectedChapter} and find one phrase that speaks to your spirit today.`,
+    exercise: `Read through ${cleanBookName} Chapter ${selectedChapter} and find one phrase that speaks to your spirit today.`,
   };
 };
