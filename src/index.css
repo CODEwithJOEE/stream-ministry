@@ -66,6 +66,3 @@
     background: #cbd5e1;
   }
 }
-.pb-safe-player {
-  padding-bottom: 120px; /* This ensures nothing gets stuck behind the player */
-}
