@@ -82,7 +82,7 @@ export default function App() {
 
       <div className="relative z-10">
         {/* 1. TOP NAVIGATION & HEADER */}
-        <header className="pt-10 pb-6 px-6 text-center bg-white/40 backdrop-blur-sm sticky top-0 z-50 border-b border-yellow-100/50">
+        <header className="pt-10 pb-6 px-6 text-center bg-[#fdfcf8] sticky top-0 z-50 border-b border-yellow-100/50">
           <h1
             className="text-4xl md:text-6xl font-serif font-bold text-stream-navy mb-2 tracking-tighter cursor-pointer"
             onClick={() => {
