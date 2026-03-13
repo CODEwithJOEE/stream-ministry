@@ -27,22 +27,46 @@ export default function ScriptureReader({
 
   // 2. SCROLL TO VERSE EFFECT
   useEffect(() => {
-    if (initialVerse) {
-      const element = document.getElementById(`verse-${initialVerse}`);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-        // Add a temporary highlight class
-        element.classList.add("bg-yellow-200/50", "rounded");
-        setTimeout(() => {
-          element.classList.remove("bg-yellow-200/50");
-        }, 3000); // Highlight fades after 3 seconds
-      }
+    if (initialVerse && bookData) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(`verse-${initialVerse}`);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+
+          // Add highlight and pulse animation
+          // 'animate-pulse' is a built-in Tailwind class
+          element.classList.add(
+            "bg-yellow-200/50",
+            "ring-2",
+            "ring-yellow-400/40",
+            "animate-pulse",
+          );
+
+          setTimeout(() => {
+            // Remove the pulse and highlight after 4 seconds
+            element.classList.remove(
+              "bg-yellow-200/50",
+              "ring-2",
+              "ring-yellow-400/40",
+              "animate-pulse",
+            );
+          }, 4000);
+        }
+      }, 150); // Slightly longer delay to ensure smooth transition
+
+      return () => clearTimeout(timer);
     }
   }, [initialVerse, chapter, bookData]);
-  // Reset scroll to top when chapter changes
+
+  // Reset scroll to top ONLY when chapter changes without a specific verse
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [chapter]);
+    if (!initialVerse) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [chapter, initialVerse]);
   // 3. CONSOLIDATED LOADING GUARD (Must be after Hooks)
   if (!bookData || !bookData.chapters || !bookData.metadata) {
     return (
