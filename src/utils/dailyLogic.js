@@ -1,26 +1,104 @@
-// src/utils/dailyLogic.js
-import { hymnConnections } from "../data/hymnConnections";
+import { christianHymns } from "../data/religions/christianity/hymnConnections";
+
+// Chapter counts to ensure the randomizer stays within bounds
+const bookChapterMap = {
+  genesis: 50,
+  exodus: 40,
+  leviticus: 27,
+  numbers: 36,
+  deuteronomy: 34,
+  joshua: 24,
+  judges: 21,
+  ruth: 4,
+  "1-samuel": 31,
+  "2-samuel": 24,
+  "1-kings": 22,
+  "2-kings": 25,
+  "1-chronicles": 29,
+  "2-chronicles": 36,
+  ezra: 10,
+  nehemiah: 13,
+  esther: 10,
+  job: 42,
+  psalms: 150,
+  proverbs: 31,
+  ecclesiastes: 12,
+  songofsongs: 8,
+  isaiah: 66,
+  jeremiah: 52,
+  lamentations: 5,
+  ezekiel: 48,
+  daniel: 12,
+  hosea: 14,
+  joel: 3,
+  amos: 9,
+  obadiah: 1,
+  jonah: 4,
+  micah: 7,
+  nahum: 3,
+  habakkuk: 3,
+  zephaniah: 3,
+  haggai: 2,
+  zechariah: 14,
+  malachi: 4,
+  matthew: 28,
+  mark: 16,
+  luke: 24,
+  john: 21,
+  acts: 28,
+  romans: 16,
+  "1-corinthians": 16,
+  "2-corinthians": 13,
+  galatians: 6,
+  ephesians: 6,
+  philippians: 4,
+  colossians: 4,
+  "1-thessalonians": 5,
+  "2-thessalonians": 3,
+  "1-timothy": 6,
+  "2-timothy": 4,
+  titus: 3,
+  philemon: 1,
+  hebrews: 13,
+  james: 5,
+  "1-peter": 5,
+  "2-peter": 3,
+  "1-john": 5,
+  "2-john": 1,
+  "3-john": 1,
+  jude: 1,
+  revelation: 22,
+};
 
 export const getDailyContent = () => {
-  // Use the current date string (YYYY-MM-DD) as a seed
-  const today = new Date().toISOString().split("T")[0];
+  const now = new Date();
+  const dateSeed =
+    now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
 
-  // A simple pseudo-random generator based on the date string
-  const seed = today.split("-").reduce((acc, char) => acc + parseInt(char), 0);
+  const dailyHymn = christianHymns[dateSeed % christianHymns.length];
+  const bookList = dailyHymn.relatedBooks || ["genesis"];
+  const selectedBook = bookList[dateSeed % bookList.length];
 
-  // For this example, we pick from the Hymn list first,
-  // then use that hymn's tag to find the scripture
-  const dailyHymn = hymnConnections[seed % hymnConnections.length];
+  // 1. Get the max chapters for the selected book, default to 1 if not found
+  const maxChapters = bookChapterMap[selectedBook] || 1;
+
+  // 2. Pick a stable "Random" chapter within the correct range
+  const selectedChapter = (dateSeed % maxChapters) + 1;
 
   return {
-    date: today,
-    hymn: dailyHymn,
-    // Extract the scripture reference from the hymn's tag
-    // e.g., "christianity-psalms-23" -> { religion: "christianity", book: "psalms", chapter: 23 }
-    ref: {
-      religion: dailyHymn.tags[0].split("-")[0],
-      book: dailyHymn.tags[0].split("-")[1],
-      chapter: dailyHymn.tags[0].split("-")[2] || 1,
+    id: `daily-${dateSeed}`,
+    title: dailyHymn.title,
+    category: dailyHymn.category || "Daily Ministry",
+    author: dailyHymn.author || "The Spirit",
+    verseRef: {
+      religion: "christianity",
+      book: selectedBook,
+      chapter: selectedChapter,
+      verse: 1,
     },
+    versePreview: `Entering into the fellowship of ${selectedBook.charAt(0).toUpperCase() + selectedBook.slice(1)} Chapter ${selectedChapter}...`,
+    hymn: dailyHymn,
+    message: `The theme today is ${dailyHymn.category}. Let the Word wash over you as you listen to "${dailyHymn.title}."`,
+    exercise: `Read through Chapter ${selectedChapter} and find one phrase that speaks to your spirit today.`,
   };
 };

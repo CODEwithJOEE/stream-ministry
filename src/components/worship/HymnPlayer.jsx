@@ -51,10 +51,12 @@ export default function HymnPlayer({ activeHymn, onClose }) {
           >
             <div className="flex items-center gap-3 md:gap-4">
               <div className="relative">
-                {/* Corrected the template literal below */}
                 <div
-                  className={`p-2 md:p-3 bg-yellow-500 rounded-2xl text-white shadow-lg transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMinimized ? "scale-90" : "scale-100"}`}
+                  className={`p-2 md:p-3 bg-yellow-500 rounded-2xl text-white shadow-lg transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    isMinimized ? "scale-90" : "scale-100"
+                  }`}
                 >
+                  {/* Clean ternary logic for the icon */}
                   {isLoading ? (
                     <Loader2 size={18} className="animate-spin" />
                   ) : (
@@ -134,8 +136,9 @@ export default function HymnPlayer({ activeHymn, onClose }) {
                 onPause={() => setIsPlaying(false)}
                 onCanPlay={() => setIsLoading(false)}
                 onWaiting={() => setIsLoading(true)}
+                onError={() => setIsLoading(false)} // Prevents the loader from spinning forever if the file is missing
                 className="w-full h-12 accent-yellow-600"
-                src={activeHymn.audioUrl}
+                src={activeHymn.audioUrl || ""} // Ensures src is never undefined
               >
                 Your browser does not support the audio element.
               </audio>

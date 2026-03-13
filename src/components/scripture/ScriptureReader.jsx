@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { christianHymns } from "../../data/religions/christianity/hymnConnections";
 import {
+  Music,
   X,
-  Info,
   BookOpen,
+  Info,
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
@@ -17,6 +19,7 @@ export default function ScriptureReader({
   globalFootnotes,
   onBack,
   onNavigate,
+  onPlay,
 }) {
   // 1. ALL HOOKS MUST BE AT THE TOP
   const [activeFootnote, setActiveFootnote] = useState(null);
@@ -36,7 +39,10 @@ export default function ScriptureReader({
       }
     }
   }, [initialVerse, chapter, bookData]);
-
+  // Reset scroll to top when chapter changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [chapter]);
   // 3. CONSOLIDATED LOADING GUARD (Must be after Hooks)
   if (!bookData || !bookData.chapters || !bookData.metadata) {
     return (
@@ -51,6 +57,10 @@ export default function ScriptureReader({
   const chapterText = bookData.chapters[chapter.toString()];
   const totalChapters = Object.keys(bookData.chapters).length;
 
+  // Find if there's a hymn for the book the user is currently reading
+  const relatedHymn = christianHymns.find((h) =>
+    h.relatedBooks.includes(bookSlug),
+  );
   const getNoteForWord = (word, vNum) => {
     const cleanWord = word
       .toLowerCase()
@@ -200,7 +210,7 @@ export default function ScriptureReader({
       <div
         className={`flex-1 transition-all duration-500 ${activeFootnote ? "md:mr-80" : ""}`}
       >
-        {/* HEADER */}
+        {/* UPDATED HEADER */}
         <div className="sticky top-0 z-30 bg-[#fdfcf8]/90 backdrop-blur-md border-b border-yellow-100 px-6 py-3 flex justify-between items-center">
           <button
             onClick={onBack}
@@ -209,9 +219,22 @@ export default function ScriptureReader({
             <ArrowLeft size={16} className="mr-2" />
             {bookData.metadata?.book || "Back"}
           </button>
-          <span className="font-serif italic font-bold text-stream-navy uppercase tracking-widest text-sm">
-            Chapter {chapter}
-          </span>
+
+          <div className="flex flex-col items-center">
+            <span className="font-serif italic font-bold text-stream-navy uppercase tracking-widest text-[10px] md:text-sm">
+              Chapter {chapter}
+            </span>
+            {/* NEW: Quick Play for related hymn */}
+            {relatedHymn && (
+              <button
+                onClick={() => onPlay(relatedHymn)}
+                className="text-[9px] text-yellow-600 font-bold flex items-center gap-1 hover:text-yellow-700 animate-pulse"
+              >
+                <Music size={10} /> LISTEN TO THEME
+              </button>
+            )}
+          </div>
+
           <div className="w-10"></div>
         </div>
 

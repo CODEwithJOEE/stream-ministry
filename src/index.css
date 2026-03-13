@@ -66,3 +66,10 @@
     background: #cbd5e1;
   }
 }
+/* Add this to your sticky/fixed elements */
+.sticky,
+.fixed {
+  backface-visibility: hidden;
+  transform: translateZ(0); /* Forces GPU acceleration */
+  will-change: transform;
+}
