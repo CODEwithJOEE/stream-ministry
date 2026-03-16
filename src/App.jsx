@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import InstallButton from "./components/layout/InstallButton";
 import BookList from "./components/scripture/BookList";
 import ScriptureReader from "./components/scripture/ScriptureReader";
 import BookOverview from "./components/scripture/BookOverview";
@@ -211,6 +212,8 @@ export default function App() {
             />
           )}
         </main>
+        {/* ADD THE BUTTON HERE */}
+        <InstallButton />
 
         {/* 3. MUSIC PLAYER - FIXED AT BOTTOM */}
         {activeHymn && (
