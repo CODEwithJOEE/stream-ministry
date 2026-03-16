@@ -16,12 +16,12 @@ export default defineConfig({
         theme_color: "#ffffff",
         icons: [
           {
-            src: "Stream-Ministry-icon.png", // Using your existing file
+            src: "Stream-Ministry.png", // Using your existing file
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "Stream-Ministry-icon.png",
+            src: "Stream-Ministry.png",
             sizes: "512x512",
             type: "image/png",
           },
