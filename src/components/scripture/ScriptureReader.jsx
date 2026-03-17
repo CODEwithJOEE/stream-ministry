@@ -228,7 +228,18 @@ export default function ScriptureReader({
       ),
     );
   };
-
+  // NEW: Specific Verse-to-Hymn Mapping
+  const getHymnForVerse = (vNum) => {
+    // Logic for Joshua 24:15 -> "We Will Serve the Lord"
+    if (bookSlug === "joshua" && chapter === 24 && vNum === 15) {
+      return christianHymns.find((h) => h.id === "ns-196");
+    }
+    // Logic for Joshua 1:6 -> "Jesus The All-Inclusive Land"
+    if (bookSlug === "joshua" && chapter === 1 && vNum === 6) {
+      return christianHymns.find((h) => h.id === "ns-195");
+    }
+    return null;
+  };
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-[#fdfcf8] selection:bg-yellow-200">
       <div
@@ -268,14 +279,29 @@ export default function ScriptureReader({
             {chapterText &&
               chapterText.map((verse, vIdx) => {
                 const vNum = vIdx + 1;
+                const verseHymn = getHymnForVerse(vNum); // Check for shortcut
+
                 return (
-                  // Inside ScriptureReader.jsx mapping
                   <div
                     key={vIdx}
-                    id={`verse-${vNum}`} // This MUST match the id used in your scroll useEffect
+                    id={`verse-${vNum}`}
                     ref={(el) => (verseRefs.current[vNum] = el)}
                     className="group relative flex items-start space-x-6 p-2 rounded-2xl transition-all duration-500"
                   >
+                    {/* HYMN SHORTCUT BUTTON - Appears on hover or if it's a key verse */}
+                    {verseHymn && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onPlay(verseHymn);
+                        }}
+                        className="absolute -left-6 md:-left-12 top-2 p-2 bg-yellow-500 text-white rounded-full shadow-lg hover:scale-110 transition-transform animate-bounce-slow z-10"
+                        title={`Play: ${verseHymn.title}`}
+                      >
+                        <Music size={14} fill="currentColor" />
+                      </button>
+                    )}
+
                     <span className="text-[11px] font-bold text-yellow-600/40 mt-2 min-w-[20px] text-right">
                       {vNum}
                     </span>
@@ -288,7 +314,7 @@ export default function ScriptureReader({
                           <button
                             key={wIdx}
                             onClick={() => setActiveFootnote(note)}
-                            className="text-slate-900 border-b-2 border-yellow-200/60 hover:bg-yellow-100 transition-colors cursor-help px-0.5 hover:glow-text"
+                            className="text-slate-900 border-b-2 border-yellow-200/60 hover:bg-yellow-100 transition-colors cursor-help px-0.5"
                           >
                             {word}{" "}
                           </button>
@@ -300,31 +326,6 @@ export default function ScriptureReader({
                   </div>
                 );
               })}
-          </div>
-
-          {/* FOOTER NAV */}
-          <div className="mt-20 pt-10 border-t border-yellow-100 flex justify-between items-center">
-            <button
-              disabled={chapter <= 1}
-              onClick={() =>
-                onNavigate({ religion, book: bookSlug, chapter: chapter - 1 })
-              }
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-200 text-sm font-bold transition-all ${chapter <= 1 ? "opacity-20 cursor-not-allowed" : "hover:bg-yellow-50 text-yellow-800"}`}
-            >
-              <ChevronLeft size={18} /> Prev
-            </button>
-            <span className="text-xs font-bold text-slate-300 uppercase tracking-tighter">
-              Chapter {chapter} of {totalChapters}
-            </span>
-            <button
-              disabled={chapter >= totalChapters}
-              onClick={() =>
-                onNavigate({ religion, book: bookSlug, chapter: chapter + 1 })
-              }
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-200 text-sm font-bold transition-all ${chapter >= totalChapters ? "opacity-20 cursor-not-allowed" : "hover:bg-yellow-50 text-yellow-800"}`}
-            >
-              Next <ChevronRight size={18} />
-            </button>
           </div>
         </div>
       </div>

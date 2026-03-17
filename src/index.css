@@ -122,3 +122,15 @@ audio::-webkit-media-controls-volume-control-container,
 audio::-webkit-media-controls-mute-button {
   display: none !important;
 }
+@keyframes bounce-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 3s infinite ease-in-out;
+}

@@ -12,6 +12,7 @@ import lampstandImg from "./assets/lampstand.png";
 import { Search, X, BookOpen, Music } from "lucide-react";
 import { christianHymns } from "./data/religions/christianity/hymnConnections";
 import PlaylistGallery from "./components/worship/PlaylistGallery";
+import UniversalSearch from "./components/search/UniversalSearch";
 
 export default function App() {
   const [view, setView] = useState("books");
@@ -23,6 +24,7 @@ export default function App() {
   const [activeHymn, setActiveHymn] = useState(null);
   const [globalFootnotes, setGlobalFootnotes] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const dailyStream = getDailyContent();
 
@@ -130,12 +132,13 @@ export default function App() {
             />
             <input
               type="text"
-              placeholder="Search Dictionary..."
+              placeholder="Search verses, hymns, or dictionary..."
               className="w-full bg-white/90 border border-yellow-100 rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-gold-rich shadow-sm font-serif italic text-sm"
               value={searchQuery}
+              onFocus={() => setIsSearchOpen(true)}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setView(e.target.value.length > 0 ? "search" : "books");
+                if (e.target.value.length > 0) setIsSearchOpen(true);
               }}
             />
           </div>
@@ -229,6 +232,31 @@ export default function App() {
               />
             </div>
           </div>
+        )}
+        {isSearchOpen && (
+          <UniversalSearch
+            initialQuery={searchQuery}
+            setGlobalQuery={setSearchQuery}
+            globalFootnotes={globalFootnotes}
+            allBooksData={
+              loadedBookData ? { [selectedBook?.id]: loadedBookData } : {}
+            }
+            hymnsList={christianHymns}
+            onNavigate={(path) => {
+              handleManualNav(path);
+              setIsSearchOpen(false);
+              setSearchQuery("");
+            }}
+            onPlay={(hymn) => {
+              setActiveHymn(hymn);
+              setIsSearchOpen(false);
+              setSearchQuery("");
+            }}
+            onClose={() => {
+              setIsSearchOpen(false);
+              setSearchQuery("");
+            }}
+          />
         )}
       </div>
     </div>

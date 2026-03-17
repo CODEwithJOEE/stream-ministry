@@ -4,24 +4,35 @@ import { Music, Play, Headphones, ArrowLeft, Search, X } from "lucide-react";
 export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 1. Filter logic: search by title, category, or related books
-  const filteredHymns = hymns.filter((hymn) => {
-    const search = searchTerm.toLowerCase();
-    return (
-      hymn.title.toLowerCase().includes(search) ||
-      hymn.category?.toLowerCase().includes(search) ||
-      hymn.relatedBooks?.some((book) => book.toLowerCase().includes(search))
-    );
-  });
+  // Clean & Optimized: One single memoized step for filtering and grouping
+  const categories = React.useMemo(() => {
+    const lowerSearch = searchTerm.toLowerCase();
 
-  // 2. Group the FILTERED hymns
-  const categories = filteredHymns.reduce((acc, hymn) => {
-    const cat = hymn.category || "General Ministry";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(hymn);
-    return acc;
-  }, {});
-
+    return hymns
+      .filter((hymn) => {
+        return (
+          hymn.title.toLowerCase().includes(lowerSearch) ||
+          hymn.category?.toLowerCase().includes(lowerSearch) ||
+          hymn.relatedBooks?.some((book) =>
+            book.toLowerCase().includes(lowerSearch),
+          )
+        );
+      })
+      .reduce((acc, hymn) => {
+        const cat = hymn.category || "General Ministry";
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(hymn);
+        return acc;
+      }, {});
+  }, [hymns, searchTerm]);
+  // Add this inside your component
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSearchTerm("");
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
   return (
     <div className="min-h-screen bg-[#fdfcf8] pb-48 animate-in fade-in duration-700">
       {/* HEADER with Search - Solid Background to prevent lag */}
