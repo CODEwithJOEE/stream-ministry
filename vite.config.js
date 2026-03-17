@@ -9,14 +9,23 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      workbox: {
+        // This replaces your manual fetch logic
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,json}"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === "audio",
+            handler: "NetworkOnly", // Don't cache audio automatically, just like your sw.js
+          },
+        ],
+      },
       manifest: {
-        name: "Stream Ministry",
-        short_name: "Stream",
+        name: "Stream Ministry Recovery Version",
+        short_name: "The Bible",
         description: "Recovery Version Bible Study and Hymns",
-        theme_color: "#ffffff",
         icons: [
           {
-            src: "Stream-Ministry.png", // Using your existing file
+            src: "Stream-Ministry.png",
             sizes: "192x192",
             type: "image/png",
           },
@@ -26,6 +35,10 @@ export default defineConfig({
             type: "image/png",
           },
         ],
+        start_url: "/",
+        display: "standalone",
+        theme_color: "#eab308", // This will make the mobile status bar Gold
+        background_color: "#fdfcf8", // Matches your cream background
       },
     }),
   ],

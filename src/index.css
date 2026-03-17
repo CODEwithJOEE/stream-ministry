@@ -101,3 +101,19 @@
   transform: translateZ(0); /* Forces GPU acceleration */
   will-change: transform;
 }
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  /* We move it exactly the width of one title + the gap */
+  100% {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 15s linear infinite;
+  /* Use a slightly slower speed (15s) for better readability */
+}

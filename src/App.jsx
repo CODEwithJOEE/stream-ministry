@@ -221,7 +221,9 @@ export default function App() {
             <div className="max-w-md mx-auto shadow-2xl">
               <HymnPlayer
                 activeHymn={activeHymn}
+                hymnsList={christianHymns} // Pass the full array here
                 onClose={() => setActiveHymn(null)}
+                onPlay={setActiveHymn} // This allows the player to "change" the active hymn
               />
             </div>
           </div>
