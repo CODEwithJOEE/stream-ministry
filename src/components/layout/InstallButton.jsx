@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const InstallButton = () => {
+const InstallButton = ({ isMusicPlaying }) => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
@@ -48,7 +48,10 @@ const InstallButton = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-8 md:w-80 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-yellow-100 z-[70] animate-in slide-in-from-bottom-10 duration-500">
+    <div
+      className={`fixed left-4 right-4 md:left-auto md:right-8 md:w-80 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-yellow-100 z-[70] animate-in slide-in-from-bottom-10 duration-500 
+      ${isMusicPlaying ? "bottom-32" : "bottom-24"}`}
+    >
       <div className="flex items-start gap-3">
         <div className="w-10 h-10 bg-yellow-50 rounded-lg flex-shrink-0 border border-yellow-100 flex items-center justify-center">
           <img

@@ -212,8 +212,8 @@ export default function App() {
             />
           )}
         </main>
-        {/* ADD THE BUTTON HERE */}
-        <InstallButton />
+        {/* Pass the activeHymn state to the button */}
+        <InstallButton isMusicPlaying={!!activeHymn} />
 
         {/* 3. MUSIC PLAYER - FIXED AT BOTTOM */}
         {activeHymn && (
