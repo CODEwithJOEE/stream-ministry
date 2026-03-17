@@ -9,14 +9,16 @@ import {
   SkipForward,
   SkipBack,
 } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 
-// Added 'hymnsList' and 'onPlay' to your props
 export default function HymnPlayer({
   activeHymn,
   hymnsList = [],
   onClose,
   onPlay,
 }) {
+  const [volume, setVolume] = useState(1); // 1 is 100%
+  const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -25,6 +27,17 @@ export default function HymnPlayer({
   // Find the index of the current song for navigation logic
   const currentIndex = hymnsList.findIndex((h) => h.id === activeHymn?.id);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : volume;
+    }
+  }, [volume, isMuted]);
+
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (newVolume > 0) setIsMuted(false);
+  };
   useEffect(() => {
     setIsLoading(true);
     setIsPlaying(true);
@@ -108,7 +121,7 @@ export default function HymnPlayer({
 
             {/* CONTROLS SECTION */}
             <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-              {/* Skip Back: Now ALWAYS visible */}
+              {/* Primary Playback Group */}
               <button
                 onClick={playPrevious}
                 className="p-2 text-slate-400 hover:text-yellow-600 transition-colors"
@@ -116,7 +129,6 @@ export default function HymnPlayer({
                 <SkipBack size={18} fill="currentColor" />
               </button>
 
-              {/* Main Play/Pause: Always visible */}
               {!isLoading && (
                 <button
                   onClick={togglePlay}
@@ -130,7 +142,6 @@ export default function HymnPlayer({
                 </button>
               )}
 
-              {/* Skip Forward: Now ALWAYS visible */}
               <button
                 onClick={playNext}
                 className="p-2 text-slate-400 hover:text-yellow-600 transition-colors"
@@ -138,8 +149,36 @@ export default function HymnPlayer({
                 <SkipForward size={18} fill="currentColor" />
               </button>
 
+              {/* VOLUME CONTROL - Placed between playback and window actions */}
+              {!isMinimized && (
+                <div className="flex items-center gap-2 px-2 group border-l border-slate-100 ml-1">
+                  <button
+                    onClick={() => setIsMuted(!isMuted)}
+                    className="text-slate-400 hover:text-yellow-600 transition-colors"
+                  >
+                    {isMuted || volume === 0 ? (
+                      <VolumeX size={18} />
+                    ) : (
+                      <Volume2 size={18} />
+                    )}
+                  </button>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={isMuted ? 0 : volume}
+                    onChange={handleVolumeChange}
+                    className="w-20 h-1.5 bg-yellow-100 rounded-lg appearance-none cursor-pointer accent-yellow-500"
+                  />
+                </div>
+              )}
+
+              {/* Window Management Group */}
               <button
-                className={`p-2 text-slate-400 transition-transform duration-700 ${isMinimized ? "rotate-180" : "rotate-0"}`}
+                className={`p-2 text-slate-400 transition-transform duration-700 ${
+                  isMinimized ? "rotate-180" : "rotate-0"
+                }`}
               >
                 <ChevronDown size={20} />
               </button>

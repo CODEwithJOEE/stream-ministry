@@ -142,7 +142,9 @@ export default function App() {
         </header>
 
         {/* 2. MAIN CONTENT AREA */}
-        <main className="px-6 pt-10 pb-40 max-w-6xl mx-auto">
+        <main
+          className={`px-6 pt-10 max-w-6xl mx-auto transition-all duration-500 ${activeHymn ? "pb-48" : "pb-20"}`}
+        >
           {view === "search" && (
             <div className="max-w-2xl mx-auto animate-in fade-in duration-500">
               {filteredNotes.map(([word, note]) => (

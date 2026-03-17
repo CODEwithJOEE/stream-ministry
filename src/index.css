@@ -117,3 +117,8 @@
   animation: marquee 15s linear infinite;
   /* Use a slightly slower speed (15s) for better readability */
 }
+/* This hides the native volume button/slider in Chrome/Safari */
+audio::-webkit-media-controls-volume-control-container,
+audio::-webkit-media-controls-mute-button {
+  display: none !important;
+}
