@@ -143,10 +143,15 @@ export default function BookOverview({
     });
   };
 
-  // Filter hymns for the current book
-  const suggestedHymns = christianHymns.filter((h) =>
-    h.relatedBooks.includes(metadata.book.toLowerCase()),
-  );
+  // Filter hymns using a "slugified" comparison
+  const suggestedHymns = christianHymns.filter((h) => {
+    const currentBookSlug = metadata.book
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Turn "1 Samuel" into "1-samuel"
+      .trim();
+
+    return h.relatedBooks.includes(currentBookSlug);
+  });
 
   const chapters = [...Array(metadata.totalChapters)].map((_, i) => i + 1);
   const filteredChapters = chapters.filter((num) =>

@@ -79,7 +79,9 @@ export default function ScriptureReader({
   const totalChapters = Object.keys(bookData.chapters).length;
 
   const relatedHymn = christianHymns.find((h) =>
-    h.relatedBooks.includes(bookSlug),
+    h.relatedBooks.some(
+      (ref) => ref.replace(/-/g, "") === bookSlug.replace(/-/g, ""),
+    ),
   );
 
   const getNoteForWord = (word, vNum) => {
@@ -313,7 +315,8 @@ export default function ScriptureReader({
           </div>
 
           {/* CHAPTER NAVIGATION FOOTER */}
-          <div className="mt-16 pt-8 border-t border-yellow-100 flex items-center justify-between">
+          {/* Added pb-32 to create space for the Music Player */}
+          <div className="mt-16 pt-8 pb-32 border-t border-yellow-100 flex items-center justify-between">
             <button
               disabled={chapter <= 1}
               onClick={() =>
