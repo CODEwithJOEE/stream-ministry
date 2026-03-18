@@ -4,7 +4,6 @@ import {
   Music,
   X,
   BookOpen,
-  Info,
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
@@ -21,7 +20,7 @@ export default function ScriptureReader({
   onNavigate,
   onPlay,
 }) {
-  // 1. ALL HOOKS MUST BE AT THE TOP
+  // 1. ALL HOOKS AT THE TOP
   const [activeFootnote, setActiveFootnote] = useState(null);
   const verseRefs = useRef({});
 
@@ -36,8 +35,7 @@ export default function ScriptureReader({
             block: "center",
           });
 
-          // Add highlight and pulse animation
-          // 'animate-pulse' is a built-in Tailwind class
+          // Highlight animation
           element.classList.add(
             "bg-yellow-200/50",
             "ring-2",
@@ -46,7 +44,6 @@ export default function ScriptureReader({
           );
 
           setTimeout(() => {
-            // Remove the pulse and highlight after 4 seconds
             element.classList.remove(
               "bg-yellow-200/50",
               "ring-2",
@@ -55,19 +52,19 @@ export default function ScriptureReader({
             );
           }, 4000);
         }
-      }, 150); // Slightly longer delay to ensure smooth transition
-
+      }, 150);
       return () => clearTimeout(timer);
     }
   }, [initialVerse, chapter, bookData]);
 
-  // Reset scroll to top ONLY when chapter changes without a specific verse
+  // Reset scroll to top when chapter changes without a specific verse
   useEffect(() => {
     if (!initialVerse) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [chapter, initialVerse]);
-  // 3. CONSOLIDATED LOADING GUARD (Must be after Hooks)
+
+  // 3. LOADING GUARD
   if (!bookData || !bookData.chapters || !bookData.metadata) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfcf8]">
@@ -77,19 +74,18 @@ export default function ScriptureReader({
     );
   }
 
-  // 4. DERIVED DATA (Only safe to calculate after the guard)
+  // 4. DERIVED DATA
   const chapterText = bookData.chapters[chapter.toString()];
   const totalChapters = Object.keys(bookData.chapters).length;
 
-  // Find if there's a hymn for the book the user is currently reading
   const relatedHymn = christianHymns.find((h) =>
     h.relatedBooks.includes(bookSlug),
   );
+
   const getNoteForWord = (word, vNum) => {
     const cleanWord = word
       .toLowerCase()
       .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "");
-
     const verseNotes =
       bookData.footnotes?.[chapter.toString()]?.[vNum.toString()] || [];
     const specificNote = verseNotes.find(
@@ -118,15 +114,12 @@ export default function ScriptureReader({
     if (!match) return;
 
     const [_, bookPart, targetChapter, targetVerse] = match;
-
     const bookMap = {
-      // Pentateuch
       gen: "genesis",
       exo: "exodus",
       lev: "leviticus",
       num: "numbers",
       deut: "deuteronomy",
-      // History
       josh: "joshua",
       judg: "judges",
       ruth: "ruth",
@@ -139,13 +132,11 @@ export default function ScriptureReader({
       ezra: "ezra",
       neh: "nehemiah",
       esth: "esther",
-      // Poetry/Wisdom
       job: "job",
       psa: "psalms",
       prov: "proverbs",
       eccl: "ecclesiastes",
       ss: "songofsongs",
-      // Prophets
       isa: "isaiah",
       jer: "jeremiah",
       lam: "lamentations",
@@ -159,11 +150,10 @@ export default function ScriptureReader({
       mic: "micah",
       nah: "nahum",
       hab: "habakkuk",
-      zeph: "zephaniah",
+      zeph: "zechariah",
       hag: "haggai",
       zech: "zechariah",
       mal: "malachi",
-      // New Testament
       mat: "matthew",
       matt: "matthew",
       mark: "mark",
@@ -207,7 +197,6 @@ export default function ScriptureReader({
       chapter: parseInt(targetChapter, 10),
       verse: targetVerse ? parseInt(targetVerse, 10) : 1,
     });
-
     setActiveFootnote(null);
   };
 
@@ -228,24 +217,23 @@ export default function ScriptureReader({
       ),
     );
   };
-  // NEW: Specific Verse-to-Hymn Mapping
+
   const getHymnForVerse = (vNum) => {
-    // Logic for Joshua 24:15 -> "We Will Serve the Lord"
     if (bookSlug === "joshua" && chapter === 24 && vNum === 15) {
       return christianHymns.find((h) => h.id === "ns-196");
     }
-    // Logic for Joshua 1:6 -> "Jesus The All-Inclusive Land"
     if (bookSlug === "joshua" && chapter === 1 && vNum === 6) {
       return christianHymns.find((h) => h.id === "ns-195");
     }
     return null;
   };
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-[#fdfcf8] selection:bg-yellow-200">
       <div
         className={`flex-1 transition-all duration-500 ${activeFootnote ? "md:mr-80" : ""}`}
       >
-        {/* UPDATED HEADER */}
+        {/* STICKY HEADER */}
         <div className="sticky top-0 z-30 bg-[#fdfcf8]/90 backdrop-blur-md border-b border-yellow-100 px-6 py-3 flex justify-between items-center">
           <button
             onClick={onBack}
@@ -259,7 +247,6 @@ export default function ScriptureReader({
             <span className="font-serif italic font-bold text-stream-navy uppercase tracking-widest text-[10px] md:text-sm">
               Chapter {chapter}
             </span>
-            {/* NEW: Quick Play for related hymn */}
             {relatedHymn && (
               <button
                 onClick={() => onPlay(relatedHymn)}
@@ -269,18 +256,16 @@ export default function ScriptureReader({
               </button>
             )}
           </div>
-
           <div className="w-10"></div>
         </div>
 
-        {/* CONTENT */}
+        {/* READING CONTENT */}
         <div className="max-w-2xl mx-auto py-12 px-6">
           <div className="space-y-8">
             {chapterText &&
               chapterText.map((verse, vIdx) => {
                 const vNum = vIdx + 1;
-                const verseHymn = getHymnForVerse(vNum); // Check for shortcut
-
+                const verseHymn = getHymnForVerse(vNum);
                 return (
                   <div
                     key={vIdx}
@@ -288,7 +273,6 @@ export default function ScriptureReader({
                     ref={(el) => (verseRefs.current[vNum] = el)}
                     className="group relative flex items-start space-x-6 p-2 rounded-2xl transition-all duration-500"
                   >
-                    {/* HYMN SHORTCUT BUTTON - Appears on hover or if it's a key verse */}
                     {verseHymn && (
                       <button
                         onClick={(e) => {
@@ -326,6 +310,53 @@ export default function ScriptureReader({
                   </div>
                 );
               })}
+          </div>
+
+          {/* CHAPTER NAVIGATION FOOTER */}
+          <div className="mt-16 pt-8 border-t border-yellow-100 flex items-center justify-between">
+            <button
+              disabled={chapter <= 1}
+              onClick={() =>
+                onNavigate({ religion, book: bookSlug, chapter: chapter - 1 })
+              }
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
+                chapter <= 1
+                  ? "opacity-20 cursor-not-allowed"
+                  : "text-slate-500 hover:bg-yellow-50 hover:text-yellow-700"
+              }`}
+            >
+              <ChevronLeft size={20} />
+              <div className="flex flex-col items-start text-left">
+                <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
+                  Previous
+                </span>
+                <span className="font-serif italic text-sm">
+                  Chapter {chapter - 1}
+                </span>
+              </div>
+            </button>
+
+            <button
+              disabled={chapter >= totalChapters}
+              onClick={() =>
+                onNavigate({ religion, book: bookSlug, chapter: chapter + 1 })
+              }
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
+                chapter >= totalChapters
+                  ? "opacity-20 cursor-not-allowed"
+                  : "text-stream-navy hover:bg-yellow-50 hover:text-yellow-700"
+              }`}
+            >
+              <div className="flex flex-col items-end text-right">
+                <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
+                  Next
+                </span>
+                <span className="font-serif italic text-sm">
+                  Chapter {chapter + 1}
+                </span>
+              </div>
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
       </div>
