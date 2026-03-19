@@ -27,15 +27,19 @@ export default function HymnPlayer({
   // Find the index of the current song for navigation logic
   const currentIndex = hymnsList.findIndex((h) => h.id === activeHymn?.id);
 
+  // Add activeHymn?.id to the dependency array
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = isMuted ? 0 : volume;
     }
-  }, [volume, isMuted]);
+  }, [volume, isMuted, activeHymn?.id]); // <--- Add this here
 
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : newVolume;
+    }
     if (newVolume > 0) setIsMuted(false);
   };
   useEffect(() => {
