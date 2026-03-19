@@ -153,10 +153,10 @@ export const christianHymns = [
   },
   {
     id: "ns-202",
-    title: "I Give Myself to Thee",
+    title: "Give yourself to Love the Lord",
     category: "Consecration",
     relatedBooks: ["judges", "romans"],
-    audioUrl: "/audio/hymns/I-give-myself.mp3",
+    audioUrl: "/audio/hymns/Give-yourself-to-lord.mp3",
     isExternal: false,
   },
   //-------------------------------------------------------------------
