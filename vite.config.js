@@ -25,12 +25,12 @@ export default defineConfig({
         description: "Recovery Version Bible Study and Hymns",
         icons: [
           {
-            src: "Stream-Ministry.png",
+            src: "Stream-Ministry-192x192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "Stream-Ministry.png",
+            src: "Stream-Ministry-512x512.png",
             sizes: "512x512",
             type: "image/png",
           },
