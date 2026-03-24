@@ -218,4 +218,21 @@ export const christianHymns = [
     audioUrl: "/audio/hymns/The-Uniqueness-of-The-Lord's-Recovery.mp3",
     isExternal: false,
   },
+  {
+    id: "ns-210",
+    title: "Recall How David Swore",
+    category: "God's Building",
+    relatedBooks: ["2-samuel", "psalms", "ephesians"],
+    audioUrl: "/audio/hymns/Recall-How-David-Swore.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-211",
+    title: "We Praise Thee, Lord, For Thy Great Plan",
+    category: "God's Economy",
+    relatedBooks: ["2-samuel", "romans", "ephesians"],
+    audioUrl: "/audio/hymns/We-Praise-Thee-Lord-For-Thy-Great-Plan.mp3",
+    isExternal: false,
+  },
+  //----------------------------------------------------------------------------------
 ];
