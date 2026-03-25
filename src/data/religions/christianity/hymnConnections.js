@@ -234,5 +234,13 @@ export const christianHymns = [
     audioUrl: "/audio/hymns/We-Praise-Thee-Lord-For-Thy-Great-Plan.mp3",
     isExternal: false,
   },
+  {
+    id: "ns-212",
+    title: "O Lord, Thou art the Seed",
+    category: "The Kingdom",
+    relatedBooks: ["2-samuel", "romans", "matthew"],
+    audioUrl: "/audio/hymns/O-Lord-Thou-art-the-Seed.mp3",
+    isExternal: false,
+  },
   //----------------------------------------------------------------------------------
 ];
