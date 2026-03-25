@@ -245,6 +245,31 @@ export const christianHymns = [
   //----------------------------------------------------------------------------------
   {
     id: "ns-213",
+    title: "Glorious Things of Thee Are Spoken",
+    category: "God's Building",
+    relatedBooks: ["1-kings", "psalms", "revelation"],
+    audioUrl: "/audio/hymns/Glorious-Things-of-Thee-Are-Spoken.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-214",
+    title: "The Church's One Foundation",
+    category: "God's Building",
+    relatedBooks: ["1-kings", "ephesians", "nehemiah"],
+    audioUrl: "/audio/hymns/The-Churchs-One-Foundation.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-215",
+    title: "Rise Up, O Men of God!",
+    category: "Service",
+    relatedBooks: ["1-kings", "judges"],
+    audioUrl: "/audio/hymns/Rise-Up-O-Men-of-God.mp3",
+    isExternal: false,
+  },
+  //------------------------------------------------------------------------------------------
+  {
+    id: "ns-216",
     title: "Spirit of the Living God",
     category: "The Spirit",
     relatedBooks: ["2-kings", "acts"],
@@ -252,7 +277,7 @@ export const christianHymns = [
     isExternal: false,
   },
   {
-    id: "ns-214",
+    id: "ns-217",
     title: "Open My Eyes, That I May See",
     category: "Experience of Christ",
     relatedBooks: ["2-kings", "ephesians"],
@@ -260,11 +285,19 @@ export const christianHymns = [
     isExternal: false,
   },
   {
-    id: "ns-215",
+    id: "ns-218",
     title: "Great Is Thy Faithfulness",
     category: "Praise",
     relatedBooks: ["2-kings", "lamentations"],
     audioUrl: "/audio/hymns/Great-Is-Thy-Faithfulness.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-219", // Use the next available ID
+    title: "God’s Kingdom Is God’s Reigning",
+    category: "The Kingdom",
+    relatedBooks: ["2-kings", "1-kings", "matthew"],
+    audioUrl: "/audio/hymns/Gods-Kingdom-Is-Gods-Reigning.mp3",
     isExternal: false,
   },
   //-------------------------------------------------------------------------------------------
