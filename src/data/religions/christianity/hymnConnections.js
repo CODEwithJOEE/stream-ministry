@@ -243,4 +243,29 @@ export const christianHymns = [
     isExternal: false,
   },
   //----------------------------------------------------------------------------------
+  {
+    id: "ns-213",
+    title: "Spirit of the Living God",
+    category: "The Spirit",
+    relatedBooks: ["2-kings", "acts"],
+    audioUrl: "/audio/hymns/Spirit-of-the-Living-God.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-214",
+    title: "Open My Eyes, That I May See",
+    category: "Experience of Christ",
+    relatedBooks: ["2-kings", "ephesians"],
+    audioUrl: "/audio/hymns/Open-My-Eyes-That-I-May-See.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-215",
+    title: "Great Is Thy Faithfulness",
+    category: "Praise",
+    relatedBooks: ["2-kings", "lamentations"],
+    audioUrl: "/audio/hymns/Great-Is-Thy-Faithfulness.mp3",
+    isExternal: false,
+  },
+  //-------------------------------------------------------------------------------------------
 ];
