@@ -297,7 +297,7 @@ export const christianHymns = [
     title: "God’s Kingdom Is God’s Reigning",
     category: "The Kingdom",
     relatedBooks: ["2-kings", "1-kings", "matthew"],
-    audioUrl: "/audio/hymns/Gods-Kingdom-Is-Gods-Reigning.mp3",
+    audioUrl: "/audio/hymns/Gods-Kingdom-Is Gods-Reigning.mp3",
     isExternal: false,
   },
   //-------------------------------------------------------------------------------------------
