@@ -28,6 +28,40 @@ export default function App() {
 
   const dailyStream = getDailyContent();
 
+  // 1. Add an effect to SAVE the history whenever a user reads a specific chapter/verse
+  useEffect(() => {
+    // Only save if we actually have a book and chapter selected
+    // This prevents overwriting history with 'null' on the very first app load
+    if (selectedBook && selectedBook.id && selectedChapter) {
+      const history = {
+        book: selectedBook,
+        chapter: selectedChapter,
+        verse: selectedVerse,
+        religion: selectedReligion,
+        timestamp: new Date().getTime(),
+      };
+      localStorage.setItem("lastRead", JSON.stringify(history));
+    }
+  }, [selectedBook?.id, selectedChapter, selectedVerse, selectedReligion]);
+  // Added ?.id to the dependency to be more specific
+
+  // 2. Add a function to RESUME reading from history
+  const handleResumeReading = async () => {
+    const saved = localStorage.getItem("lastRead");
+    if (!saved) return;
+
+    const history = JSON.parse(saved);
+    const data = await loadBookData(history.religion, history.book.id);
+
+    if (data) {
+      setLoadedBookData(data);
+      setSelectedReligion(history.religion);
+      setSelectedBook(history.book);
+      setSelectedChapter(history.chapter);
+      setSelectedVerse(history.verse);
+      setView("reader");
+    }
+  };
   useEffect(() => {
     if (!selectedVerse) window.scrollTo(0, 0);
   }, [view, selectedChapter, selectedVerse]);
@@ -60,7 +94,13 @@ export default function App() {
     if (data) {
       setLoadedBookData(data);
       setSelectedReligion(targetReligion);
-      setSelectedBook({ id: ref.book });
+
+      // FIX: Include the name so History can display it later
+      setSelectedBook({
+        id: ref.book,
+        name: data.metadata?.book || ref.book,
+      });
+
       setSelectedChapter(ref.chapter || 1);
       setSelectedVerse(ref.verse || null);
       setSearchQuery("");
@@ -185,6 +225,7 @@ export default function App() {
               <BookList
                 religion="christianity"
                 onSelectBook={handleBookSelect}
+                onResume={handleResumeReading}
               />
             </>
           )}

@@ -1,11 +1,22 @@
-import React from "react";
-import { Book } from "lucide-react";
-// We only keep the Christianity data
+import React, { useState, useEffect } from "react"; // Added useState/useEffect
+import { Book, Clock, ChevronRight } from "lucide-react"; // Added Clock/ChevronRight
 import { recoveryVersion } from "../../data/religions/christianity";
 
-export default function BookList({ onSelectBook }) {
-  // Since we are only doing Christian now, we use recoveryVersion directly
+export default function BookList({ onSelectBook, onResume }) {
+  const [history, setHistory] = useState(null);
   const data = recoveryVersion;
+
+  // Check for history on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("lastRead");
+    if (saved) {
+      try {
+        setHistory(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse history", e);
+      }
+    }
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-6 animate-in fade-in duration-500">
@@ -15,6 +26,35 @@ export default function BookList({ onSelectBook }) {
         </h2>
         <p className="text-gold-rich font-medium italic">Recovery Version</p>
       </header>
+
+      {/* RECENTLY READ SECTION */}
+      {history && (
+        <div className="mb-12 animate-in slide-in-from-top duration-700">
+          <h3 className="text-[10px] font-bold tracking-[0.2em] text-yellow-600 uppercase mb-4">
+            Continue Reading
+          </h3>
+          <button
+            onClick={onResume}
+            className="w-full md:w-auto flex items-center gap-6 p-6 bg-gradient-to-r from-yellow-50 to-white border border-yellow-200 rounded-3xl hover:shadow-md transition-all group"
+          >
+            <div className="p-4 bg-yellow-500 rounded-2xl text-white shadow-lg shadow-yellow-200">
+              <Clock size={24} />
+            </div>
+            <div className="text-left">
+              <p className="text-xs font-bold text-yellow-700 uppercase tracking-widest mb-1">
+                Last Stop
+              </p>
+              <h4 className="text-2xl font-serif font-bold text-stream-navy">
+                {history.book.name} {history.chapter}
+                {history.verse && (
+                  <span className="text-yellow-600">:{history.verse}</span>
+                )}
+              </h4>
+            </div>
+            <ChevronRight className="ml-auto text-yellow-400 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      )}
 
       {/* Map through Old Testament and New Testament sections */}
       {data &&
