@@ -301,4 +301,39 @@ export const christianHymns = [
     isExternal: false,
   },
   //-------------------------------------------------------------------------------------------
+  // 1 CHRONICLES SECTION
+  {
+    id: "ns-220",
+    title: "In This Godless Age",
+    category: "Service",
+    relatedBooks: ["1-chronicles", "2-timothy", "judges"],
+    audioUrl: "/audio/hymns/In-This-Godless-Age.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-221",
+    title: "Take My Life and Let It Be",
+    category: "Consecration",
+    relatedBooks: ["1-chronicles", "romans", "philippians"],
+    audioUrl: "/audio/hymns/Take-My-Life-and-Let-It-Be-Reawaken.mp3",
+    isExternal: false,
+  },
+  //---------------------------------------------------------------------------------------
+  // 2 CHRONICLES SECTION
+  {
+    id: "ns-222",
+    title: "Lord, Keep My Heart Always True to You",
+    category: "Experience of Christ",
+    relatedBooks: ["2-chronicles", "psalms", "proverbs"],
+    audioUrl: "/audio/hymns/Lord-Keep-My-Heart-Always-True-to-You.mp3",
+    isExternal: false,
+  },
+  {
+    id: "ns-223",
+    title: "Praise the Lord, the God of Glory",
+    category: "Praise",
+    relatedBooks: ["2-chronicles", "ezra", "revelation"],
+    audioUrl: "/audio/hymns/Praise-the-Lord-the-God-of-Glory.mp3",
+    isExternal: false,
+  }, //----------------------------------------------------------------------------------------
 ];
