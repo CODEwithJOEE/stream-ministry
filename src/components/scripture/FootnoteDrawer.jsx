@@ -18,12 +18,12 @@ export default function FootnoteDrawer({
       />
 
       {/* Drawer Content */}
-      <div className="relative w-full max-w-md bg-white h-full shadow-2xl animate-in slide-in-from-right duration-300 overflow-y-auto border-l-4 border-yellow-500">
+      <div className="relative w-full max-w-md bg-white dark:bg-slate-900 h-full shadow-2xl animate-in slide-in-from-right duration-300 overflow-y-auto border-l-4 border-yellow-500">
         <div className="p-6">
           <div className="flex justify-between items-center mb-8 border-b pb-4">
             <div className="flex items-center space-x-2 text-yellow-700">
               <BookOpenText size={20} />
-              <h3 className="font-bold text-lg">
+              <h3 className="font-bold text-lg dark:text-slate-200">
                 Footnotes: Verse {verseNumber}
               </h3>
             </div>
@@ -31,7 +31,7 @@ export default function FootnoteDrawer({
               onClick={onClose}
               className="p-2 hover:bg-gray-100 rounded-full"
             >
-              <X size={24} className="text-gray-400" />
+              <X size={24} className="text-gray-400 dark:text-slate-400" />
             </button>
           </div>
 
@@ -39,10 +39,10 @@ export default function FootnoteDrawer({
             {footnotes && footnotes.length > 0 ? (
               footnotes.map((fn) => (
                 <div key={fn.id} className="group">
-                  <span className="inline-block px-2 py-0.5 bg-yellow-100 text-yellow-800 text-xs font-bold rounded mb-2">
+                  <span className="inline-block px-2 py-0.5 bg-yellow-100 dark:bg-slate-800 text-yellow-800 dark:text-gold-main text-xs font-bold rounded mb-2">
                     {fn.word}
                   </span>
-                  <p className="text-gray-700 leading-relaxed text-md border-l-2 border-gray-100 pl-4 group-hover:border-yellow-200 transition-colors">
+                  <p className="text-gray-700 dark:text-slate-300 leading-relaxed text-md border-l-2 border-gray-100 dark:border-slate-700 pl-4 group-hover:border-yellow-200 dark:group-hover:border-gold-main transition-colors">
                     {fn.text}
                   </p>
                 </div>

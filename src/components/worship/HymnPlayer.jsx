@@ -27,12 +27,34 @@ export default function HymnPlayer({
   // Find the index of the current song for navigation logic
   const currentIndex = hymnsList.findIndex((h) => h.id === activeHymn?.id);
 
-  // Add activeHymn?.id to the dependency array
   useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) audio.volume = isMuted ? 0 : volume;
+  }, [volume, isMuted]);
+
+  // Try to autoplay when the hymn changes (handles iOS gestures gracefully)
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = isMuted ? 0 : volume;
+    const tryPlay = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch {
+        setIsPlaying(false); // iOS blocked — user will press play
+      }
+    };
+    tryPlay();
+  }, [activeHymn?.id]);
+
+  // Also reapply after the audio element remounts:
+  const handleCanPlay = () => {
+    setIsLoading(false);
     if (audioRef.current) {
       audioRef.current.volume = isMuted ? 0 : volume;
     }
-  }, [volume, isMuted, activeHymn?.id]); // <--- Add this here
+  };
 
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
@@ -79,7 +101,7 @@ export default function HymnPlayer({
     <div className="fixed bottom-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
       <div className="max-w-xl mx-auto mb-4 md:mb-8 px-4 md:px-6">
         <div
-          className={`bg-white/95 backdrop-blur-xl border border-yellow-200 rounded-3xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-yellow-200 dark:border-slate-700 rounded-3xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isMinimized ? "shadow-lg scale-95" : "shadow-2xl scale-100"
           }`}
         >
@@ -105,7 +127,7 @@ export default function HymnPlayer({
               <div className="flex flex-col min-w-0 overflow-hidden">
                 <div className="relative overflow-hidden whitespace-nowrap">
                   <h4
-                    className={`font-bold text-stream-navy text-sm md:text-lg leading-tight inline-block ${activeHymn.title.length > 20 ? "animate-marquee" : ""}`}
+                    className={`font-bold text-stream-navy dark:text-slate-200 text-sm md:text-lg leading-tight inline-block ${activeHymn.title.length > 20 ? "animate-marquee" : ""}`}
                   >
                     <span>{activeHymn.title}</span>
                     {/* Increased the gap between loops to 2rem (ml-16) */}
@@ -208,13 +230,15 @@ export default function HymnPlayer({
           >
             <audio
               ref={audioRef}
-              key={activeHymn.id}
               controls
-              autoPlay
-              onEnded={() => playNext()} // AUTO-PLAY NEXT LOGIC
+              onEnded={() => playNext()}
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
-              onCanPlay={() => setIsLoading(false)}
+              onCanPlay={() => {
+                setIsLoading(false);
+                if (audioRef.current)
+                  audioRef.current.volume = isMuted ? 0 : volume;
+              }}
               onWaiting={() => setIsLoading(true)}
               className="w-full h-12 accent-yellow-600"
               src={activeHymn.audioUrl || ""}

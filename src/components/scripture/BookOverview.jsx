@@ -10,6 +10,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { christianHymns } from "../../data/religions/christianity/hymnConnections";
+import { useReadingProgress } from "../../utils/useReadingProgress";
 
 export default function BookOverview({
   bookData,
@@ -24,6 +25,10 @@ export default function BookOverview({
 
   const { metadata } = bookData;
 
+  const { getReadCountForBook, isChapterRead } = useReadingProgress();
+  const readCount = getReadCountForBook(
+    bookData.slug || metadata.book.toLowerCase().replace(/\s+/g, "-"),
+  );
   // In BookOverview.jsx
 
   const handleSearchLinkClick = (fullRef) => {
@@ -132,7 +137,7 @@ export default function BookOverview({
           <button
             key={i}
             onClick={() => handleSearchLinkClick(part)}
-            className="text-yellow-700 font-bold hover:underline bg-yellow-100/60 px-1.5 py-0.5 rounded mx-0.5 inline-flex items-center transition-all whitespace-nowrap"
+            className="text-yellow-700 dark:text-gold-main font-bold hover:underline bg-yellow-100/80 dark:bg-gold-main/10 dark:inset-ring dark:inset-ring-gold-main/30 px-1 rounded mx-0.5 inline-flex items-center"
           >
             <BookOpen size={12} className="mr-1" />
             {part}
@@ -143,17 +148,20 @@ export default function BookOverview({
     });
   };
 
-  // Filter hymns using a "slugified" comparison
-  const suggestedHymns = christianHymns.filter((h) => {
-    const currentBookSlug = metadata.book
-      .toLowerCase()
-      .replace(/\s+/g, "-") // Turn "1 Samuel" into "1-samuel"
-      .trim();
+  // Define the normalizer once
+  const normalize = (s) => s.toLowerCase().replace(/[\s-]+/g, "");
+  const currentBookSlug = normalize(metadata.book);
 
-    return h.relatedBooks.includes(currentBookSlug);
-  });
+  // Filter hymns using the normalized slug comparison
+  const suggestedHymns = christianHymns.filter((h) =>
+    h.relatedBooks.some((ref) => normalize(ref) === currentBookSlug),
+  );
 
-  const chapters = [...Array(metadata.totalChapters)].map((_, i) => i + 1);
+  const totalChapters =
+    metadata.totalChapters ?? Object.keys(bookData.chapters || {}).length;
+
+  const chapters = [...Array(totalChapters)].map((_, i) => i + 1);
+
   const filteredChapters = chapters.filter((num) =>
     num.toString().includes(searchTerm),
   );
@@ -171,12 +179,31 @@ export default function BookOverview({
         Back to Books
       </button>
 
-      <h2 className="text-6xl font-serif font-bold text-stream-navy mb-2 tracking-tight">
-        {metadata.book}
-      </h2>
-      <div className="h-1 w-20 bg-yellow-500 mb-10 rounded-full" />
+      <div className="flex items-end justify-between mb-2">
+        <h2 className="text-6xl font-serif font-bold text-stream-navy dark:text-gold-main tracking-tight">
+          {metadata.book}
+        </h2>
+        <span className="text-sm font-bold text-yellow-600 dark:text-gold-main uppercase tracking-widest mb-2">
+          {readCount} / {totalChapters} Read
+        </span>
+      </div>
 
-      <div className="bg-white rounded-3xl border border-yellow-200 p-8 md:p-10 shadow-sm mb-12 relative overflow-hidden">
+      {/* Progress Bar */}
+      <div className="flex items-center gap-4 mb-10">
+        <div className="h-2 w-full bg-yellow-100 dark:bg-slate-800 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-yellow-500 dark:bg-gold-main transition-all duration-1000 ease-out"
+            style={{
+              width: `${Math.round((readCount / totalChapters) * 100)}%`,
+            }}
+          />
+        </div>
+        <span className="text-sm font-bold text-slate-400 min-w-[3ch]">
+          {Math.round((readCount / totalChapters) * 100)}%
+        </span>
+      </div>
+
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-yellow-200 dark:border-slate-700 p-8 md:p-10 shadow-sm mb-12 relative overflow-hidden transition-colors">
         <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-full blur-3xl -mr-16 -mt-16 opacity-50" />
         <h3 className="text-yellow-600 font-bold uppercase tracking-[0.2em] text-xs mb-8">
           Historical Information
@@ -185,12 +212,12 @@ export default function BookOverview({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 text-sm">
           {/* Author */}
           <div className="flex items-start space-x-4">
-            <div className="p-2 bg-yellow-50 rounded-lg">
+            <div className="p-2 bg-yellow-50 dark:bg-slate-800 rounded-lg">
               <User className="text-yellow-600" size={20} />
             </div>
             <div>
               <p className="text-gray-400 font-medium mb-0.5">Author</p>
-              <div className="text-stream-navy font-bold text-base leading-relaxed">
+              <div className="text-stream-navy dark:text-slate-200 font-bold text-base leading-relaxed">
                 {renderTextWithLinks(metadata.author)}
               </div>
             </div>
@@ -198,14 +225,14 @@ export default function BookOverview({
 
           {/* Time of Writing */}
           <div className="flex items-start space-x-4">
-            <div className="p-2 bg-yellow-50 rounded-lg">
+            <div className="p-2 bg-yellow-50 dark:bg-slate-800 rounded-lg">
               <History className="text-yellow-600" size={20} />
             </div>
             <div>
               <p className="text-gray-400 font-medium mb-0.5">
                 Time of Writing
               </p>
-              <div className="text-stream-navy font-bold text-base leading-relaxed">
+              <div className="text-stream-navy dark:text-slate-300 font-bold text-base leading-relaxed">
                 {renderTextWithLinks(metadata.timeOfWriting)}
               </div>
             </div>
@@ -213,14 +240,14 @@ export default function BookOverview({
 
           {/* Place of Writing */}
           <div className="flex items-start space-x-4">
-            <div className="p-2 bg-yellow-50 rounded-lg">
+            <div className="p-2 bg-yellow-50 dark:bg-slate-800 rounded-lg">
               <MapPin className="text-yellow-600" size={20} />
             </div>
             <div>
               <p className="text-gray-400 font-medium mb-0.5">
                 Place of Writing
               </p>
-              <div className="text-stream-navy font-bold text-base leading-relaxed">
+              <div className="text-stream-navy dark:text-slate-300 font-bold text-base leading-relaxed">
                 {/* ADD THE RENDER FUNCTION HERE */}
                 {renderTextWithLinks(metadata.placeOfWriting)}
               </div>
@@ -229,14 +256,14 @@ export default function BookOverview({
 
           {/* Time Period Covered */}
           <div className="flex items-start space-x-4">
-            <div className="p-2 bg-yellow-50 rounded-lg">
+            <div className="p-2 bg-yellow-50 dark:bg-slate-800 rounded-lg">
               <Clock className="text-yellow-600" size={20} />
             </div>
             <div>
               <p className="text-gray-400 font-medium mb-0.5">
                 Time Period Covered
               </p>
-              <div className="text-stream-navy font-bold text-base leading-relaxed">
+              <div className="text-stream-navy dark:text-slate-300 font-bold text-base leading-relaxed">
                 {renderTextWithLinks(metadata.timePeriodCovered)}
               </div>
             </div>
@@ -247,7 +274,7 @@ export default function BookOverview({
           <p className="text-yellow-600 font-bold text-xs uppercase tracking-[0.2em] mb-4">
             Subject
           </p>
-          <p className="text-stream-navy text-2xl font-serif leading-relaxed italic font-medium">
+          <p className="text-stream-navy dark:text-slate-200 text-2xl font-serif leading-relaxed italic font-medium">
             {metadata.subject}
           </p>
         </div>
@@ -264,14 +291,16 @@ export default function BookOverview({
               <button
                 key={hymn.id}
                 onClick={() => onPlayHymn(hymn)}
-                className="w-full flex items-center justify-between p-4 bg-yellow-50/50 border border-yellow-100 rounded-xl hover:bg-yellow-50 transition-colors group"
+                className="w-full flex items-center justify-between p-4 bg-yellow-50/50 dark:bg-slate-800/50 border border-yellow-100 dark:border-slate-700 rounded-xl hover:bg-yellow-50 dark:hover:bg-slate-800 transition-colors group"
               >
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-white mr-4 group-hover:scale-110 transition-transform">
                     <Play size={16} fill="currentColor" />
                   </div>
                   <div className="text-left">
-                    <p className="font-bold text-stream-navy">{hymn.title}</p>
+                    <p className="font-bold text-stream-navy dark:text-slate-200">
+                      {hymn.title}
+                    </p>
                     <p className="text-xs text-yellow-700">{hymn.category}</p>
                   </div>
                 </div>
@@ -290,7 +319,7 @@ export default function BookOverview({
 
       {/* Chapter Selection */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <h3 className="text-2xl font-bold text-stream-navy">
+        <h3 className="text-2xl font-bold text-stream-navy dark:text-gold-main">
           Select a Chapter
         </h3>
         <div className="relative">
@@ -303,21 +332,32 @@ export default function BookOverview({
             placeholder="Go to chapter..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 pr-4 py-2 bg-white border border-yellow-200 rounded-full focus:outline-none w-full md:w-48 text-sm"
+            className="pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-yellow-200 dark:border-slate-700 rounded-full focus:outline-none w-full md:w-48 text-sm text-slate-800 dark:text-slate-200"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-10 gap-3">
-        {filteredChapters.map((chapterNum) => (
-          <button
-            key={chapterNum}
-            onClick={() => onSelectChapter(chapterNum)}
-            className="aspect-square flex items-center justify-center rounded-2xl border border-yellow-100 bg-white text-stream-navy hover:bg-yellow-500 hover:text-white transition-all font-bold text-lg"
-          >
-            {chapterNum}
-          </button>
-        ))}
+        {filteredChapters.map((chapterNum) => {
+          // Safely generate the slug for matching
+          const currentSlug =
+            bookData.slug || metadata.book.toLowerCase().replace(/\s+/g, "-");
+          const hasRead = isChapterRead(currentSlug, chapterNum);
+
+          return (
+            <button
+              key={chapterNum}
+              onClick={() => onSelectChapter(chapterNum)}
+              className={`aspect-square flex items-center justify-center rounded-2xl border transition-all font-bold text-lg ${
+                hasRead
+                  ? "bg-yellow-100 border-yellow-300 text-yellow-800 dark:bg-gold-main/20 dark:border-gold-main/50 dark:text-gold-main"
+                  : "bg-white dark:bg-slate-800 border-yellow-100 dark:border-slate-700 text-stream-navy dark:text-slate-200 hover:bg-yellow-500 dark:hover:bg-gold-main hover:text-white"
+              }`}
+            >
+              {chapterNum}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

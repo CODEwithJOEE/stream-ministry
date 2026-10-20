@@ -86,7 +86,9 @@ export const getDailyContent = () => {
 
   // Pick the hymn and book
   const dailyHymn = christianHymns[dateSeed % christianHymns.length];
-  const bookList = dailyHymn.relatedBooks || ["genesis"];
+  const bookList = dailyHymn.relatedBooks?.length
+    ? dailyHymn.relatedBooks
+    : ["genesis"];
   const selectedBook = bookList[dateSeed % bookList.length];
 
   // Logic for picking the chapter

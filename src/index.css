@@ -9,7 +9,15 @@
   --color-stream-navy: #1a2b3c;
   --color-stream-teal: #4fbdba;
   --color-stream-sand: #fdfbf7;
+
+  --color-gold-main: #d4af37;
+  --color-gold-light: #f9f6ee;
+  --color-gold-rich: #aa8939;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
 }
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* 3. KEYFRAMES (Animations) */
 @keyframes slideIn {
@@ -105,10 +113,9 @@
   0% {
     transform: translateX(0);
   }
-  /* We move it exactly the width of one title + the gap */
   100% {
-    transform: translateX(calc(-50% - 1rem));
-  }
+    transform: translateX(calc(-50% - 4rem));
+  } /* matches ml-16 */
 }
 
 .animate-marquee {

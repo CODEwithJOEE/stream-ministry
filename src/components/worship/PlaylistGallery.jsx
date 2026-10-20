@@ -34,9 +34,9 @@ export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
   return (
-    <div className="min-h-screen bg-[#fdfcf8] pb-48 animate-in fade-in duration-700">
+    <div className="min-h-screen bg-[#fdfcf8] dark:bg-[#0a1017] pb-48 animate-in fade-in duration-700 transition-colors">
       {/* HEADER with Search - Solid Background to prevent lag */}
-      <div className="bg-[#fdfcf8] sticky top-0 z-30 border-b border-yellow-100 px-6 py-6">
+      <div className="bg-[#fdfcf8] dark:bg-[#0a1017] sticky top-0 z-30 border-b border-yellow-100 dark:border-slate-800 px-6 py-6 transition-colors">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <button
@@ -45,7 +45,7 @@ export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
             >
               <ArrowLeft size={14} className="mr-1" /> BACK
             </button>
-            <h1 className="text-2xl font-serif font-bold text-stream-navy">
+            <h1 className="text-2xl font-serif font-bold text-stream-navy dark:text-gold-main">
               Worship Library
             </h1>
             <Headphones size={24} className="text-yellow-200" />
@@ -60,7 +60,7 @@ export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
             <input
               type="text"
               placeholder="Filter by title, book, or theme..."
-              className="w-full bg-white border border-yellow-100 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-yellow-200 transition-all text-sm shadow-sm"
+              className="w-full bg-white dark:bg-slate-900 border border-yellow-100 dark:border-slate-700 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-yellow-200 transition-all text-sm shadow-sm text-slate-800 dark:text-slate-200"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -88,10 +88,10 @@ export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
                 {items.map((hymn) => (
                   <div
                     key={hymn.id}
-                    className="group bg-white border border-yellow-100 p-6 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500"
+                    className="group bg-white dark:bg-slate-900 border border-yellow-100 dark:border-slate-700 p-6 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500"
                   >
                     <div className="flex items-start justify-between gap-4 mb-4">
-                      <div className="w-10 h-10 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white transition-colors flex-shrink-0">
+                      <div className="w-10 h-10 bg-yellow-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white transition-colors flex-shrink-0">
                         <Music size={18} />
                       </div>
 
@@ -104,7 +104,7 @@ export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
                       </button>
                     </div>
 
-                    <h3 className="font-bold text-stream-navy mb-4 leading-tight text-lg">
+                    <h3 className="font-bold text-stream-navy dark:text-slate-200 mb-4 leading-tight text-lg">
                       {hymn.title}
                     </h3>
 
@@ -119,7 +119,7 @@ export default function PlaylistGallery({ hymns, onPlay, onNavigate, onBack }) {
                               chapter: 1,
                             })
                           }
-                          className="text-[9px] font-bold px-2 py-1 bg-slate-50 text-slate-400 rounded-lg hover:bg-yellow-100 hover:text-yellow-700 transition-colors uppercase tracking-wider"
+                          className="text-[9px] font-bold px-2 py-1 bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-400 rounded-lg hover:bg-yellow-100 dark:hover:bg-slate-700 hover:text-yellow-700 dark:hover:text-gold-main transition-colors uppercase tracking-wider"
                         >
                           {book}
                         </button>

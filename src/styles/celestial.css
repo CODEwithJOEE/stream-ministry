@@ -1,13 +1,15 @@
 /* src/styles/celestial.css */
 
 .new-jerusalem-bg {
-  /* Warm cream/off-white background base color */
   background-color: #fdfbf7;
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
+.dark .new-jerusalem-bg {
+  background-color: #0a1017;
+}
 .lampstand-watermark {
   position: fixed;
   top: 50%;

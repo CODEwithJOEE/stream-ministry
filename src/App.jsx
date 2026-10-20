@@ -9,7 +9,7 @@ import { loadBookData } from "./utils/fetchScripture";
 import { getDailyContent } from "./utils/dailyLogic";
 import "./styles/celestial.css";
 import lampstandImg from "./assets/lampstand.png";
-import { Search, X, BookOpen, Music } from "lucide-react";
+import { Search, X, BookOpen, Music, Moon, Sun } from "lucide-react";
 import { christianHymns } from "./data/religions/christianity/hymnConnections";
 import PlaylistGallery from "./components/worship/PlaylistGallery";
 import UniversalSearch from "./components/search/UniversalSearch";
@@ -25,8 +25,26 @@ export default function App() {
   const [globalFootnotes, setGlobalFootnotes] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const dailyStream = getDailyContent();
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check local storage or system preference on first load
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDarkMode]);
 
   // 1. Add an effect to SAVE the history whenever a user reads a specific chapter/verse
   useEffect(() => {
@@ -118,16 +136,30 @@ export default function App() {
     },
   );
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20); // Triggers after scrolling 20px
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="new-jerusalem-bg selection:bg-yellow-200 min-h-screen">
+    <div className="new-jerusalem-bg dark:bg-[#0a1017] selection:bg-yellow-200 min-h-screen transition-colors duration-500">
       <div className="divine-center-glow" />
       <img src={lampstandImg} alt="" className="lampstand-watermark" />
 
       <div className="relative z-10">
         {/* 1. TOP NAVIGATION & HEADER */}
-        <header className="pt-10 pb-6 px-6 text-center bg-[#fdfcf8] sticky top-0 z-50 border-b border-yellow-100/50">
+        <header
+          className={`sticky top-0 z-50 pt-10 pb-6 px-6 text-center transition-all duration-300 ${
+            isScrolled
+              ? "bg-[#fdfbf7]/80 dark:bg-[#0f1720]/80 backdrop-blur-md shadow-sm border-b border-yellow-100/50 dark:border-slate-800/50"
+              : "bg-[#fdfbf7] dark:bg-[#0f1720] border-b border-transparent"
+          }`}
+        >
           <h1
-            className="text-4xl md:text-6xl font-serif font-bold text-stream-navy mb-2 tracking-tighter cursor-pointer"
+            className="text-4xl md:text-6xl font-serif font-bold text-stream-navy dark:text-gold-main mb-2 tracking-tighter cursor-pointer"
             onClick={() => {
               setView("books");
               setSearchQuery("");
@@ -140,15 +172,21 @@ export default function App() {
           <p className="text-[10px] font-bold text-gold-rich uppercase tracking-[0.3em] mb-4">
             Holy Bible • Recovery Version
           </p>
-
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="absolute top-6 right-6 p-2 rounded-full bg-white/50 dark:bg-slate-800/50 hover:bg-yellow-50 dark:hover:bg-slate-700 text-gold-rich transition-all border border-yellow-100/50 dark:border-slate-700"
+            title="Toggle Theme"
+          >
+            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           {/* WORD / WORSHIP TOGGLE */}
           <div className="flex justify-center gap-3 mb-6">
             <button
               onClick={() => setView("books")}
               className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest transition-all ${
                 ["books", "reader", "overview"].includes(view)
-                  ? "bg-yellow-500 text-white shadow-lg shadow-yellow-200"
-                  : "bg-white/80 text-slate-400 hover:text-yellow-600 border border-yellow-100"
+                  ? "bg-yellow-500 text-white shadow-lg shadow-yellow-200/20"
+                  : "bg-white/80 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-gold-main border border-yellow-100 dark:border-slate-700"
               }`}
             >
               <BookOpen size={16} /> Word
@@ -157,8 +195,8 @@ export default function App() {
               onClick={() => setView("worship")}
               className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest transition-all ${
                 view === "worship"
-                  ? "bg-yellow-500 text-white shadow-lg shadow-yellow-200"
-                  : "bg-white/80 text-slate-400 hover:text-yellow-600 border border-yellow-100"
+                  ? "bg-yellow-500 text-white shadow-lg shadow-yellow-200/20"
+                  : "bg-white/80 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-gold-main border border-yellow-100 dark:border-slate-700"
               }`}
             >
               <Music size={16} /> Worship
@@ -173,7 +211,7 @@ export default function App() {
             <input
               type="text"
               placeholder="Search verses, hymns, or dictionary..."
-              className="w-full bg-white/90 border border-yellow-100 rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-gold-rich shadow-sm font-serif italic text-sm"
+              className="w-full bg-white/90 dark:bg-slate-800/50 border border-yellow-100 dark:border-slate-700/50 rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-gold-rich shadow-sm font-serif italic text-sm text-slate-800 dark:text-slate-200 transition-colors"
               value={searchQuery}
               onFocus={() => setIsSearchOpen(true)}
               onChange={(e) => {
@@ -193,12 +231,12 @@ export default function App() {
               {filteredNotes.map(([word, note]) => (
                 <div
                   key={word}
-                  className="bg-white p-6 rounded-2xl border border-yellow-100 shadow-sm mb-4"
+                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-yellow-100 dark:border-slate-700 shadow-sm mb-4 transition-colors"
                 >
-                  <h4 className="text-xl font-bold text-yellow-900 mb-2">
+                  <h4 className="text-xl font-bold text-yellow-900 dark:text-gold-main mb-2">
                     {word}
                   </h4>
-                  <p className="text-slate-700 italic font-serif">
+                  <p className="text-slate-700 dark:text-slate-300 italic font-serif">
                     {note.text}
                   </p>
                 </div>
@@ -279,9 +317,6 @@ export default function App() {
             initialQuery={searchQuery}
             setGlobalQuery={setSearchQuery}
             globalFootnotes={globalFootnotes}
-            allBooksData={
-              loadedBookData ? { [selectedBook?.id]: loadedBookData } : {}
-            }
             hymnsList={christianHymns}
             onNavigate={(path) => {
               handleManualNav(path);

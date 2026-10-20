@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { christianHymns } from "../../data/religions/christianity/hymnConnections";
+import { useReadingProgress } from "../../utils/useReadingProgress";
 import {
   Music,
   X,
@@ -7,6 +8,7 @@ import {
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
+  CheckCircle,
 } from "lucide-react";
 
 export default function ScriptureReader({
@@ -23,6 +25,8 @@ export default function ScriptureReader({
   // 1. ALL HOOKS AT THE TOP
   const [activeFootnote, setActiveFootnote] = useState(null);
   const verseRefs = useRef({});
+  const { toggleChapterRead, isChapterRead } = useReadingProgress();
+  const hasReadCurrentChapter = isChapterRead(bookSlug, chapter);
 
   // 2. SCROLL TO VERSE EFFECT
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function ScriptureReader({
   // 3. LOADING GUARD
   if (!bookData || !bookData.chapters || !bookData.metadata) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfcf8]">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfcf8] dark:bg-[#0a1017]">
         <div className="w-12 h-12 border-4 border-yellow-200 border-t-yellow-600 rounded-full animate-spin mb-4"></div>
         <p className="text-yellow-700 font-serif italic">Opening the Word...</p>
       </div>
@@ -152,7 +156,7 @@ export default function ScriptureReader({
       mic: "micah",
       nah: "nahum",
       hab: "habakkuk",
-      zeph: "zechariah",
+      zeph: "zephaniah",
       hag: "haggai",
       zech: "zechariah",
       mal: "malachi",
@@ -203,14 +207,14 @@ export default function ScriptureReader({
   };
 
   const renderTextWithLinks = (text) => {
-    const refRegex = /\(([1-3]?\s?[A-Z][a-z.]+\s\d+)(?::\d+(?:-\d+)?)?\)/g;
+    const refRegex = /\(([1-3]?\s?[A-Z][a-z.]+\s\d+(?::\d+(?:-\d+)?)?)\)/g;
     const parts = text.split(refRegex);
     return parts.map((part, i) =>
       i % 2 === 1 ? (
         <button
           key={i}
           onClick={() => handleCrossReference(part)}
-          className="text-yellow-700 font-bold hover:underline bg-yellow-100/80 px-1 rounded mx-0.5 inline-flex items-center"
+          className="text-yellow-700 dark:text-gold-main font-bold hover:underline bg-yellow-100/80 dark:bg-gold-main/10 dark:border dark:border-gold-main/20 px-1 rounded mx-0.5 inline-flex items-center"
         >
           <BookOpen size={10} className="mr-1" /> {part}
         </button>
@@ -231,22 +235,22 @@ export default function ScriptureReader({
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-[#fdfcf8] selection:bg-yellow-200">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#fdfcf8] dark:bg-[#0a1017] selection:bg-yellow-200 transition-colors duration-500">
       <div
         className={`flex-1 transition-all duration-500 ${activeFootnote ? "md:mr-80" : ""}`}
       >
         {/* STICKY HEADER */}
-        <div className="sticky top-0 z-30 bg-[#fdfcf8]/90 backdrop-blur-md border-b border-yellow-100 px-6 py-3 flex justify-between items-center">
+        <div className="sticky top-0 z-30 bg-[#fdfcf8]/90 dark:bg-[#0a1017]/90 backdrop-blur-md border-b border-yellow-100 dark:border-slate-800 px-6 py-3 flex justify-between items-center">
           <button
             onClick={onBack}
-            className="text-slate-500 hover:text-yellow-700 flex items-center text-sm font-medium"
+            className="text-slate-500 dark:text-slate-400 hover:text-yellow-700 dark:hover:text-gold-main flex items-center text-sm font-medium transition-colors"
           >
             <ArrowLeft size={16} className="mr-2" />
             {bookData.metadata?.book || "Back"}
           </button>
 
           <div className="flex flex-col items-center">
-            <span className="font-serif italic font-bold text-stream-navy uppercase tracking-widest text-[10px] md:text-sm">
+            <span className="font-serif italic font-bold text-stream-navy dark:text-gold-main uppercase tracking-widest text-[10px] md:text-sm">
               Chapter {chapter}
             </span>
             {relatedHymn && (
@@ -292,7 +296,7 @@ export default function ScriptureReader({
                       {vNum}
                     </span>
                     <p
-                      className={`text-xl leading-[1.8] font-serif text-slate-800 ${vNum === 1 ? "first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-stream-navy" : ""}`}
+                      className={`text-xl leading-[1.8] font-serif text-slate-800 dark:text-slate-300 ${vNum === 1 ? "first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-stream-navy dark:first-letter:text-gold-main" : ""}`}
                     >
                       {verse.split(" ").map((word, wIdx) => {
                         const note = getNoteForWord(word, vNum);
@@ -300,9 +304,9 @@ export default function ScriptureReader({
                           <button
                             key={wIdx}
                             onClick={() => setActiveFootnote(note)}
-                            className="text-slate-900 border-b-2 border-yellow-200/60 hover:bg-yellow-100 transition-colors cursor-help px-0.5"
+                            className="text-slate-900 dark:text-slate-200 border-b-2 border-gold-rich/40 dark:border-gold-main/50 hover:bg-yellow-100 dark:hover:bg-slate-800 transition-all cursor-help px-0.5"
                           >
-                            {word}{" "}
+                            {word}&nbsp;
                           </button>
                         ) : (
                           <span key={wIdx}>{word} </span>
@@ -315,58 +319,73 @@ export default function ScriptureReader({
           </div>
 
           {/* CHAPTER NAVIGATION FOOTER */}
-          {/* Added pb-32 to create space for the Music Player */}
-          <div className="mt-16 pt-8 pb-32 border-t border-yellow-100 flex items-center justify-between">
+          <div className="mt-16 pt-10 pb-32 border-t border-yellow-100 dark:border-slate-800 flex flex-col items-center gap-10">
+            {/* MARK AS READ BUTTON (Centered) */}
             <button
-              disabled={chapter <= 1}
-              onClick={() =>
-                onNavigate({ religion, book: bookSlug, chapter: chapter - 1 })
-              }
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
-                chapter <= 1
-                  ? "opacity-20 cursor-not-allowed"
-                  : "text-slate-500 hover:bg-yellow-50 hover:text-yellow-700"
+              onClick={() => toggleChapterRead(bookSlug, chapter)}
+              className={`flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold uppercase tracking-widest text-xs transition-all shadow-sm w-full max-w-[280px] ${
+                hasReadCurrentChapter
+                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800"
+                  : "bg-white text-slate-500 hover:text-yellow-700 dark:bg-slate-800 dark:text-slate-300 border border-yellow-100 dark:border-slate-700 hover:border-yellow-500"
               }`}
             >
-              <ChevronLeft size={20} />
-              <div className="flex flex-col items-start text-left">
-                <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
-                  Previous
-                </span>
-                <span className="font-serif italic text-sm">
-                  Chapter {chapter - 1}
-                </span>
-              </div>
+              <CheckCircle size={18} />
+              {hasReadCurrentChapter ? "Chapter Completed" : "Mark as Read"}
             </button>
 
-            <button
-              disabled={chapter >= totalChapters}
-              onClick={() =>
-                onNavigate({ religion, book: bookSlug, chapter: chapter + 1 })
-              }
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
-                chapter >= totalChapters
-                  ? "opacity-20 cursor-not-allowed"
-                  : "text-stream-navy hover:bg-yellow-50 hover:text-yellow-700"
-              }`}
-            >
-              <div className="flex flex-col items-end text-right">
-                <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
-                  Next
-                </span>
-                <span className="font-serif italic text-sm">
-                  Chapter {chapter + 1}
-                </span>
-              </div>
-              <ChevronRight size={20} />
-            </button>
+            {/* PREVIOUS / NEXT BUTTONS (Side by side below) */}
+            <div className="flex items-center justify-between w-full">
+              <button
+                disabled={chapter <= 1}
+                onClick={() =>
+                  onNavigate({ religion, book: bookSlug, chapter: chapter - 1 })
+                }
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
+                  chapter <= 1
+                    ? "opacity-20 cursor-not-allowed"
+                    : "text-slate-500 dark:text-slate-400 hover:bg-yellow-50 dark:hover:bg-slate-800 hover:text-yellow-700 dark:hover:text-gold-main"
+                }`}
+              >
+                <ChevronLeft size={20} />
+                <div className="flex flex-col items-start text-left">
+                  <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
+                    Previous
+                  </span>
+                  <span className="font-serif italic text-sm">
+                    Chapter {chapter - 1}
+                  </span>
+                </div>
+              </button>
+
+              <button
+                disabled={chapter >= totalChapters}
+                onClick={() =>
+                  onNavigate({ religion, book: bookSlug, chapter: chapter + 1 })
+                }
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
+                  chapter >= totalChapters
+                    ? "opacity-20 cursor-not-allowed"
+                    : "text-stream-navy dark:text-gold-main hover:bg-yellow-50 dark:hover:bg-slate-800 hover:text-yellow-700"
+                }`}
+              >
+                <div className="flex flex-col items-end text-right">
+                  <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
+                    Next
+                  </span>
+                  <span className="font-serif italic text-sm">
+                    Chapter {chapter + 1}
+                  </span>
+                </div>
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* FOOTNOTE SIDEBAR */}
       <div
-        className={`fixed top-0 right-0 h-full bg-white border-l border-yellow-100 shadow-2xl transition-transform duration-500 z-50 w-full md:w-80 ${activeFootnote ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-full bg-white dark:bg-slate-900 border-l border-yellow-100 dark:border-slate-800 shadow-2xl transition-transform duration-500 z-50 w-full md:w-80 ${activeFootnote ? "translate-x-0" : "translate-x-full"}`}
       >
         {activeFootnote && (
           <div className="p-8 h-full flex flex-col footnote-enter">
@@ -376,16 +395,16 @@ export default function ScriptureReader({
               </span>
               <button
                 onClick={() => setActiveFootnote(null)}
-                className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
               >
                 <X size={20} className="text-slate-400" />
               </button>
             </div>
-            <h3 className="text-3xl font-serif font-bold text-stream-navy mb-6">
+            <h3 className="text-3xl font-serif font-bold text-stream-navy dark:text-gold-main mb-6">
               {activeFootnote.word}
             </h3>
             <div className="flex-1 overflow-y-auto">
-              <div className="text-slate-700 leading-relaxed text-md italic font-serif bg-yellow-50/50 p-6 rounded-3xl border border-yellow-100/50">
+              <div className="text-slate-700 dark:text-slate-300 leading-relaxed text-md italic font-serif bg-yellow-50/50 dark:bg-slate-800/50 p-6 rounded-3xl border border-yellow-100/50 dark:border-slate-700">
                 {renderTextWithLinks(activeFootnote.text)}
               </div>
             </div>
