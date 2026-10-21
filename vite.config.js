@@ -9,13 +9,55 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      includeAssets: [
+        "Stream-Ministry-192x192.png",
+        "Stream-Ministry-512x512.png",
+        "lampstand.png",
+      ],
       workbox: {
-        // This replaces your manual fetch logic
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,json}"],
+        // 1. Increase the cache size limit (Default is 2MB, which is too small for audio)
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10MB
+
+        // 2. Cache all static assets, including our search index
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,json,mp3}"],
+
+        // 3. Runtime Caching (This catches dynamic imports and API fetches)
         runtimeCaching: [
           {
+            // Catch any dynamically imported Bible JSON files
+            urlPattern: ({ url }) => url.pathname.includes("/data/"),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "bible-data",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            // Catch the search index
+            urlPattern: ({ url }) => url.pathname.includes("search-index.json"),
+            handler: "StaleWhileRevalidate", // Will use cache, but update in background
+            options: {
+              cacheName: "search-index",
+            },
+          },
+          {
+            // Catch Audio files
             urlPattern: ({ request }) => request.destination === "audio",
-            handler: "NetworkOnly", // Don't cache audio automatically, just like your sw.js
+            handler: "CacheFirst", // Change from NetworkOnly to CacheFirst to save audio offline!
+            options: {
+              cacheName: "hymn-audio",
+              expiration: {
+                maxEntries: 50, // Store up to 50 hymns
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
+              },
+              rangeRequests: true, // IMPORTANT: Required for iOS/Safari audio caching
+            },
           },
         ],
       },
@@ -37,8 +79,8 @@ export default defineConfig({
         ],
         start_url: "/",
         display: "standalone",
-        theme_color: "#eab308", // This will make the mobile status bar Gold
-        background_color: "#fdfcf8", // Matches your cream background
+        theme_color: "#eab308",
+        background_color: "#fdfcf8",
       },
     }),
   ],

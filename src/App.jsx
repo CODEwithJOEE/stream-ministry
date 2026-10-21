@@ -15,6 +15,7 @@ import PlaylistGallery from "./components/worship/PlaylistGallery";
 import UniversalSearch from "./components/search/UniversalSearch";
 import BackToTop from "./components/layout/BackToTop";
 import BookmarksView from "./components/scripture/BookmarksView";
+import GlobalProgress from "./components/layout/GlobalProgress";
 
 export default function App() {
   const [view, setView] = useState("books");
@@ -277,6 +278,9 @@ export default function App() {
                 onRead={handleManualNav}
                 onPlay={(streamHymn) => setActiveHymn(streamHymn)}
               />
+
+              <GlobalProgress />
+
               <BookList
                 religion="christianity"
                 onSelectBook={handleBookSelect}

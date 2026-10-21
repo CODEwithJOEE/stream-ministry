@@ -43,5 +43,10 @@ export const useReadingProgress = () => {
     return readChapters.filter((id) => id.startsWith(`${bookSlug}-`)).length;
   };
 
-  return { toggleChapterRead, isChapterRead, getReadCountForBook };
+  return {
+    readChapters,
+    toggleChapterRead,
+    isChapterRead,
+    getReadCountForBook,
+  };
 };
