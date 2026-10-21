@@ -9,13 +9,23 @@ import { loadBookData } from "./utils/fetchScripture";
 import { getDailyContent } from "./utils/dailyLogic";
 import "./styles/celestial.css";
 import lampstandImg from "./assets/lampstand.png";
-import { Search, X, BookOpen, Music, Moon, Sun, Bookmark } from "lucide-react";
 import { christianHymns } from "./data/religions/christianity/hymnConnections";
 import PlaylistGallery from "./components/worship/PlaylistGallery";
 import UniversalSearch from "./components/search/UniversalSearch";
 import BackToTop from "./components/layout/BackToTop";
 import BookmarksView from "./components/scripture/BookmarksView";
 import GlobalProgress from "./components/layout/GlobalProgress";
+import AboutView from "./components/layout/AboutView";
+import {
+  Search,
+  X,
+  BookOpen,
+  Music,
+  Moon,
+  Sun,
+  Bookmark,
+  Info,
+} from "lucide-react";
 
 export default function App() {
   const [view, setView] = useState("books");
@@ -155,7 +165,7 @@ export default function App() {
       <div className="relative z-10">
         {/* 1. TOP NAVIGATION & HEADER */}
         <header
-          className={`${["books", "worship", "overview", "bookmarks"].includes(view) ? "sticky top-0 z-50" : "relative"} pt-10 pb-6 px-6 text-center transition-all duration-300 ${
+          className={`${["books", "worship", "overview", "bookmarks", "about"].includes(view) ? "sticky top-0 z-50" : "relative"} pt-10 pb-6 px-6 text-center transition-all duration-300 ${
             isScrolled
               ? "bg-[#fdfbf7]/80 dark:bg-[#0f1720]/80 backdrop-blur-md shadow-sm border-b border-yellow-100/50 dark:border-slate-800/50"
               : "bg-[#fdfbf7] dark:bg-[#0f1720] border-b border-transparent"
@@ -175,13 +185,26 @@ export default function App() {
           <p className="text-[10px] font-bold text-gold-rich uppercase tracking-[0.3em] mb-4">
             Holy Bible • Recovery Version
           </p>
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="absolute top-6 right-6 p-2 rounded-full bg-white/50 dark:bg-slate-800/50 hover:bg-yellow-50 dark:hover:bg-slate-700 text-gold-rich transition-all border border-yellow-100/50 dark:border-slate-700"
-            title="Toggle Theme"
-          >
-            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          {/* Top Right Corner Buttons */}
+          <div className="absolute top-6 right-6 flex items-center gap-2">
+            {/* ABOUT BUTTON */}
+            <button
+              onClick={() => setView("about")}
+              className="p-2 rounded-full bg-white/50 dark:bg-slate-800/50 hover:bg-yellow-50 dark:hover:bg-slate-700 text-gold-rich transition-all border border-yellow-100/50 dark:border-slate-700"
+              title="About this App"
+            >
+              <Info size={18} />
+            </button>
+
+            {/* DARK MODE BUTTON (moved into this wrapper) */}
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-2 rounded-full bg-white/50 dark:bg-slate-800/50 hover:bg-yellow-50 dark:hover:bg-slate-700 text-gold-rich transition-all border border-yellow-100/50 dark:border-slate-700"
+              title="Toggle Theme"
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          </div>
           {/* WORD / WORSHIP TOGGLE */}
           <div className="flex justify-center gap-3 mb-6">
             <button
@@ -271,6 +294,9 @@ export default function App() {
               onBack={() => setView("books")}
             />
           )}
+
+          {view === "about" && <AboutView onBack={() => setView("books")} />}
+
           {view === "books" && (
             <>
               <DailyStreamCard
