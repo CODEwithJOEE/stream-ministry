@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { christianHymns } from "../../data/religions/christianity/hymnConnections";
 import { useReadingProgress } from "../../utils/useReadingProgress";
+import { useHighlights } from "../../utils/useHighlights";
 import {
   Music,
+  Bookmark,
+  Highlighter,
   X,
   BookOpen,
   ArrowLeft,
@@ -27,6 +30,26 @@ export default function ScriptureReader({
   const verseRefs = useRef({});
   const { toggleChapterRead, isChapterRead } = useReadingProgress();
   const hasReadCurrentChapter = isChapterRead(bookSlug, chapter);
+
+  const { toggleBookmark, isBookmarked, setHighlight, getHighlight } =
+    useHighlights();
+
+  const [activeVerseMenu, setActiveVerseMenu] = useState(null);
+
+  const menuRef = useRef(null); // <-- Add this ref
+
+  // ADD THIS EFFECT: Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setActiveVerseMenu(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // 2. SCROLL TO VERSE EFFECT
   useEffect(() => {
@@ -240,7 +263,7 @@ export default function ScriptureReader({
         className={`flex-1 transition-all duration-500 ${activeFootnote ? "md:mr-80" : ""}`}
       >
         {/* STICKY HEADER */}
-        <div className="sticky top-0 z-30 bg-[#fdfcf8]/90 dark:bg-[#0a1017]/90 backdrop-blur-md border-b border-yellow-100 dark:border-slate-800 px-6 py-3 flex justify-between items-center">
+        <div className="sticky top-0 z-40 bg-[#fdfcf8]/90 dark:bg-[#0a1017]/90 backdrop-blur-md border-b border-yellow-100 dark:border-slate-800 px-6 py-3 flex justify-between items-center transition-colors">
           <button
             onClick={onBack}
             className="text-slate-500 dark:text-slate-400 hover:text-yellow-700 dark:hover:text-gold-main flex items-center text-sm font-medium transition-colors"
@@ -256,7 +279,7 @@ export default function ScriptureReader({
             {relatedHymn && (
               <button
                 onClick={() => onPlay(relatedHymn)}
-                className="text-[9px] text-yellow-600 font-bold flex items-center gap-1 hover:text-yellow-700 animate-pulse"
+                className="text-[9px] text-yellow-600 dark:text-gold-main font-bold flex items-center gap-1 hover:text-yellow-700 dark:hover:text-gold-main animate-pulse"
               >
                 <Music size={10} /> LISTEN TO THEME
               </button>
@@ -272,12 +295,25 @@ export default function ScriptureReader({
               chapterText.map((verse, vIdx) => {
                 const vNum = vIdx + 1;
                 const verseHymn = getHymnForVerse(vNum);
+                const highlightedColor = getHighlight(bookSlug, chapter, vNum);
+                const bookmarked = isBookmarked(bookSlug, chapter, vNum);
+
+                // Highlight Color Logic
+                const bgClass =
+                  highlightedColor === "yellow"
+                    ? "bg-yellow-200/40 dark:bg-yellow-900/30"
+                    : highlightedColor === "green"
+                      ? "bg-green-200/40 dark:bg-green-900/30"
+                      : highlightedColor === "blue"
+                        ? "bg-blue-200/40 dark:bg-blue-900/30"
+                        : "";
+
                 return (
                   <div
                     key={vIdx}
                     id={`verse-${vNum}`}
                     ref={(el) => (verseRefs.current[vNum] = el)}
-                    className="group relative flex items-start space-x-6 p-2 rounded-2xl transition-all duration-500"
+                    className={`group relative flex items-start space-x-6 p-2 rounded-2xl transition-all duration-500 ${bgClass}`}
                   >
                     {verseHymn && (
                       <button
@@ -292,9 +328,100 @@ export default function ScriptureReader({
                       </button>
                     )}
 
-                    <span className="text-[11px] font-bold text-yellow-600/40 mt-2 min-w-[20px] text-right">
-                      {vNum}
-                    </span>
+                    {/* Verse Number - Clickable for Menu */}
+                    <div className="relative">
+                      <button
+                        onClick={() =>
+                          setActiveVerseMenu(
+                            activeVerseMenu === vNum ? null : vNum,
+                          )
+                        }
+                        className={`text-[11px] font-bold mt-2 min-w-[20px] text-right transition-colors hover:text-gold-main ${activeVerseMenu === vNum ? "text-gold-main" : "text-yellow-600/40"}`}
+                      >
+                        {vNum}
+                      </button>
+
+                      {/* BOOKMARK INDICATOR */}
+                      {bookmarked && (
+                        <Bookmark
+                          size={10}
+                          className="absolute -left-3 top-3 text-gold-main"
+                          fill="currentColor"
+                        />
+                      )}
+
+                      {/* ACTION MENU POPUP */}
+                      {activeVerseMenu === vNum && (
+                        <div
+                          ref={menuRef}
+                          className="absolute top-8 left-0 z-50 flex items-center gap-2 bg-white dark:bg-slate-800 border border-yellow-100 dark:border-slate-700 p-2 rounded-xl shadow-2xl animate-in fade-in zoom-in duration-200"
+                        >
+                          {/* Colors */}
+                          <button
+                            onClick={() =>
+                              setHighlight(
+                                bookSlug,
+                                chapter,
+                                vNum,
+                                highlightedColor === "yellow" ? null : "yellow",
+                              )
+                            }
+                            className="w-6 h-6 rounded-full bg-yellow-400 hover:scale-110 transition-transform border border-yellow-500"
+                          ></button>
+                          <button
+                            onClick={() =>
+                              setHighlight(
+                                bookSlug,
+                                chapter,
+                                vNum,
+                                highlightedColor === "green" ? null : "green",
+                              )
+                            }
+                            className="w-6 h-6 rounded-full bg-green-400 hover:scale-110 transition-transform border border-green-500"
+                          ></button>
+                          <button
+                            onClick={() =>
+                              setHighlight(
+                                bookSlug,
+                                chapter,
+                                vNum,
+                                highlightedColor === "blue" ? null : "blue",
+                              )
+                            }
+                            className="w-6 h-6 rounded-full bg-blue-400 hover:scale-110 transition-transform border border-blue-500"
+                          ></button>
+                          <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-600 mx-1"></div>
+                          {/* Bookmark */}
+                          <button
+                            onClick={() =>
+                              toggleBookmark(bookSlug, chapter, vNum, verse)
+                            }
+                            className={`p-1 ${bookmarked ? "text-gold-main" : "text-slate-400 hover:text-gold-main"}`}
+                          >
+                            <Bookmark
+                              size={18}
+                              fill={bookmarked ? "currentColor" : "none"}
+                            />
+                          </button>
+                          {/* Clear */}
+                          {/* Clear (Removes Highlight & Bookmark) */}
+                          <button
+                            onClick={() => {
+                              setHighlight(bookSlug, chapter, vNum, null);
+                              if (bookmarked) {
+                                toggleBookmark(bookSlug, chapter, vNum, verse); // Remove bookmark if it exists
+                              }
+                              setActiveVerseMenu(null); // Close menu after clearing
+                            }}
+                            className="p-1 text-slate-400 hover:text-red-500 transition-colors"
+                            title="Remove Highlight & Bookmark"
+                          >
+                            <X size={18} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <p
                       className={`text-xl leading-[1.8] font-serif text-slate-800 dark:text-slate-300 ${vNum === 1 ? "first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-stream-navy dark:first-letter:text-gold-main" : ""}`}
                     >

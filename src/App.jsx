@@ -9,10 +9,12 @@ import { loadBookData } from "./utils/fetchScripture";
 import { getDailyContent } from "./utils/dailyLogic";
 import "./styles/celestial.css";
 import lampstandImg from "./assets/lampstand.png";
-import { Search, X, BookOpen, Music, Moon, Sun } from "lucide-react";
+import { Search, X, BookOpen, Music, Moon, Sun, Bookmark } from "lucide-react";
 import { christianHymns } from "./data/religions/christianity/hymnConnections";
 import PlaylistGallery from "./components/worship/PlaylistGallery";
 import UniversalSearch from "./components/search/UniversalSearch";
+import BackToTop from "./components/layout/BackToTop";
+import BookmarksView from "./components/scripture/BookmarksView";
 
 export default function App() {
   const [view, setView] = useState("books");
@@ -152,7 +154,7 @@ export default function App() {
       <div className="relative z-10">
         {/* 1. TOP NAVIGATION & HEADER */}
         <header
-          className={`sticky top-0 z-50 pt-10 pb-6 px-6 text-center transition-all duration-300 ${
+          className={`${["books", "worship", "overview", "bookmarks"].includes(view) ? "sticky top-0 z-50" : "relative"} pt-10 pb-6 px-6 text-center transition-all duration-300 ${
             isScrolled
               ? "bg-[#fdfbf7]/80 dark:bg-[#0f1720]/80 backdrop-blur-md shadow-sm border-b border-yellow-100/50 dark:border-slate-800/50"
               : "bg-[#fdfbf7] dark:bg-[#0f1720] border-b border-transparent"
@@ -200,6 +202,16 @@ export default function App() {
               }`}
             >
               <Music size={16} /> Worship
+            </button>
+            <button
+              onClick={() => setView("bookmarks")}
+              className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest transition-all ${
+                view === "bookmarks"
+                  ? "bg-yellow-500 text-white shadow-lg shadow-yellow-200/20"
+                  : "bg-white/80 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-gold-main border border-yellow-100 dark:border-slate-700"
+              }`}
+            >
+              <Bookmark size={16} /> Saved
             </button>
           </div>
 
@@ -252,7 +264,12 @@ export default function App() {
               onBack={() => setView("books")}
             />
           )}
-
+          {view === "bookmarks" && (
+            <BookmarksView
+              onNavigate={handleManualNav}
+              onBack={() => setView("books")}
+            />
+          )}
           {view === "books" && (
             <>
               <DailyStreamCard
@@ -298,6 +315,9 @@ export default function App() {
         </main>
         {/* Pass the activeHymn state to the button */}
         <InstallButton isMusicPlaying={!!activeHymn} />
+
+        {/* FLOATING BACK TO TOP BUTTON */}
+        <BackToTop />
 
         {/* 3. MUSIC PLAYER - FIXED AT BOTTOM */}
         {activeHymn && (

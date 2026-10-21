@@ -168,16 +168,19 @@ export default function BookOverview({
 
   return (
     <div className="max-w-4xl mx-auto p-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-24">
-      <button
-        onClick={onBack}
-        className="flex items-center text-yellow-700 mb-8 hover:text-yellow-600 font-medium transition-colors group"
-      >
-        <ArrowLeft
-          size={18}
-          className="mr-2 group-hover:-translate-x-1 transition-transform"
-        />
-        Back to Books
-      </button>
+      {/* Make the Back button stick right below the main header */}
+      <div className="sticky top-0 z-40 bg-[#fdfbf7]/90 dark:bg-[#0a1017]/90 backdrop-blur-md pt-4 pb-2 -mx-6 px-6 mb-4 border-b border-transparent transition-colors">
+        <button
+          onClick={onBack}
+          className="flex items-center text-yellow-700 dark:text-gold-main hover:text-yellow-600 font-medium transition-colors group"
+        >
+          <ArrowLeft
+            size={18}
+            className="mr-2 group-hover:-translate-x-1 transition-transform"
+          />
+          Back to Books
+        </button>
+      </div>
 
       <div className="flex items-end justify-between mb-2">
         <h2 className="text-6xl font-serif font-bold text-stream-navy dark:text-gold-main tracking-tight">
