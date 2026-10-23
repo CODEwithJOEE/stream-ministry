@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { christianHymns } from "../../data/religions/christianity/hymnConnections";
 import { useReadingProgress } from "../../utils/useReadingProgress";
+import VersePreview from "./VersePreview";
 
 export default function BookOverview({
   bookData,
@@ -127,21 +128,115 @@ export default function BookOverview({
   const renderTextWithLinks = (text) => {
     if (!text) return "";
 
-    // FIXED REGEX: Uses a non-capturing group (?:) for the colon/verse
-    // so that split() only captures the full reference string.
-    const refRegex = /\(([1-3]?\s?[A-Z][a-z.]+\s\d+(?::\d+)?)\)/g;
+    // Updated Regex to capture ranges (e.g., 7:1-5) OR single verses (e.g., 7:1)
+    const refRegex = /\(([1-3]?\s?[A-Z][a-z.]+\s\d+(?::\d+(?:-\d+)?)?)\)/g;
 
     return text.split(refRegex).map((part, i) => {
       if (i % 2 === 1) {
+        // Parse the reference string
+        const match = part.match(
+          /([1-3]?\s?[A-Z][a-z.]+)\s(\d+)(?::(\d+)(?:-(\d+))?)?/i,
+        );
+
+        if (!match) return part; // Fallback if regex fails
+
+        const [_, bookPart, chap, startV, endV] = match;
+        const cleanBookPart = bookPart
+          .toLowerCase()
+          .replace(/\./g, "")
+          .replace(/\s/g, "")
+          .trim();
+
+        // Map the book abbreviation to the slug
+        const bookMap = {
+          gen: "genesis",
+          exo: "exodus",
+          lev: "leviticus",
+          num: "numbers",
+          deut: "deuteronomy",
+          josh: "joshua",
+          judg: "judges",
+          ruth: "ruth",
+          "1sam": "1-samuel",
+          "2sam": "2-samuel",
+          "1kings": "1-kings",
+          "2kings": "2-kings",
+          "1chron": "1-chronicles",
+          "2chron": "2-chronicles",
+          ezra: "ezra",
+          neh: "nehemiah",
+          esth: "esther",
+          job: "job",
+          psa: "psalms",
+          prov: "proverbs",
+          eccl: "ecclesiastes",
+          ss: "songofsongs",
+          isa: "isaiah",
+          jer: "jeremiah",
+          lam: "lamentations",
+          ezek: "ezekiel",
+          dan: "daniel",
+          hos: "hosea",
+          joel: "joel",
+          amos: "amos",
+          obad: "obadiah",
+          jonah: "jonah",
+          mic: "micah",
+          nah: "nahum",
+          hab: "habakkuk",
+          zeph: "zephaniah",
+          hag: "haggai",
+          zech: "zechariah",
+          mal: "malachi",
+          mat: "matthew",
+          matt: "matthew",
+          mark: "mark",
+          luke: "luke",
+          john: "john",
+          acts: "acts",
+          rom: "romans",
+          "1cor": "1-corinthians",
+          "2cor": "2-corinthians",
+          gal: "galatians",
+          eph: "ephesians",
+          phil: "philippians",
+          col: "colossians",
+          "1thes": "1-thessalonians",
+          "2thes": "2-thessalonians",
+          "1tim": "1-timothy",
+          "2tim": "2-timothy",
+          tit: "titus",
+          philem: "philemon",
+          heb: "hebrews",
+          james: "james",
+          "1pet": "1-peter",
+          "2pet": "2-peter",
+          "1john": "1-john",
+          "2john": "2-john",
+          "3john": "3-john",
+          jude: "jude",
+          rev: "revelation",
+        };
+
+        const mappedSlug = bookMap[cleanBookPart] || cleanBookPart;
+        const rangeEnd = endV || startV;
+
         return (
-          <button
+          <VersePreview
             key={i}
-            onClick={() => handleSearchLinkClick(part)}
-            className="text-yellow-700 dark:text-gold-main font-bold hover:underline bg-yellow-100/80 dark:bg-gold-main/10 dark:inset-ring dark:inset-ring-gold-main/30 px-1 rounded mx-0.5 inline-flex items-center"
+            bookSlug={mappedSlug}
+            chapter={chap}
+            startVerse={startV}
+            endVerse={rangeEnd}
           >
-            <BookOpen size={12} className="mr-1" />
-            {part}
-          </button>
+            <button
+              onClick={() => handleSearchLinkClick(part)}
+              className="text-yellow-700 dark:text-gold-main font-bold hover:underline bg-yellow-100/80 dark:bg-gold-main/10 dark:inset-ring dark:inset-ring-gold-main/30 px-1 rounded mx-0.5 inline-flex items-center cursor-pointer"
+            >
+              <BookOpen size={12} className="mr-1" />
+              {part}
+            </button>
+          </VersePreview>
         );
       }
       return part;
