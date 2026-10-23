@@ -14,6 +14,8 @@ import {
   CheckCircle,
   Type,
   Share2,
+  Copy,
+  Check,
 } from "lucide-react";
 
 export default function ScriptureReader({
@@ -43,6 +45,8 @@ export default function ScriptureReader({
     return localStorage.getItem("readerFontSize") || "text-xl"; // Default size
   });
   const [showFontMenu, setShowFontMenu] = useState(false);
+
+  const [copiedVerse, setCopiedVerse] = useState(null);
 
   // Save to local storage when it changes
   useEffect(() => {
@@ -154,6 +158,23 @@ export default function ScriptureReader({
       }
     }
     setActiveVerseMenu(null); // Close menu after sharing
+  };
+
+  const handleCopy = async (verseText, verseNum) => {
+    const bookName = bookData.metadata?.book || bookSlug;
+    const copyText = `"${verseText}"\n\n— ${bookName} ${chapter}:${verseNum} (Recovery Version)`;
+
+    try {
+      await navigator.clipboard.writeText(copyText);
+      setCopiedVerse(verseNum); // Show the checkmark for this verse
+
+      // Revert the checkmark back to the copy icon after 2 seconds
+      setTimeout(() => {
+        setCopiedVerse(null);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
   };
 
   const getNoteForWord = (word, vNum) => {
@@ -486,13 +507,30 @@ export default function ScriptureReader({
                             />
                           </button>
 
-                          {/* SHARE BUTTON (Add this) */}
+                          {/* SHARE BUTTON */}
                           <button
                             onClick={() => handleShare(verse, vNum)}
                             className="p-1 text-slate-400 hover:text-blue-500 transition-colors"
                             title="Share this verse"
                           >
                             <Share2 size={18} />
+                          </button>
+
+                          {/* COPY BUTTON (Add this) */}
+                          <button
+                            onClick={() => handleCopy(verse, vNum)}
+                            className={`p-1 transition-colors ${
+                              copiedVerse === vNum
+                                ? "text-green-500"
+                                : "text-slate-400 hover:text-gold-main"
+                            }`}
+                            title="Copy verse to clipboard"
+                          >
+                            {copiedVerse === vNum ? (
+                              <Check size={18} />
+                            ) : (
+                              <Copy size={18} />
+                            )}
                           </button>
 
                           {/* Clear (Removes Highlight & Bookmark) */}
