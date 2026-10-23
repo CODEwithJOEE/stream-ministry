@@ -2,16 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { christianHymns } from "../../data/religions/christianity/hymnConnections";
 import { useReadingProgress } from "../../utils/useReadingProgress";
 import { useHighlights } from "../../utils/useHighlights";
+import { useStreak } from "../../utils/useStreak";
 import {
   Music,
   Bookmark,
-  Highlighter,
   X,
   BookOpen,
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
   CheckCircle,
+  Type,
+  Share2,
 } from "lucide-react";
 
 export default function ScriptureReader({
@@ -30,19 +32,35 @@ export default function ScriptureReader({
   const verseRefs = useRef({});
   const { toggleChapterRead, isChapterRead } = useReadingProgress();
   const hasReadCurrentChapter = isChapterRead(bookSlug, chapter);
+  const { recordReading } = useStreak();
 
   const { toggleBookmark, isBookmarked, setHighlight, getHighlight } =
     useHighlights();
 
   const [activeVerseMenu, setActiveVerseMenu] = useState(null);
 
+  const [fontSize, setFontSize] = useState(() => {
+    return localStorage.getItem("readerFontSize") || "text-xl"; // Default size
+  });
+  const [showFontMenu, setShowFontMenu] = useState(false);
+
+  // Save to local storage when it changes
+  useEffect(() => {
+    localStorage.setItem("readerFontSize", fontSize);
+  }, [fontSize]);
+
   const menuRef = useRef(null); // <-- Add this ref
 
-  // ADD THIS EFFECT: Close menu when clicking outside
+  // ADD THIS EFFECT: Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // 1. Close the verse highlight menu
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setActiveVerseMenu(null);
+      }
+      // 2. Close the font size menu (by checking if the click target is outside the font-menu-container)
+      if (!event.target.closest(".font-menu-container")) {
+        setShowFontMenu(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -110,6 +128,33 @@ export default function ScriptureReader({
       (ref) => ref.replace(/-/g, "") === bookSlug.replace(/-/g, ""),
     ),
   );
+
+  const handleShare = async (verseText, verseNum) => {
+    // Construct the beautiful share message
+    const bookName = bookData.metadata?.book || bookSlug;
+    const shareText = `"${verseText}"\n\n— ${bookName} ${chapter}:${verseNum}\n\nRead more on Stream Ministry.`;
+
+    // Check if the device supports native sharing (Mobile)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${bookName} ${chapter}:${verseNum}`,
+          text: shareText,
+        });
+      } catch (err) {
+        console.log("Share canceled", err);
+      }
+    } else {
+      // Fallback for Desktop: Copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareText);
+        alert("Verse copied to clipboard!"); // Simple fallback notification
+      } catch (err) {
+        console.error("Failed to copy text", err);
+      }
+    }
+    setActiveVerseMenu(null); // Close menu after sharing
+  };
 
   const getNoteForWord = (word, vNum) => {
     const cleanWord = word
@@ -285,7 +330,44 @@ export default function ScriptureReader({
               </button>
             )}
           </div>
-          <div className="w-10"></div>
+
+          {/* NEW FONT SIZE SETTINGS MENU */}
+          <div className="relative flex justify-end w-10 font-menu-container">
+            <button
+              onClick={() => setShowFontMenu(!showFontMenu)}
+              className={`p-2 rounded-full transition-colors ${
+                showFontMenu
+                  ? "bg-yellow-100 dark:bg-slate-800 text-gold-main"
+                  : "text-slate-500 dark:text-slate-400 hover:text-gold-main"
+              }`}
+              title="Text Settings"
+            >
+              <Type size={18} />
+            </button>
+
+            {showFontMenu && (
+              <div className="absolute top-10 right-0 flex items-center gap-2 bg-white dark:bg-slate-800 border border-yellow-100 dark:border-slate-700 p-2 rounded-xl shadow-2xl animate-in fade-in zoom-in duration-200 z-50">
+                <button
+                  onClick={() => setFontSize("text-lg")}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-colors ${fontSize === "text-lg" ? "bg-gold-main text-white" : "hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"}`}
+                >
+                  A-
+                </button>
+                <button
+                  onClick={() => setFontSize("text-xl")}
+                  className={`px-3 py-1 rounded-lg text-sm font-bold transition-colors ${fontSize === "text-xl" ? "bg-gold-main text-white" : "hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"}`}
+                >
+                  A
+                </button>
+                <button
+                  onClick={() => setFontSize("text-2xl")}
+                  className={`px-3 py-1 rounded-lg text-base font-bold transition-colors ${fontSize === "text-2xl" ? "bg-gold-main text-white" : "hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"}`}
+                >
+                  A+
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* READING CONTENT */}
@@ -403,15 +485,24 @@ export default function ScriptureReader({
                               fill={bookmarked ? "currentColor" : "none"}
                             />
                           </button>
-                          {/* Clear */}
+
+                          {/* SHARE BUTTON (Add this) */}
+                          <button
+                            onClick={() => handleShare(verse, vNum)}
+                            className="p-1 text-slate-400 hover:text-blue-500 transition-colors"
+                            title="Share this verse"
+                          >
+                            <Share2 size={18} />
+                          </button>
+
                           {/* Clear (Removes Highlight & Bookmark) */}
                           <button
                             onClick={() => {
                               setHighlight(bookSlug, chapter, vNum, null);
                               if (bookmarked) {
-                                toggleBookmark(bookSlug, chapter, vNum, verse); // Remove bookmark if it exists
+                                toggleBookmark(bookSlug, chapter, vNum, verse);
                               }
-                              setActiveVerseMenu(null); // Close menu after clearing
+                              setActiveVerseMenu(null);
                             }}
                             className="p-1 text-slate-400 hover:text-red-500 transition-colors"
                             title="Remove Highlight & Bookmark"
@@ -423,7 +514,7 @@ export default function ScriptureReader({
                     </div>
 
                     <p
-                      className={`text-xl leading-[1.8] font-serif text-slate-800 dark:text-slate-300 ${vNum === 1 ? "first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-stream-navy dark:first-letter:text-gold-main" : ""}`}
+                      className={`${fontSize} leading-[1.8] font-serif text-slate-800 dark:text-slate-300 ${vNum === 1 ? "first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-stream-navy dark:first-letter:text-gold-main" : ""}`}
                     >
                       {verse.split(" ").map((word, wIdx) => {
                         const note = getNoteForWord(word, vNum);
@@ -449,7 +540,12 @@ export default function ScriptureReader({
           <div className="mt-16 pt-10 pb-32 border-t border-yellow-100 dark:border-slate-800 flex flex-col items-center gap-10">
             {/* MARK AS READ BUTTON (Centered) */}
             <button
-              onClick={() => toggleChapterRead(bookSlug, chapter)}
+              onClick={() => {
+                if (!hasReadCurrentChapter) {
+                  recordReading();
+                }
+                toggleChapterRead(bookSlug, chapter);
+              }}
               className={`flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold uppercase tracking-widest text-xs transition-all shadow-sm w-full max-w-[280px] ${
                 hasReadCurrentChapter
                   ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800"

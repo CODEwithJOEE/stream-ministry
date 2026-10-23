@@ -16,6 +16,7 @@ import BackToTop from "./components/layout/BackToTop";
 import BookmarksView from "./components/scripture/BookmarksView";
 import GlobalProgress from "./components/layout/GlobalProgress";
 import AboutView from "./components/layout/AboutView";
+import StreakBadge from "./components/layout/StreakBadge";
 import {
   Search,
   X,
@@ -299,6 +300,7 @@ export default function App() {
 
           {view === "books" && (
             <>
+              <StreakBadge />
               <DailyStreamCard
                 data={dailyStream}
                 onRead={handleManualNav}
