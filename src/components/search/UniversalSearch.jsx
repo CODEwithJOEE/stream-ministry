@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Search, Music, Book, X, Hash } from "lucide-react";
+import { Search, Music, Book, X, Hash, History, Trash2 } from "lucide-react";
 
 export default function UniversalSearch({
   initialQuery,
@@ -11,6 +11,12 @@ export default function UniversalSearch({
   onClose,
 }) {
   const [query, setQuery] = useState(initialQuery || "");
+
+  const [searchHistory, setSearchHistory] = useState(() => {
+    const saved = localStorage.getItem("searchHistory");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [searchIndex, setSearchIndex] = useState([]);
   const [isIndexLoading, setIsIndexLoading] = useState(true);
 
@@ -33,6 +39,38 @@ export default function UniversalSearch({
   const handleQueryChange = (val) => {
     setQuery(val);
     setGlobalQuery(val);
+  };
+
+  // ADD THIS FUNCTION: Save to history
+  const saveToHistory = (searchTerm) => {
+    const cleanTerm = searchTerm.trim();
+    if (cleanTerm.length < 2) return;
+
+    setSearchHistory((prev) => {
+      // Remove if it already exists, then add to the front, then slice to keep only 5
+      const filtered = prev.filter(
+        (item) => item.toLowerCase() !== cleanTerm.toLowerCase(),
+      );
+      const updated = [cleanTerm, ...filtered].slice(0, 5);
+      localStorage.setItem("searchHistory", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  // ADD THIS FUNCTION: Clear history
+  const clearHistory = () => {
+    setSearchHistory([]);
+    localStorage.removeItem("searchHistory");
+  };
+
+  // ADD THIS FUNCTION: Remove a specific search term
+  const removeHistoryItem = (e, termToRemove) => {
+    e.stopPropagation(); // Prevents the click from triggering the search
+    setSearchHistory((prev) => {
+      const updated = prev.filter((item) => item !== termToRemove);
+      localStorage.setItem("searchHistory", JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const results = useMemo(() => {
@@ -119,6 +157,19 @@ export default function UniversalSearch({
       .slice(0, 15);
   }, [query, searchIndex, hymnsList, globalFootnotes]);
 
+  // ADD THE EFFECT HERE (Below the useMemo)
+  useEffect(() => {
+    if (query.trim().length < 3) return;
+
+    const timer = setTimeout(() => {
+      if (results.length > 0) {
+        saveToHistory(query);
+      }
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [query, results]);
+
   return (
     <div
       className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-md flex items-start justify-center pt-20 px-4 animate-in fade-in duration-300"
@@ -173,6 +224,7 @@ export default function UniversalSearch({
                   <button
                     onClick={() => {
                       if (!isClickable) return;
+                      saveToHistory(query);
                       res.type === "hymn"
                         ? onPlay(res.data)
                         : onNavigate(res.path);
@@ -219,8 +271,55 @@ export default function UniversalSearch({
               No matches found for "{query}"
             </div>
           ) : (
-            <div className="p-10 text-center text-slate-300 text-sm">
-              Type at least 2 characters to search...
+            // Show Search History when query is empty
+            <div className="p-4">
+              {searchHistory.length > 0 ? (
+                <>
+                  <div className="flex items-center justify-between px-2 mb-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                      Recent Searches
+                    </span>
+                    <button
+                      onClick={clearHistory}
+                      className="text-[10px] text-slate-400 hover:text-red-500 flex items-center gap-1 transition-colors"
+                    >
+                      <Trash2 size={12} /> Clear
+                    </button>
+                  </div>
+                  <div className="space-y-1">
+                    {searchHistory.map((term, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => handleQueryChange(term)}
+                        className="w-full text-left px-4 py-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-slate-800 flex items-center justify-between transition-colors group cursor-pointer"
+                      >
+                        <div className="flex items-center gap-3">
+                          <History
+                            size={16}
+                            className="text-slate-300 group-hover:text-gold-main transition-colors"
+                          />
+                          <span className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                            {term}
+                          </span>
+                        </div>
+
+                        {/* SMALL X BUTTON TO REMOVE SPECIFIC ITEM */}
+                        <button
+                          onClick={(e) => removeHistoryItem(e, term)}
+                          className="p-1 text-slate-300 hover:text-red-500 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                          title="Remove from history"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="p-6 text-center text-slate-300 text-sm italic">
+                  Type at least 2 characters to search...
+                </div>
+              )}
             </div>
           )}
         </div>
